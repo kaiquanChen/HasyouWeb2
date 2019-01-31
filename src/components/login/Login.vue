@@ -1,0 +1,125 @@
+<template>
+    <div id="login">
+        <div class="left"></div>
+        <div class="center">
+          <div class="account-div">
+            <img class="account-icon" src="../../assets/login/account_icon.png" />
+            <input placeholder="邮箱 / 电话 / 昵称" @keyup.enter="login()" v-model="account" type="text" />
+          </div>
+          <div class="password-div">
+            <img class="account-icon" src="../../assets/login/password_icon.png" />
+            <input placeholder="密码" @keyup.enter="login()" v-model="password" type="password" />
+          </div>
+          <div class="kaptcha-div">
+            <img @click="refreshCode()" :src="src">
+            <input @keyup.enter="login()" v-model="kaptcha" type="text" />
+          </div>
+          <div class="error-notice">{{error_message}}</div>
+          <div class="btn-div">
+            <span class="btn btn-login" @click="login()">登录</span>
+            <span class="btn btn-register"><router-link to="">注册</router-link></span>
+          </div>
+        </div>
+        <div class="right"></div>
+    </div>
+</template>
+
+<script>
+  import global_ from "../config/Global"
+  import Bus from "../../js/bus"
+
+  const kaptcha_url = global_.URLS.KAPTCHA_URL;
+  const login_url = global_.URLS.LOGIN_URL;
+    export default {
+      name: "",
+      data() {
+        return {
+          account:"",
+          password:"",
+          kaptcha:"",
+          error_message:"",
+          src:kaptcha_url
+        }
+      },
+      methods: {
+        goto() {
+          this.$router.push("/register");
+        },
+        refreshCode() {
+          let signature = global_.FUNC.getUuid();
+          this.src = kaptcha_url + "?t=" + signature;
+          sessionStorage.setItem("signature", signature);
+        },
+        checkUserState() {
+          let token = sessionStorage.getItem("access_token");
+          if (token) {
+            this.$router.push({path: "/"});
+          }
+        },
+        login() {
+          this.error_message = "";
+          if (!this.validateParam()) {
+            return;
+          }
+          this.$http.post(login_url, {
+            body: {
+              account: this.account,
+              password: this.password,
+              signature: sessionStorage.getItem("signature"),
+              kaptcha: this.kaptcha
+            }
+          }, {
+            headers: {
+              "bid":global_.FUNC.getBid()
+            }
+          }).then(data => {
+            let res = data.body;
+            if (res.code === 5003) {
+              this.error_message = "验证码错误!";
+              return;
+            }
+
+            if (res.code === 5006) {
+              this.error_message = "账号或密码错误!";
+              return;
+            }
+
+            if (res.code === 5001) {
+              this.$router.push({path:"/register"});
+              return;
+            }
+
+            let token = res.data.access_token;
+            sessionStorage.setItem("access_token", token);
+            Bus.$emit('login-status', token);
+            this.$router.push({path:"/"});
+          });
+        },
+        validateParam() {
+          if (!this.account) {
+            this.error_message = "账号不能为空!";
+            return false;
+          }
+
+          if (!this.password) {
+            this.error_message = "密码不能为空!";
+            return false;
+          }
+
+          if (!this.kaptcha) {
+            this.error_message = "验证码不能为空!";
+            return false;
+          }
+          return true;
+        }
+      },
+      created() {
+        this.refreshCode();
+        this.checkUserState();
+      }
+    }
+</script>
+
+<style lang="scss" scoped>
+    @import './css/login'
+</style>

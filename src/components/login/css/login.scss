@@ -1,0 +1,141 @@
+#login {
+    
+    .left, .center, .right {
+        width: 32%;
+        display: inline-block;
+    }
+
+    .center {
+        margin-top: 50px;
+        text-align: center;
+
+        .account-div, .password-div, .kaptcha-div {
+            margin: 10px;
+            position: relative;
+
+            input {
+                outline: none;
+                border-radius: 5px;
+                padding-left: 45px;
+                width: 60%;
+                border: white;
+                background-color: #e7e7e7;
+                height: 42px;
+            }
+        }
+        
+        .kaptcha-div {
+
+            img {
+                position: absolute;
+                cursor: pointer;
+                top: 5px;
+                left: 22%;
+            }
+
+            input {
+                padding-left: 18%;
+            }
+        }
+
+        .account-div {
+
+            .account-icon {
+                position: absolute;
+                width: 30px;
+                top: 7px;
+            }
+        }
+
+        .password-div {
+           
+            .account-icon {
+                position: absolute;
+                width: 30px;
+                top: 7px;
+            }
+        }
+
+        .error-notice {
+            width: 100%;
+            position: relative;
+            top: -10px;    
+            display: block;
+            color: red;
+        }
+
+        .btn-div {
+            height: 40px;
+            margin-top: 20px;
+            text-align: center;
+
+            .btn {
+                cursor: pointer;
+                display: inline-block;
+                width: 40px;
+                font-size: 16px;
+                line-height: 40px;
+                border-radius: 15px;
+                width: 20%;
+                color: #ffffff;
+            }
+
+            .btn-login {
+                background: #3385ff;
+                margin-right: 10px;
+                margin-left: 20px;
+            }
+
+            .btn-register {
+                background: #cccccc;
+                margin-left: 25px;
+
+                a {
+                    color: #ffffff;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #login {
+        
+        .left, .right {
+            width: 0;
+        }
+
+        .center {
+            width: 100%;
+
+            .account-div, .password-div, .kaptcha-div {
+
+                input {
+                    width: 80%;
+                }
+            }
+
+            .kaptcha-div {
+
+                img {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 5px;
+                    left: 15%;
+                }
+    
+                input {
+                    padding-left: 30%;
+                }
+            }
+
+            .error-notice {
+                position: relative;
+                top: -10px;    
+                left: -22%;
+                display: block;
+                color: red;
+            }
+        }
+    }
+}
