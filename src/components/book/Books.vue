@@ -5,11 +5,11 @@
             <div class="center-left">
                 <div class="new-book">
                     <h2><b>最新图书</b></h2>
-                    <div class="page-btn-dot">
-                      <div class="item" :style="getStyle(1)" @click="handleExpress(1)"></div>
-                      <div class="item" :style="getStyle(2)" @click="handleExpress(2)"></div>
-                      <div class="item" :style="getStyle(3)" @click="handleExpress(3)"></div>
-                      <div class="item" :style="getStyle(4)" @click="handleExpress(4)"></div>
+                    <div class="page-btn-dot" v-if="!checkMedia()">
+                      <div class="item" :style="getStyle('BOOK_EXPRESS', 1)" @click="handleExpress(1)"></div>
+                      <div class="item" :style="getStyle('BOOK_EXPRESS', 2)" @click="handleExpress(2)"></div>
+                      <div class="item" :style="getStyle('BOOK_EXPRESS', 3)" @click="handleExpress(3)"></div>
+                      <div class="item" :style="getStyle('BOOK_EXPRESS', 4)" @click="handleExpress(4)"></div>
                     </div>
                     <div class="page-btn">
                         <a href="javascript:void(0);" @click="handleExpress('prev')" class="prev">‹</a>
@@ -27,8 +27,31 @@
                       </li>
                     </ul>
                 </div>
+                <div class="good-market">
+                  <h2><b>畅销图书</b></h2>
+                  <div class="page-btn-dot" v-if="!checkMedia()">
+                    <div class="item" :style="getStyle('GOOD_MARKET', 1)" @click="handleGoodMarket(1)"></div>
+                    <div class="item" :style="getStyle('GOOD_MARKET', 2)" @click="handleGoodMarket(2)"></div>
+                  </div>
+                  <div class="page-btn">
+                      <a href="javascript:void(0);" @click="handleGoodMarket('prev')" class="prev">‹</a>
+                      <a href="javascript:void(0);" @click="handleGoodMarket('next')" class="next">›</a>
+                  </div>
+                  <ul class="good-market-body">
+                    <li :class="getClass(index)" v-for="(item, index) in book_good_market" :key="item.id">
+                      <div class="cover">
+                        <a href="#"><img :src="item.image_url" /></a>
+                      </div>
+                      <div class="info">
+                        <div class="title"><a href="#">{{item.name}}</a></div>
+                        <div class="author">{{item.authors[0]}}</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
             </div>
             <div class="center-right">
+              
             </div>
         </div>
         <div class="right"></div>
@@ -61,8 +84,15 @@
         };
       },
       methods: {
-        getStyle(num) {
-          if (this.express_page.p === num) {
+        getStyle(domain, num) {
+          let page = {};
+          if (domain === 'BOOK_EXPRESS') {
+            page = this.express_page;
+          } else if (domain === 'GOOD_MARKET') {
+            page = this.good_market_page;
+          }
+
+          if (page.p === num) {
             return "background: #9b9a8e;";
           }
           return "background: #cccccc;";
@@ -70,6 +100,8 @@
         getClass(index) {
           if ((index + 1) % 5 === 0) {
             return "book-item" + " last";
+          } else if (index % 3 === 0) {
+            return "book-item" + " first";
           }
           return "book-item";
         },
@@ -100,14 +132,13 @@
           });
         },
         handleExpress(type) {
-          console.log(type);
           if (type === 'prev') {
             if (this.express_page.p === 1) {
               return;
             }
             this.express_page.p = this.express_page.p - 1;
           } else if (type === 'next') {
-            if (this.express_page.p === this.express_page.total / this.express_page.count) {
+            if (this.express_page.p === Math.ceil(this.express_page.total / this.express_page.count)) {
               return;
             }
             this.express_page.p = this.express_page.p + 1;
@@ -119,18 +150,34 @@
 
           let book_express = [];
           let start = (this.express_page.p - 1) * this.express_page.count;
-          for (let j = 0; j < this.express_page.count && start < this.book_data["BOOK_EXPRESS"].length; start++) {
+          for (let j = 0; j < this.express_page.count && start < this.book_data["BOOK_EXPRESS"].length; start++, j++) {
             book_express.push(this.book_data["BOOK_EXPRESS"][start]);
           }
           this.book_express = book_express;
         },
-        handleGoodMarket(val) {
-          this.book_good_market = [];
-          this.good_market_page.p = val;
-          let start = (val - 1) * this.good_market_page.count;
-          for (let j = 0; j < this.good_market_page.count && start < this.book_data["BOOK_GOOD_MARKET"].length; start++) {
-            this.book_good_market.push(this.book_data["BOOK_GOOD_MARKET"][start]);
+        handleGoodMarket(type) {
+          if (type === 'prev') {
+            if (this.good_market_page.p === 1) {
+              return;
+            }
+            this.good_market_page.p = this.good_market_page.p - 1;
+          } else if (type === 'next') {
+            if (this.good_market_page.p === Math.ceil(this.good_market_page.total / this.good_market_page.count)) {
+              return;
+            }
+            this.good_market_page.p = this.good_market_page.p + 1;
+          } else if(!isNaN(type)) {
+            this.good_market_page.p = type;
+          } else {
+            return;
           }
+
+          let good_market = [];
+          let start = (this.good_market_page.p - 1) * this.good_market_page.count;
+          for (let j = 0; j < this.express_page.count && start < this.book_data["BOOK_GOOD_MARKET"].length; start++, j++) {
+            good_market.push(this.book_data["BOOK_GOOD_MARKET"][start]);
+          }
+          this.book_good_market = good_market;
         },
         getBookDetail(id) {
           return "subject/" + id;
@@ -179,7 +226,7 @@
           count = 6;
         }
         this.getBookList("BOOK_EXPRESS", count);
-        // this.getBookList("BOOK_GOOD_MARKET", count);
+        this.getBookList("BOOK_GOOD_MARKET", count);
         // this.getHotTags();
         // this.getBookTop250();
       }

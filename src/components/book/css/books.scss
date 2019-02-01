@@ -14,10 +14,10 @@
         }
 
         .center-left {
-            position: relative;
             width: 70%;
 
             .new-book {
+                position: relative;
 
                 h2 {
                     display: inline;
@@ -112,6 +112,104 @@
                     }
                 }
             }
+
+            .good-market {
+                position: relative;
+                margin-top: 30px;
+
+                h2 {
+                    display: inline;
+                    padding-left: 10px;
+                }
+
+                .page-btn-dot {
+                    display: inline-block;
+                    position: absolute;
+                    right: 80px;
+                    top: 5px;
+
+                    .item {
+                        width: 25%;
+                        display: inline-block;
+                        margin-right: 10px;
+                        width: 7px;
+                        height: 7px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                    }
+                }
+
+                .page-btn {
+                    position: absolute;
+                    display: inline;
+                    right: 30px;
+                    top: 5px;
+                    
+                    a {
+                        text-decoration: none;
+                        color: #fff;
+                        width: 18px;
+                        height: 18px;
+                        display: inline-block;
+                        zoom: 1;
+                        font: 100 16px Arial;
+                        text-align: center;
+                        line-height: 16px;
+                        margin-left: 4px;
+                        outline: none;
+                        border-radius: 9px;
+                        background: #9b9a8e;
+                    }
+                }
+
+                .good-market-body {
+                    margin-top: 5px;
+                    padding-top: 15px;
+                    padding-left: 0;
+                    border-top: 1px #cccccc solid;
+
+                    .book-item {
+                        display: inline-block;
+                        width: 115px;
+                        height: 205px;
+                        margin-right: 19px;
+                        margin-bottom: 15px;
+
+                        .cover {
+
+                            img {
+                                width: 100%;
+                                height: 172px;
+                            }
+                        }
+
+                        .info {
+                            padding: 0 2px;
+
+                            a {
+                                color: #3377aa;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 1;
+                            }
+
+                            .author {
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 1;
+                            }
+                        }
+                    }
+
+                    .last {
+                        margin-right: 0;
+                    }
+                }
+            }
         }
 
         .center-right {
@@ -131,7 +229,23 @@
             width: 100%;
 
             .center-left, .center-right {
+                width: 100%;
                 display: block;
+            }
+
+            .center-left {
+
+                .new-book-body {
+                    // padding-left: 15px;
+
+                    .book-item {
+                        margin-right: 5px;
+                    }
+
+                    .first {
+                        margin-left: 12px;
+                    }
+                }
             }
         }
     }
