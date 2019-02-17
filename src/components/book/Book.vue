@@ -6,10 +6,10 @@
             <ul class="book-header-nav">
             <li><a href="/book/books">图书</a></li>
             <li><a href="/book/read">阅读</a></li>
-            <li><a>2018年度榜单</a></li>
-            <li><a>2017年度榜单</a></li>
-            <li><a>2016年度榜单</a></li>
-            <li><a>2015年度榜单</a></li>
+            <li><a href="/book/annual/2018">2018年度榜单</a></li>
+            <li><a href="/book/annual/2017">2017年度榜单</a></li>
+            <li><a href="/book/annual/2016">2016年度榜单</a></li>
+            <li><a href="/book/annual/2015">2015年度榜单</a></li>
           </ul>
           </div>
           <div class="header-right"></div>

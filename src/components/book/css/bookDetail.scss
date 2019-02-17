@@ -1,0 +1,26 @@
+#book-detail {
+    margin-top: 50px;
+
+    .left, .center, .right {
+        display: inline-block;
+        width: 25%;
+    }
+
+    .center {
+        width: 49%;
+    }
+
+    .book-info {
+
+        .book-title {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 15px 0;
+            line-height: 1.1;
+        }
+    }
+}

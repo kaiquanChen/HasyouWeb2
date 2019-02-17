@@ -18,10 +18,10 @@
                     <ul class="new-book-body">
                       <li :class="getClass(index)" v-for="(item, index) in book_express" :key="item.id">
                         <div class="cover">
-                          <a href="#"><img :src="item.image_url" /></a>
+                          <a target="_blank" :href="gotoBookDetail(item.id)"><img :src="item.image_url" /></a>
                         </div>
                         <div class="info">
-                          <div class="title"><a href="#">{{item.name}}</a></div>
+                          <div class="title"><a :href="gotoBookDetail(item.id)">{{item.name}}</a></div>
                           <div class="author">{{item.authors[0]}}</div>
                         </div>
                       </li>
@@ -40,10 +40,10 @@
                   <ul class="good-market-body">
                     <li :class="getClass(index)" v-for="(item, index) in book_good_market" :key="item.id">
                       <div class="cover">
-                        <a href="#"><img :src="item.image_url" /></a>
+                        <a target="_blank" :href="gotoBookDetail(item.id)"><img :src="item.image_url" /></a>
                       </div>
                       <div class="info">
-                        <div class="title"><a href="#">{{item.name}}</a></div>
+                        <div class="title"><a target="_blank" :href="gotoBookDetail(item.id)">{{item.name}}</a></div>
                         <div class="author">{{item.authors[0]}}</div>
                       </div>
                     </li>
@@ -51,7 +51,28 @@
                 </div>
             </div>
             <div class="center-right">
-              
+              <div class="top250">
+                <h3><b>图书TOP250</b></h3>
+                <span class="more-top250"><a href="#">更多»</a></span>
+                <div class="top250-item" v-for="(item, index) in book_top250" :key="item.id">
+                  <span class="item-body" v-if="index < 10">
+                    {{index + 1}}.&emsp;<a :href="gotoBookDetail(item.id)">{{item.name}}</a><br>
+                    &emsp;&emsp;<span class="author">{{item.authors[0]}}</span>
+                  </span>
+                </div>
+              </div>
+              <div class="hot-tag">
+                <h3><b>热门标签</b></h3>
+                <span class="more-hot-tag"><a href="#">所有热门标签»</a></span>
+                <div class="hot-tag-item" v-for="item in hot_tags" :key="item.id">
+                  <span class="item-body">
+                    {{item.tag_name}}
+                  </span><br>
+                  <li class="child" v-for="(child, index) in item.children" :key="child.id">
+                    <a href="#" v-if="index < 6">{{child.tag_name}}</a>
+                  </li>
+                </div>
+              </div>
             </div>
         </div>
         <div class="right"></div>
@@ -134,14 +155,16 @@
         handleExpress(type) {
           if (type === 'prev') {
             if (this.express_page.p === 1) {
-              return;
+              this.express_page.p = Math.ceil(this.express_page.total / this.express_page.count);
+            } else {
+              this.express_page.p = this.express_page.p - 1;
             }
-            this.express_page.p = this.express_page.p - 1;
           } else if (type === 'next') {
             if (this.express_page.p === Math.ceil(this.express_page.total / this.express_page.count)) {
-              return;
+              this.express_page.p = 1;
+            } else {
+              this.express_page.p = this.express_page.p + 1;
             }
-            this.express_page.p = this.express_page.p + 1;
           } else if(!isNaN(type)) {
             this.express_page.p = type;
           } else {
@@ -158,14 +181,16 @@
         handleGoodMarket(type) {
           if (type === 'prev') {
             if (this.good_market_page.p === 1) {
-              return;
+              this.good_market_page.p = Math.ceil(this.good_market_page.total / this.good_market_page.count)
+            } else {
+              this.good_market_page.p = this.good_market_page.p - 1;
             }
-            this.good_market_page.p = this.good_market_page.p - 1;
           } else if (type === 'next') {
             if (this.good_market_page.p === Math.ceil(this.good_market_page.total / this.good_market_page.count)) {
-              return;
+              this.good_market_page.p = 1;
+            } else {
+              this.good_market_page.p = this.good_market_page.p + 1;
             }
-            this.good_market_page.p = this.good_market_page.p + 1;
           } else if(!isNaN(type)) {
             this.good_market_page.p = type;
           } else {
@@ -216,9 +241,9 @@
             this.book_top250 = data.body.data.body;
           });
         },
-        handleSelect() {
-
-        },
+        gotoBookDetail(id) {
+          return "/book/" + id;
+        }
       },
       created() {
         let count = 10;
@@ -227,8 +252,8 @@
         }
         this.getBookList("BOOK_EXPRESS", count);
         this.getBookList("BOOK_GOOD_MARKET", count);
-        // this.getHotTags();
-        // this.getBookTop250();
+        this.getHotTags();
+        this.getBookTop250();
       }
     }
 </script>

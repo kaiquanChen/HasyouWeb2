@@ -3,6 +3,8 @@ import About from '@/components/about/About'
 import Login from '@/components/login/Login'
 import Book from '@/components/book/Book'
 import Books from '@/components/book/Books'
+import BookAnnual from '@/components/book/Annual'
+import BookDetail from '@/components/book/BookDetail'
 
 /* import Read from '@/components/read/Read'
 import Music from '@/components/music/Music'
@@ -10,10 +12,8 @@ import Forum from '@/components/forum/Forum'
 import Movie from '@/components/movie/Movie'
 import Kind from '@/components/movie/Kind'
 import Event from '@/components/event/Event'
-import BookAnnual from '@/components/book/Annual'
 import BookTag from '@/components/book/BookTag'
 import BookList from '@/components/book/BookList'
-import BookDetail from '@/components/book/BookDetail'
 import BookTOP250 from '@/components/book/BookTOP250'
 import Post from '@/components/forum/Post'
 import GoNode from '@/components/forum/GoNode'
@@ -56,7 +56,9 @@ export const routes = [
         path: 'book', 
         component: Book,
         children: [
-          {path: 'books', component: Books}
+          {path: 'books', component: Books},
+          {path: 'annual/:year', component: BookAnnual},
+          {path: ':id', component: BookDetail}
         ]
       },
     ]

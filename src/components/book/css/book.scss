@@ -4,7 +4,7 @@
         background-color: #e9e9e2;
         height: 40px;
 
-        .header-left, .header-center {
+        .header-left, .header-right {
             width: 20%;
             display: inline-block;
         }
@@ -15,12 +15,11 @@
         }
 
         .book-header-nav {
-            text-align: center;
             
             li {
                 display: inline;
                 line-height: 40px;
-                margin-left: 40px;
+                margin-left: 50px;
 
                 a {
                     color: #614e3c;

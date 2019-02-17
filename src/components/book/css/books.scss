@@ -115,6 +115,7 @@
 
             .good-market {
                 position: relative;
+                margin-bottom: 50px;
                 margin-top: 30px;
 
                 h2 {
@@ -214,6 +215,72 @@
 
         .center-right {
             width: 29%;
+            padding-left: 30px;
+            position: absolute;
+
+            .top250 {
+
+                .more-top250 {
+                    position: absolute;
+                    left: 145px;
+                    top: 5px;
+
+                    a {
+                        text-decoration: none;
+                        color: #3377aa;
+                    }
+                }
+
+                .top250-item {
+                    height: 65px;
+
+                    .item-body {
+                        padding: 4px 0;
+                        
+                        a {
+                            color: #3377aa;
+                            font-size: 17px;
+                        }
+
+                        a:hover {
+                            color: white;
+                            background-color: #37a;
+                        }
+                    }
+                }
+            }
+
+            .hot-tag {
+                margin-top: 50px;
+                margin-bottom: 60px;
+                position: relative;
+
+                .more-hot-tag {
+                    position: absolute;
+                    left: 85px;
+                    top: 5px;
+                    
+                    a {
+                        color: #3377aa;
+                    }
+                }
+
+                .hot-tag-item {
+                    margin-bottom: 10px;
+                    padding-top: 5px;
+
+                    .child {
+                        // background-color: #f5f5f5;
+                        display: inline;
+                        margin-left: 5px;
+                        padding: 2px;
+
+                        a {
+                            color: #37a;
+                        }
+                    }
+                }
+            }
         }
     }
 }
