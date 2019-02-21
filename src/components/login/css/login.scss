@@ -6,8 +6,11 @@
     }
 
     .center {
-        margin-top: 50px;
         text-align: center;
+
+        .login-title {
+            margin-bottom: 30px;
+        }
 
         .account-div, .password-div, .kaptcha-div {
             margin: 10px;

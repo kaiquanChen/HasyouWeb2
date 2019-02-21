@@ -8,12 +8,15 @@ import VueRouter from 'vue-router'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import {routes} from './router/index.js'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.config.productionTip = false
 
 Vue.use(Antd)
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(ElementUI)
 
 const router = new VueRouter({
   routes,

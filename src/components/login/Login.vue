@@ -2,6 +2,7 @@
     <div id="login">
         <div class="left"></div>
         <div class="center">
+          <h2 class="login-title">欢迎登录WithYou</h2>
           <div class="account-div">
             <img class="account-icon" src="../../assets/login/account_icon.png" />
             <input placeholder="邮箱 / 电话 / 昵称" @keyup.enter="login()" v-model="account" type="text" />

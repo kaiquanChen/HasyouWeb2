@@ -206,9 +206,13 @@
                         }
                     }
 
-                    .last {
-                        margin-right: 0;
+                    .first {
+                        margin-left: 12px;
                     }
+
+                    // .last {
+                    //     margin-right: 0;
+                    // }
                 }
             }
         }
@@ -270,7 +274,6 @@
                     padding-top: 5px;
 
                     .child {
-                        // background-color: #f5f5f5;
                         display: inline;
                         margin-left: 5px;
                         padding: 2px;
@@ -303,7 +306,6 @@
             .center-left {
 
                 .new-book-body {
-                    // padding-left: 15px;
 
                     .book-item {
                         margin-right: 5px;
@@ -311,6 +313,10 @@
 
                     .first {
                         margin-left: 12px;
+                    }
+
+                    .last {
+                        margin-right: 10px;
                     }
                 }
             }

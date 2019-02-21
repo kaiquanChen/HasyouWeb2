@@ -24,6 +24,9 @@
   const BOOK_READ_URL = BOOK_URL + "read";
   const BOOK_WANT_URL = BOOK_URL + "want";
 
+  // douban annotation
+  const BOOK_ANNOTATION_URL = BOOK_URL + "annotation/";
+
   // group
   const GROUP = COMMON_URL + 'group/'
 
@@ -206,6 +209,7 @@
     MOVIE_WANT_URL,
     BOOK_READ_URL,
     BOOK_WANT_URL,
+    BOOK_ANNOTATION_URL,
 
 
     /* v2 */
