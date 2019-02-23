@@ -1,0 +1,106 @@
+#book-tag {
+    display: flex;
+    margin-top: 30px;
+
+    .left, .right, .center {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        width: 25%;
+    }
+
+    .center {
+        width: 49%;
+
+        .center-left {
+            width: 70%;
+            display: inline-block;
+
+            h1 {
+                word-wrap: break-word;
+                display: block;
+                font-size: 25px;
+                font-weight: bold;
+                color: #494949;
+                margin: 0;
+                padding: 0 0 15px 0;
+                line-height: 1.1;
+            }
+
+            .ul {
+                border-bottom: 1px solid #DDDDDD;
+                line-height: 100%;
+                clear: both;
+            }
+
+            .tag-body {
+
+                .parent-tag {
+                    margin-bottom: 15px;
+                    margin-left: 30px;
+
+                    .parent-name {
+                        color: #111111;
+                    }
+
+                    .child-tag {
+                        margin-bottom: 5px;
+                        padding-right: 15px;
+                        padding-left: 15px;
+                        display: inline-block;
+                        width: 25%;
+
+                        a {
+                            color: #3377aa;
+                        }
+
+                        b {
+                            color: #aaa;
+                        }
+                    }
+                }
+            }
+        }
+
+        .center-right {
+            width: 29%;
+            display: inline-block;
+        }
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+
+    #book-tag {
+
+        .left, .right {
+            display: none;
+        }
+
+        .center {
+            width: 100%;
+
+            .center-right {
+                display: none;
+            }
+
+            .center-left {
+                width: 100%;
+                margin-left: 5px;
+
+                .tag-body {
+
+                    .parent-tag {
+                        margin-left: 0;
+
+                        .child-tag {
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

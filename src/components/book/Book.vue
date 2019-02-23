@@ -130,14 +130,7 @@
         },
       },
       created() {
-        // let count = 10;
-        // if (this.checkMedia()) {
-        //   count = 6;
-        // }
-        // this.getBookList("BOOK_EXPRESS", count);
-        // this.getBookList("BOOK_GOOD_MARKET", count);
-        // this.getHotTags();
-        // this.getBookTop250();
+        // this.$router.push({path: "/book/books"});
       }
     }
 </script>

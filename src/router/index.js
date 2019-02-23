@@ -1,10 +1,18 @@
 import Home from '@/components/home/Home'
 import About from '@/components/about/About'
 import Login from '@/components/login/Login'
+
+// book
 import Book from '@/components/book/Book'
 import Books from '@/components/book/Books'
 import BookAnnual from '@/components/book/Annual'
 import BookDetail from '@/components/book/BookDetail'
+import BookTop250 from '@/components/book/BookTop250'
+import BookTag from '@/components/book/BookTag'
+import BookList from '@/components/book/BookList'
+
+// movie
+import Movie from '@/components/movie/Movie'
 
 /* import Read from '@/components/read/Read'
 import Music from '@/components/music/Music'
@@ -12,9 +20,7 @@ import Forum from '@/components/forum/Forum'
 import Movie from '@/components/movie/Movie'
 import Kind from '@/components/movie/Kind'
 import Event from '@/components/event/Event'
-import BookTag from '@/components/book/BookTag'
 import BookList from '@/components/book/BookList'
-import BookTOP250 from '@/components/book/BookTOP250'
 import Post from '@/components/forum/Post'
 import GoNode from '@/components/forum/GoNode'
 import Node from '@/components/forum/Node'
@@ -58,17 +64,25 @@ export const routes = [
         children: [
           {path: 'books', component: Books},
           {path: 'annual/:year', component: BookAnnual},
-          {path: ':id', component: BookDetail}
+          {path: 'subject/:id', component: BookDetail},
+          {path: 'top250', component: BookTop250},
+          {path: 'tag', component: BookTag},
+          {path: 'tag/:tag_id', component: BookList}
         ]
+      },
+      // movie
+      {
+        path: '/movie', 
+        component: Movie,
+        children: []
       },
     ]
   },
+
   // about
   /* {path: '/read', component: Read},
   {path: '/music', component: Music},
   {path: '/event', component: Event},
-  // movie
-  {path: '/movie', component: Movie},
   {path: '/movie/tag', component: MovieList},
   {path: '/movie/subject/:id', component: MovieDetail},
   {path: '/movie/top250', component: MovieTOP250},

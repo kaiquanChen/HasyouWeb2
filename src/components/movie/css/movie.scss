@@ -1,0 +1,31 @@
+#movie {
+
+    .movie-header {
+        background-color: #f0f3f5;
+        height: 40px;
+
+        .header-left, .header-right {
+            width: 20%;
+            display: inline-block;
+        }
+
+        .header-center {
+            width: 58%;
+            display: inline-block;
+        }
+
+        .movie-header-nav {
+            
+            li {
+                display: inline;
+                line-height: 40px;
+                margin-left: 50px;
+
+                a {
+                    color: #27a;
+                    font-size: 14px;    
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,112 @@
+#book-top250 {
+    display: flex;
+    margin-top: 30px;
+    margin-bottom: 100px;
+
+    .left, .right, .center {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        width: 25%;
+    }
+
+    .center {
+        width: 49%;
+
+        .center-left {
+            width: 70%;
+            display: inline-block;
+
+            .book-top250-body {
+
+                .book-top250-item {
+                    display: flex;
+                    margin-top: 20px;
+                    border-bottom: 1px dashed #DDDDDD;
+                    padding-bottom: 35px;
+
+                    .book-img {
+                        flex-direction: column;
+
+                        img {
+                            width: 90px;
+                            height: 126px;
+                        }
+                    }
+
+                    .book-info {
+                        flex-direction: column;
+                        margin-left: 10px;
+
+                        .book-name, .book-origin-name {
+                            display: block;
+                            margin-bottom: 5px;
+                        }
+
+                        .book-name {
+
+                            a {
+                                color: #3377aa;
+                            }
+                        }
+
+                        .info {
+                            margin: 10px 0;
+                        }
+
+                        .rate {
+                            margin: 10px 0;
+                        }
+
+                        .quote .summary {
+                            margin-top: 10px;
+                            color: #666666;
+                            display: inline;
+                            padding-right: 15px;
+                            display: inline-block;
+                            word-break: break-all;
+                        }
+                    }
+
+                }
+            
+                .pagination {
+                    margin-top: 15px;
+                    text-align: center;
+                }
+            }
+        }
+
+        .center-right {
+            width: 29%;
+            display: inline-block;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #book-top250 {
+
+        .left, .right {
+            display: none;
+        }
+
+        .center {
+            width: 100%;
+
+            .center-right {
+                display: none;
+            }
+
+            .center-left {
+                width: 100%;
+                
+                .book-top250-body {
+                    padding: 10px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

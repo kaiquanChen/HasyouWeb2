@@ -53,7 +53,7 @@
             <div class="center-right">
               <div class="top250">
                 <h3><b>图书TOP250</b></h3>
-                <span class="more-top250"><a href="#">更多»</a></span>
+                <span class="more-top250"><a href="/book/top250">更多»</a></span>
                 <div class="top250-item" v-for="(item, index) in book_top250" :key="item.id">
                   <span class="item-body" v-if="index < 10">
                     {{index + 1}}.&emsp;<a :href="gotoBookDetail(item.id)">{{item.name}}</a><br>
@@ -63,13 +63,13 @@
               </div>
               <div class="hot-tag">
                 <h3><b>热门标签</b></h3>
-                <span class="more-hot-tag"><a href="#">所有热门标签»</a></span>
+                <span class="more-hot-tag"><a href="/book/tag">所有热门标签»</a></span>
                 <div class="hot-tag-item" v-for="item in hot_tags" :key="item.id">
                   <span class="item-body">
                     {{item.tag_name}}
                   </span><br>
                   <li class="child" v-for="(child, index) in item.children" :key="child.id">
-                    <a href="#" v-if="index < 6">{{child.tag_name}}</a>
+                    <a :href="gotoBookList(child.id)" v-if="index < 6">{{child.tag_name}}</a>
                   </li>
                 </div>
               </div>
@@ -105,6 +105,9 @@
         };
       },
       methods: {
+        gotoBookList(id) {
+          return "/book/tag/" + id;
+        },
         getStyle(domain, num) {
           let page = {};
           if (domain === 'BOOK_EXPRESS') {
@@ -242,7 +245,7 @@
           });
         },
         gotoBookDetail(id) {
-          return "/book/" + id;
+          return "/book/subject/" + id;
         }
       },
       created() {
