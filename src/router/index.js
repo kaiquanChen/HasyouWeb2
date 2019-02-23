@@ -13,6 +13,7 @@ import BookList from '@/components/book/BookList'
 
 // movie
 import Movie from '@/components/movie/Movie'
+import Movies from '@/components/movie/Movies'
 
 /* import Read from '@/components/read/Read'
 import Music from '@/components/music/Music'
@@ -72,9 +73,11 @@ export const routes = [
       },
       // movie
       {
-        path: '/movie', 
+        path: 'movie', 
         component: Movie,
-        children: []
+        children: [
+        {path: 'movies', component: Movies}
+        ]
       },
     ]
   },

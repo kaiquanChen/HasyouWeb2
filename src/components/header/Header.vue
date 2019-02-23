@@ -32,7 +32,7 @@
               <a href="/book/books">读书</a>
             </li>
             <li class="menu-item">
-              <a href="/movie">影视</a>
+              <a href="/movie/movies">影视</a>
             </li>
             <li class="menu-item">
               <a href="/music">音乐</a>
@@ -78,7 +78,7 @@
             </a>
             </li>
             <li>
-              <a href="/movie" class="home">
+              <a href="/movie/movies" class="home">
                 <img class="icon-header-phone" src="../../assets/header/icon/header-movie-icon.png">&emsp;影视
               </a>
             </li>
