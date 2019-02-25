@@ -30,7 +30,6 @@
                                 <el-rate v-model="book.stars/2" 
                                     :score-template="book.stars" 
                                     show-score disabled>
-                                    &nbsp;{{book.stars}}
                                 </el-rate>
                             </div>
                             <p class="quote summary">

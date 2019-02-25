@@ -1,0 +1,384 @@
+<template>
+  <div id="movie-detail">
+    <div class="left">
+        <h1 class="movie-title">{{data.title}}
+          <span class="movie-year" v-if="data.year && data.year.length > 0">
+            ({{getYear(data.year)}})
+          </span>
+        </h1>
+        <div class="content">
+          <div class="avatar">
+            <a target="_blank" v-if="data.image_url" :href="data.image_url">
+              <img :src="data.image_url" :alt="data.title">
+            </a>
+          </div>
+          <div class="info">
+            <div v-if="directors && directors.length > 0">
+              <label>导演:</label>
+              <span v-for="(director, index) in directors" :key="director.id">
+                <a class="movie-director" v-if="index < directors.length - 1">{{director.name}} <i>/ </i></a>
+                <a class="movie-director" v-else>{{director.name}}</a>
+              </span>
+            </div>
+            <div v-if="writers && writers.length > 0">
+              <label>编剧:</label>
+              <span v-for="(writer, index) in writers" :key="writer.id">
+                <a class="movie-writer" v-if="index < writers.length - 1">{{writer.name}} <i>/ </i></a>
+                <a class="movie-writer" v-else>{{writer.name}}</a>
+              </span>
+            </div>
+            <div v-if="casts && casts.length > 0" v-show="!show_full_casts">
+              <label>主演:</label>
+              <span v-for="(cast, index) in casts" :key="cast.id" v-if="index < 3">
+                <a class="movie-cast" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
+                <a class="movie-cast" v-else>{{cast.name}}</a>
+              </span>
+              <a class="load-more" @click="loadMore()">更多...</a>
+            </div>
+            <div v-if="casts && casts.length > 0" v-show="show_full_casts">
+              <label>主演:</label>
+              <span v-for="(cast, index) in casts" :key="cast.id">
+                <a class="movie-cast" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
+                <a class="movie-cast" v-else>{{cast.name}}</a>
+              </span>
+            </div>
+            <div v-if="data.genres && data.genres.length > 0">
+              <label>类型:</label>
+              <span v-for="(genre, index) in data.genres" :key="genre.id" v-if="index < 3">
+                <span class="movie-genre" v-if="index <= 1">{{genre.name}} <i>/ </i></span>
+                <span class="movie-genre" v-else>{{genre.name}}</span>
+              </span>
+            </div>
+            <div v-if="data.countries && data.countries.length > 0">
+              <label>制片国家/地区:</label>
+              <span v-for="(country, index) in data.countries" v-if="index < 3">
+                <span class="movie-country" v-if="index <= 1">{{country}} <i>/ </i></span>
+                <span class="movie-country" v-else>{{country}}</span>
+              </span>
+            </div>
+            <div v-if="data.pubdate && data.pubdate.length > 0">
+              <label>上映时间:</label>
+              <span v-for="(date, index) in data.pubdate">
+                <span class="movie-pubdate" v-if="index < data.pubdate.length - 1">{{date}} <i>/ </i></span>
+                <span class="movie-pubdate" v-else>{{date}}</span>
+              </span>
+            </div>
+            <div v-if="data.durations && data.durations.length > 0">
+              <label>片长:</label>
+              <span v-for="(duration, index) in data.durations">
+                <span class="movie-duration" v-if="index < data.durations.length - 1">{{duration}} <i>/ </i></span>
+                <span class="movie-duration" v-else>{{duration}}</span>
+              </span>
+            </div>
+            <div v-if="data.aka && data.aka.length > 0">
+              <label>又名:</label>
+              <span v-for="(name, index) in data.aka">
+                <span class="movie-name" v-if="index < data.aka.length - 1">{{name}} <i>/ </i></span>
+                <span class="movie-name" v-else>{{name}}</span>
+              </span>
+            </div>
+            <div class="movie-box">
+                <label>实时票房:</label>
+                <span>{{data.box}}</span>
+              </div>
+          </div>
+          <div class="rate">
+            <div class="rate-body">
+              <span class="rate-title">豆瓣评分:</span>
+              <span class="rate-num"><b>{{data.average}}</b></span>
+              <el-rate
+                class="primary-rate"
+                :value="getStars(data.average)"
+                disabled
+                text-color="#ff9900">
+              </el-rate>
+            </div>
+          </div>
+        </div>
+        <div class="movie-summary">
+          <h3>{{data.title}}的剧情介绍  · · · · · ·</h3>
+          <p v-for="(summary, index) in data.summaries" v-show="!summary_show" v-if="index !== undefied && index < 1">{{summary}}</p>
+          <p v-for="(summary, index) in data.summaries" v-show="summary_show">{{summary}}</p>
+          <span class="summary-show" 
+            v-if="data.summaries && data.summaries.length > 1"
+            @click="toggleSummaryShow()" 
+            v-show="!summary_show">
+            <a>(全部展开)</a>
+          </span>
+          <span class="summary-show"
+            @click="toggleSummaryShow()" 
+            v-show="summary_show">
+            <a>(收起)</a>
+          </span>
+        </div>
+        <div class="movie-cast">
+          <h3>{{data.title}}的演职员  · · · · · ·
+            <a class="all-casts" href="#" v-if="data.celebrities && data.celebrities.length > 6">
+              (全部 {{data.celebrities.length}})
+            </a>
+          </h3>
+          <div class="celebrity-item" v-for="(celebrity, index) in data.celebrities"
+              v-if="(index < 6) && (celebrity.image)" :key="celebrity.id">
+            <a :href="celebrity.image.small" target="_blank">
+              <img :src="celebrity.image.small"/>
+            </a>
+            <span class="celebrity-name">{{celebrity.name}}</span>
+            <span class="celebrity-roles">
+              <span class="celebrity-roles-item" v-for="role in celebrity.roles">{{role}}&nbsp;</span>
+            </span>
+          </div>
+        </div>
+        <div class="movie-summary">
+          <h3>{{data.title}}的短评  · · · · · ·</h3>
+          <span id="comment-nav-root">
+            <span @click="toggleCommentNav('hot')"
+                  v-bind:style="comment_selected ? 'color:black' : 'color:#3377aa'"
+                  class="comment-nav">最热&nbsp;</span>
+            <span class="comment-nav">\</span>
+            <span @click="toggleCommentNav('latest')"
+                  v-bind:style="!comment_selected ? 'color:black' : 'color:#3377aa'"
+                  class="comment-nav">&nbsp;最新
+            </span>
+          </span>
+        </div>
+        <div class="movie-summary">
+          <h3>{{data.title}}的影评  · · · · · ·</h3>
+          <span id="review-nav-root">
+            <span @click="toggleReviewNav('hot')"
+                  v-bind:style="review_selected ? 'color:black' : 'color:#3377aa'"
+                  class="review-nav">最热&nbsp;</span>
+            <span class="review-nav">\</span>
+            <span @click="toggleReviewNav('latest')"
+                  v-bind:style="!review_selected ? 'color:black' : 'color:#3377aa'"
+                  class="review-nav">&nbsp;最新
+            </span>
+          </span>
+        </div>
+    </div>
+    <div class="right"></div>
+  </div>
+</template>
+    
+    <script>
+      import global_ from "../config/Global"
+      const movie_url = global_.URLS.DOUBAN_MOVIE;
+      const comment_url = global_.URLS.MOVIE_SHORT_COMMENT_URL;
+      const review_url = global_.URLS.MOVIE_REVIEW_URL;
+      const watch_url = global_.URLS.MOVIE_WATCH_URL;
+      const want_url = global_.FUNC.MOVIE_WANT_URL;
+      const token = sessionStorage.getItem("access_token");
+        export default {
+          name: "book",
+          data() {
+            return {
+              data:{},
+              directors:[],
+              writers:[],
+              casts:[],
+              show_full_casts: false,
+              summary_show: false,
+              review_selected: false,
+              review_sort: 'hot',
+              comment_selected: false,
+              comment_sort: 'hot',
+              comments: {
+                body:[],
+                page:{
+                  total: 0,
+                  page: 1,
+                  count: 20
+                }
+              },
+              reviews: {
+                body:[],
+                page:{
+                  total: 0,
+                  page: 1,
+                  count: 10
+                }
+              }
+            }
+          },
+          methods: {
+            undefied() {},
+            toggleCommentNav(comment_sort) {
+              if (this.comment_sort === comment_sort) {
+                return;
+              }
+              this.comment_selected = !this.comment_selected;
+              this.comment_sort = comment_sort;
+              this.getMovieComment();
+            },
+            toggleReviewNav(review_sort) {
+              if (this.review_sort === review_sort) {
+                return;
+              }
+              this.review_selected = !this.review_selected;
+              this.review_sort = review_sort;
+              this.getMovieReview();
+            },
+            watchMovie() {
+              if (token) {
+                this.$http.post(watch_url, {
+                  body: {
+                    movie_id: this.$route.params.id
+                  }
+                }, {
+                  headers: {
+                    bid: global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN":token
+                  }
+                }).then((data) => {
+                  if (data.body.code === 200) {
+                    this.data.operations.push(data.body.data);
+                  } else if (data.body.code === 5006) {
+                    this.$message({
+                      message: '请先登录!',
+                      type: 'warning'
+                    });
+                    this.$router.push({path: "/login"});
+                  }
+                });
+              } else {
+                this.$router.push({path: "/login"});
+              }
+            },
+            wantMovie() {
+              if (token) {
+                this.$http.post(want_url, {
+                  body: {
+                    movie_id: this.$route.params.id
+                  }
+                }, {
+                  headers: {
+                    bid: global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN":token
+                  }
+                }).then((data) => {
+                  if (data.body.code === 200) {
+                    this.data.operations.push(data.body.data);
+                  } else if (data.body.code === 5006) {
+                    this.$message({
+                      message: '请先登录!',
+                      type: 'warning'
+                    });
+                    this.$router.push({path: "/login"});
+                  }
+                });
+              } else {
+                this.$router.push({path: "/login"});
+              }
+            },
+            getYear(year) {
+              return JSON.parse(year)[0];
+            },
+            toggleSummaryShow() {
+              this.summary_show = !this.summary_show;
+            },
+            getStars(stars) {
+              return stars / 2;
+            },
+            loadMore() {
+              this.show_full_casts = !this.show_full_casts;
+            },
+            getMovie() {
+                let movie_id = this.$route.params.id;
+                const movie_detail_url = movie_url + "subject/" + movie_id;
+                this.$http.get(movie_detail_url, {
+                headers: {
+                    "bid": global_.FUNC.getBid()
+                    // "X-HASYOU-TOKEN":token
+                }
+                }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                  this.data = data.body.data;
+                  this.handleCelebrityRoles();
+                });
+            },
+            getMovieComment() {
+              let movie_id = this.$route.params.id;
+              this.$http.get(comment_url + movie_id, {
+                params:{
+                  sort: this.comment_sort,
+                  p:this.comments.page.page,
+                  count:this.comments.page.count
+                },
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  alert("数据获取失败!");
+                  return;
+                }
+
+                this.comments.body = data.body.data.body;
+                this.comments.page.total = data.body.data.total;
+                this.comments.page.page = data.body.data.page;
+                this.comments.page.count = data.body.data.count;
+              });
+            },
+            getMovieReview() {
+              let movie_id = this.$route.params.id;
+              this.$http.get(review_url + movie_id, {
+                params:{
+                  sort: this.review_sort,
+                  p:this.reviews.page.page,
+                  count:this.reviews.page.count
+                },
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  alert("数据获取失败!");
+                  return;
+                }
+
+                this.reviews.body = data.body.data.body;
+                this.reviews.page.total = data.body.data.total;
+                this.reviews.page.page = data.body.data.page;
+                this.reviews.page.count = data.body.data.count;
+              });
+            },
+            handleCelebrityRoles() {
+              let celebrities = this.data.celebrities;
+              celebrities.map((item, key) => {
+                let roles = item.roles;
+                roles.map((role, key) => {
+                  if (role === "导演") {
+                    this.directors.push(item);
+                  } else if (role === "编剧") {
+                    this.writers.push(item);
+                  } else if (role === "演员") {
+                    this.casts.push(item);
+                  }
+                  return;
+                });
+              });
+            },
+            checkMedia() {
+              return window.matchMedia('(max-width:415px)').matches;
+            }
+          },
+          created() {
+              this.getMovie();
+              this.getMovieComment();
+              this.getMovieReview();
+          }
+        }
+    </script>
+    
+    <style lang="scss" scoped>
+      @import './css/movieDetail'
+    </style>
+    

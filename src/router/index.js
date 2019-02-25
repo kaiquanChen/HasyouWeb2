@@ -14,6 +14,7 @@ import BookList from '@/components/book/BookList'
 // movie
 import Movie from '@/components/movie/Movie'
 import Movies from '@/components/movie/Movies'
+import MovieDetail from '@/components/movie/MovieDetail'
 
 /* import Read from '@/components/read/Read'
 import Music from '@/components/music/Music'
@@ -25,7 +26,6 @@ import BookList from '@/components/book/BookList'
 import Post from '@/components/forum/Post'
 import GoNode from '@/components/forum/GoNode'
 import Node from '@/components/forum/Node'
-import MovieDetail from '@/components/movie/MovieDetail'
 import MovieList from '@/components/movie/MovieList'
 import MovieTOP250 from '@/components/movie/MovieTOP250'
 import MovieAnnual from '@/components/movie/Annual'
@@ -76,7 +76,8 @@ export const routes = [
         path: 'movie', 
         component: Movie,
         children: [
-        {path: 'movies', component: Movies}
+          {path: 'movies', component: Movies},
+          {path: 'subject/:id', component: MovieDetail}
         ]
       },
     ]

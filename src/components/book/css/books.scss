@@ -80,13 +80,14 @@
                         .cover {
 
                             img {
-                                width: 100%;
+                                width: 115px;
                                 height: 172px;
                             }
                         }
 
                         .info {
                             padding: 0 2px;
+                            text-align: center;
 
                             a {
                                 color: #3377aa;
@@ -309,6 +310,17 @@
 
                     .book-item {
                         margin-right: 5px;
+
+                        .info {
+                            text-align: center;
+                        }
+
+                        .cover {
+                            
+                            img {
+                                width: 95px;
+                            }
+                        }
                     }
 
                     .first {

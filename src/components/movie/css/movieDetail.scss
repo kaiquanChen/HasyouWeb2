@@ -1,0 +1,284 @@
+#movie-detail {
+    margin-top: 30px;
+    margin-bottom: 50px;
+    display: flex;
+
+    .left, .right {
+        flex-direction: column;
+    }
+    
+    .left {
+        width: 70%;
+    }
+
+    .right {
+        width: 29%;
+    }
+
+    .movie-title {
+
+        .movie-year {
+            color: #888888;
+        }
+    }
+
+    .content {
+        display: flex;
+
+        .avatar {
+            flex-direction: column;
+            width: 23%;
+            text-align: center;
+
+            img {
+                margin: 0 auto;
+                width: 135px;
+                height: 200px;
+            }
+        }
+
+        .info {
+            width: 52%;
+            flex-direction: column;
+
+            .movie-director, .movie-writer, .movie-cast {
+                color: #3377aa;
+            }
+
+            .load-more {
+                color: #aaa;
+            }
+
+            i {
+                color: #000000;
+            }
+
+            .movie-pubdate, .movie-country, .movie-genre, .movie-duration, .movie-name {
+                color: #000000;
+            }
+
+            .movie-box {
+
+                span {
+                    color: #000000;
+                }
+            }
+        }
+
+        .rate {
+            width: 24%;
+            flex-direction: column;
+            padding-left: 20px;
+
+            .rate-body {
+                padding-left: 10px;
+                border-left: 1px solid #9b9b9b;
+
+                .rate-title {
+                    display: block;
+                }
+
+                .rate-num {
+                    display: block;
+                    font-size: 28px;
+                    min-width: 30%;
+                    font-weight: 900;
+                }
+            }
+        }
+    }
+
+    .movie-summary {
+        margin-top: 30px;
+
+        h3 {
+            color: #007722;
+            margin-top: 30px;
+        }
+
+        p {
+            text-indent:2em;
+            color: #111111;
+        }
+
+        .summary-show {
+
+            a {
+                color: #3377aa;
+                cursor: pointer;
+            }
+        }
+
+        #comment-nav-root, #review-nav-root {
+            display: block;
+            margin: 10px 0;
+
+            .comment-nav, .review-nav {
+                cursor: pointer;
+            }
+        }
+    }
+
+
+    .movie-cast {
+        margin-top: 30px;
+
+        h3 {
+            color: #007722;
+            margin-top: 30px;
+
+            .all-casts {
+                color: #3377aa;
+                font-size: 12px;
+            }
+
+            .all-casts:hover {
+                background-color: #3377aa;
+                color: #ffffff;
+            }
+        }
+
+        .celebrity-item {
+            display: inline-block;
+            text-align: center;
+
+            img {
+                width: 95px;
+                height: 133px;
+                margin-right: 10px;
+                margin-top: 5px;
+            }
+
+            .celebrity-name {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                white-space: nowrap;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 1;
+            }
+
+            .celebrity-roles-item {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 95px;
+                color: #9b9b9b;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #movie-detail {
+        margin-top: 20px;
+        padding: 5px;
+        
+        .left {
+            display: block;
+            width: 100%;
+        }
+
+        .right {
+            display: none;
+        }
+
+        .content {
+
+            .avatar {
+                flex-direction: column;
+                width: 24%;
+    
+                img {
+                    width: 95px;
+                    height: 160px;
+                }
+            }
+
+            .info {
+                width: 50%;
+                padding-left: 5px;
+                font-size: 12px;
+            }
+
+            .rate {
+                width: 25%;
+                padding-left: 5px;
+            }
+        }
+
+        .movie-cast {
+
+            img {
+                margin-left: 9px;
+            }
+
+            .celebrity-item {
+    
+                img {
+                    width: 115px;
+                    height: 172px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #movie-detail {
+        margin-top: 20px;
+        padding: 5px;
+        
+        .left {
+            display: block;
+            width: 100%;
+        }
+
+        .right {
+            display: none;
+        }
+
+        .content {
+
+            .avatar {
+                flex-direction: column;
+                width: 25%;
+    
+                img {
+                    width: 95px;
+                    height: 160px;
+                }
+            }
+
+            .info {
+                width: 52%;
+                padding-left: 10px;
+                font-size: 12px;
+            }
+
+            .rate {
+                width: 23%;
+                padding-left: 5px;
+            }
+        }
+
+        .movie-cast {
+
+            img {
+                margin-left: 9px;
+            }
+
+            .celebrity-item {
+    
+                img {
+                    width: 95px;
+                    height: 133px;
+                    margin-right: 10px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+}

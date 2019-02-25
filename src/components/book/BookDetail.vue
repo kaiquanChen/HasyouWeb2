@@ -11,7 +11,7 @@
                   </a>
                 </div>
                 <div class="info">
-                  <div v-if="data.authors">
+                  <div v-if="data.authors && data.authors.length > 0">
                     <label>作者:</label>
                     <span v-for="author in data.authors" :key="author.id">
                       <a>{{author}}</a>&nbsp;
@@ -66,9 +66,6 @@
                       disabled
                       text-color="#ff9900">
                     </el-rate>
-                    <span class="rate-count">
-                      <a>{{data.reviews_count + data.comments_count}}人评价</a>
-                    </span>
                   </div>
                 </div>
               
@@ -279,7 +276,6 @@
       }
     },
     methods: {
-      undefied() {},
       handleCommentPageChange(val) {
         this.comments.page.page = val;
         this.getBookComment();
