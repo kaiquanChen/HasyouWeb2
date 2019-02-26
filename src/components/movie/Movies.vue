@@ -82,7 +82,7 @@
       </div>
       <div class="right">
         <div class="box-cn">
-          <h3><b>国内票房榜</b><span class="label">元</span></h3>
+          <h3><b>国内票房榜</b><span class="label"><b>{{getCurrDate()}}</b>更新 / 元</span></h3>
           <div class="box-cn-body">
             <div class="box-cn-item" v-for="(item, index) in movie_cn_box">
               <span class="title">{{index + 1}}.&nbsp;&nbsp;{{item.movie_name}}</span>
@@ -159,6 +159,20 @@
         };
       },
       methods: {
+        // tool function
+        getCurrDate() {
+            let date = new Date();
+            let seperator1 = "-";
+            let month = date.getMonth() + 1;
+            let strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            return month + seperator1 + strDate;
+        },
         getStars(stars) {
           return stars + "";
         },

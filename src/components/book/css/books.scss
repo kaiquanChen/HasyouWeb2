@@ -86,6 +86,7 @@
                         }
 
                         .info {
+                            margin-top: 5px;
                             padding: 0 2px;
                             text-align: center;
 
@@ -210,10 +211,6 @@
                     .first {
                         margin-left: 12px;
                     }
-
-                    // .last {
-                    //     margin-right: 0;
-                    // }
                 }
             }
         }
@@ -329,6 +326,66 @@
 
                     .last {
                         margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+
+    #books {
+
+        .center {
+
+            .center-left {
+                
+                .new-book {
+
+                    .new-book-body {
+                        margin-top: 5px;
+                        padding-top: 15px;
+                        padding-left: 0;
+                        border-top: 1px #cccccc solid;
+                
+                        .book-item {
+                            display: inline-block;
+                            width: 105px;
+                            height: 205px;
+                            margin-left: 15px;
+                            margin-bottom: 15px;
+                            margin-right: 0;
+                
+                            .cover {
+                
+                                img {
+                                    width: 105px;
+                                    height: 160px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .good-market {
+
+                    .good-market-body {
+    
+                        .book-item {
+                            width: 105px;
+                            margin-right: 0px;
+                            margin-left: 15px;
+    
+                            .cover {
+    
+                                img {
+                                    width: 105px;
+                                    height: 160px;
+                                }
+                            }
+                        }
                     }
                 }
             }

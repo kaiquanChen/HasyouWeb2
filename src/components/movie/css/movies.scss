@@ -7,6 +7,10 @@
         flex-direction: column;
     }
 
+    .label {
+        font-size: 14px;
+    }
+
     .left {
         width: 70%;
 
@@ -459,6 +463,90 @@
         .right {
             padding-left: 10px;
             padding-right: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #movies {
+        padding: 10px;
+        display: block;
+
+        .left, .right {
+            width: 100%;
+            display: block;
+        }
+
+        .right {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .left {
+            
+            .in-theaters {
+
+                .in-theaters-body {
+                    
+                    .movie-item {
+                        width: 105px;
+                        margin-left: 10px;
+                        margin-right: 0;
+                        
+                        .cover {
+                            width: 105px;
+    
+                            img {
+                                width: 105px;
+                                height: 160px;
+                                // height: 172px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .coming-soon {
+
+                .coming-soon-body {
+                    
+                    .movie-item {
+                        width: 105px;
+                        margin-left: 10px;
+                        margin-right: 0;
+                        
+                        .cover {
+                            width: 105px;
+    
+                            img {
+                                width: 105px;
+                                height: 160px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .new-movies {
+
+                .new-movies-body {
+                    
+                    .movie-item {
+                        width: 105px;
+                        margin-left: 10px;
+                        margin-right: 0;
+                        
+                        .cover {
+                            width: 105px;
+    
+                            img {
+                                width: 105px;
+                                height: 160px;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
