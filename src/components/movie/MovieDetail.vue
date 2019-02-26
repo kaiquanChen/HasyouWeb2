@@ -77,7 +77,7 @@
                 <span class="movie-name" v-else>{{name}}</span>
               </span>
             </div>
-            <div class="movie-box">
+            <div class="movie-box" v-if="data.box">
                 <label>实时票房:</label>
                 <span>{{data.box}}</span>
               </div>
@@ -128,7 +128,7 @@
             </span>
           </div>
         </div>
-        <div class="movie-summary">
+        <div class="movie-comment">
           <h3>{{data.title}}的短评  · · · · · ·</h3>
           <span id="comment-nav-root">
             <span @click="toggleCommentNav('hot')"
@@ -140,8 +140,44 @@
                   class="comment-nav">&nbsp;最新
             </span>
           </span>
+          <div class="movie-comment-body">
+            <div class="movie-comment-item" v-for="(item, index) in comments.body">
+              <div class="comment-info">
+                <a target="_blank" :href="gotoAuthor(item.author.id)" class="creator-avatar" v-if="item.author && item.author.avatar">
+                  <img :src="item.author.avatar" :alt="item.author.name">
+                </a>
+                <a href="javascript:void(0);" class="creator-avatar" v-else>
+                  <img src="/static/image/user_anon.jpeg" alt="匿名">
+                </a>
+                &nbsp;
+                <span class="creator-name" v-if="item.author">
+                  <a target="_blank" :href="gotoAuthor(item.author.id)">{{item.author.name}}</a>
+                </span>
+                <span style="color: gray" v-else>[已注销]</span>&emsp;
+                <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
+                <span class="create-time">{{getDate(item.created_at)}}</span>
+                <span class="votes">{{item.useful_count}}赞</span>
+              </div>
+              <div class="comment-content">
+                <p>
+                  {{item.content}}
+                </p>
+              </div>
+            </div>
+            <div class="pagination">
+              <el-pagination
+                class="comment-pagination"
+                @current-change="handleCommentCurrentChange"
+                :page-size="comments.page.count"
+                :pager-count="pager_count"
+                :small="checkMedia()"
+                layout="prev, pager, next"
+                :total="comments.page.total">
+              </el-pagination>
+            </div>
+          </div>
         </div>
-        <div class="movie-summary">
+        <div class="movie-review">
           <h3>{{data.title}}的影评  · · · · · ·</h3>
           <span id="review-nav-root">
             <span @click="toggleReviewNav('hot')"
@@ -152,6 +188,45 @@
                   v-bind:style="!review_selected ? 'color:black' : 'color:#3377aa'"
                   class="review-nav">&nbsp;最新
             </span>
+            <div class="movie-review-body">
+              <div class="movie-review-item" v-for="(item, index) in reviews.body">
+                <div class="review-info">
+                  <a target="_blank" :href="gotoAuthor(item.author.id)" class="creator-avatar" v-if="item.author && item.author.avatar">
+                    <img :src="item.author.avatar" :alt="item.author.name">
+                  </a>
+                  <a href="javascript:void(0);" class="creator-avatar" v-else>
+                    <img src="/static/image/user_anon.jpeg" alt="匿名">
+                  </a>
+                  &nbsp;
+                  <span class="creator-name" v-if="item.author">
+                    <a target="_blank" :href="gotoAuthor(item.author.id)">{{item.author.name}}</a>
+                  </span>
+                  <span style="color: gray" v-else>[已注销]</span>&emsp;
+                  <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
+                  <span class="create-time">{{getDate(item.created_at)}}</span>
+                  <span class="votes">{{item.useful_count}}赞</span>
+                </div>
+                <div class="review-title">
+                  <a target="_blank" :href="gotoReview(item.id)">{{item.title}}</a>
+                </div>
+                <div class="review-summary">
+                  <p>
+                    {{item.summary}}
+                  </p>
+                </div>
+              </div>
+              <div class="pagination">
+                <el-pagination
+                  class="review-pagination"
+                  @current-change="handleReviewCurrentChange"
+                  :page-size="reviews.page.count"
+                  :pager-count="pager_count"
+                  :small="checkMedia()"
+                  layout="prev, pager, next"
+                  :total="reviews.page.total">
+                </el-pagination>
+              </div>
+            </div>
           </span>
         </div>
     </div>
@@ -201,6 +276,23 @@
           },
           methods: {
             undefied() {},
+            gotoAuthor(id) {
+              return "https://www.douban.com/people/" + id;
+            },
+            gotoReview(id) {
+              return "https://movie.douban.com/review/" + id;
+            },
+            getDate(time) {
+                return time.split(" ")[0];
+            },
+            handleReviewCurrentChange(val) {
+              this.reviews.page.page = val;
+              this.getMovieReview();
+            },
+            handleCommentCurrentChange(val) {
+              this.comments.page.page = val;
+              this.getMovieComment();
+            },
             toggleCommentNav(comment_sort) {
               if (this.comment_sort === comment_sort) {
                 return;
@@ -367,7 +459,7 @@
               });
             },
             checkMedia() {
-              return window.matchMedia('(max-width:415px)').matches;
+              return window.matchMedia('(max-width:600px)').matches;
             }
           },
           created() {

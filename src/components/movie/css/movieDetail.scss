@@ -1,6 +1,6 @@
 #movie-detail {
     margin-top: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     display: flex;
 
     .left, .right {
@@ -107,18 +107,13 @@
                 color: #3377aa;
                 cursor: pointer;
             }
-        }
 
-        #comment-nav-root, #review-nav-root {
-            display: block;
-            margin: 10px 0;
-
-            .comment-nav, .review-nav {
-                cursor: pointer;
+            a:hover {
+                background-color: #3377aa;
+                color: #ffffff;
             }
         }
     }
-
 
     .movie-cast {
         margin-top: 30px;
@@ -164,6 +159,167 @@
                 white-space: nowrap;
                 width: 95px;
                 color: #9b9b9b;
+            }
+        }
+    }
+
+    #comment-nav-root, #review-nav-root {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .comment-nav, .review-nav {
+        cursor: pointer;
+    }
+
+    .pagination {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .movie-comment {
+        margin-top: 15px;
+
+        h3 {
+            color: #007722;
+            margin-top: 30px;
+        }
+
+        .movie-comment-item {
+            border-left: #fff;
+            border-right: #fff;
+            border-top: 1px solid #dcdcdc;
+            border-bottom: 1px solid #dcdcdc;
+
+            .comment-info {
+                padding: 10px;
+
+                .creator-avatar {
+                    float: left;
+
+                    img {
+                        width: 24px;
+                    }
+                }
+
+                .creator-name {
+                    float: left;
+                    margin-left: 10px;
+
+                    a {
+                        color: #3377aa;
+                    }
+
+                    a:hover {
+                        background-color: #3377aa;
+                        color: #ffffff;
+                    }
+                }
+
+                .create-time {
+                    float: left;
+                    margin-left: 10px;
+                    color: rgb(153, 153, 153);
+                }
+
+                .votes {
+                    float: right;
+                    min-width: 10px;
+                    padding: 3px 7px;
+                    font-size: 12px;
+                    font-weight: 700;
+                    line-height: 1;
+                    color: #fff;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    background-color: #777;
+                    border-radius: 10px;
+                }
+            }
+
+            .comment-content {
+                margin: 10px 0;
+            }
+        }
+    }
+
+    .movie-review {
+        margin-top: 15px;
+
+        h3 {
+            color: #007722;
+            margin-top: 30px;
+        }
+
+        .movie-review-body {
+            margin-top: 10px;
+
+            .movie-review-item {
+                border-left: #fff;
+                border-right: #fff;
+                border-top: 1px solid #dcdcdc;
+                border-bottom: 1px solid #dcdcdc;
+                
+                .review-info {
+                    padding: 10px;
+    
+                    .creator-avatar {
+                        float: left;
+    
+                        img {
+                            width: 24px;
+                        }
+                    }
+    
+                    .creator-name {
+                        float: left;
+                        margin-left: 10px;
+    
+                        a {
+                            color: #3377aa;
+                        }
+    
+                        a:hover {
+                            background-color: #3377aa;
+                            color: #ffffff;
+                        }
+                    }
+    
+                    .create-time {
+                        float: left;
+                        margin-left: 10px;
+                        color: rgb(153, 153, 153);
+                    }
+    
+                    .votes {
+                        float: right;
+                        min-width: 10px;
+                        padding: 3px 7px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        line-height: 1;
+                        color: #fff;
+                        text-align: center;
+                        white-space: nowrap;
+                        vertical-align: middle;
+                        background-color: #777;
+                        border-radius: 10px;
+                    }
+                }
+
+                .review-title {
+                    margin: 5px 0;
+
+                    a {
+                        color: #3377aa;
+                    }
+
+                    a:hover {
+                        background-color: #3377aa;
+                        color: #ffffff;
+                    }
+                }
             }
         }
     }
