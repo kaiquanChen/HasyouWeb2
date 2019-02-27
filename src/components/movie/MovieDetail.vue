@@ -166,7 +166,7 @@
             </div>
             <div class="pagination">
               <el-pagination
-                class="comment-pagination"
+                class="post-pagination"
                 @current-change="handleCommentCurrentChange"
                 :page-size="comments.page.count"
                 :pager-count="pager_count"

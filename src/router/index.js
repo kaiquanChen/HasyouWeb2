@@ -17,9 +17,16 @@ import Movies from '@/components/movie/Movies'
 import MovieDetail from '@/components/movie/MovieDetail'
 import MovieTop250 from '@/components/movie/MovieTop250'
 
+// forum
+import Forum from '@/components/forum/Forum'
+import Forums from '@/components/forum/Forums'
+import PostDetail from '@/components/forum/PostDetail'
+
+
+
+
 /* import Read from '@/components/read/Read'
 import Music from '@/components/music/Music'
-import Forum from '@/components/forum/Forum'
 import Movie from '@/components/movie/Movie'
 import Kind from '@/components/movie/Kind'
 import Event from '@/components/event/Event'
@@ -80,6 +87,15 @@ export const routes = [
           {path: 'subject/:id', component: MovieDetail},
           {path: 'movies', component: Movies},
           {path: 'top250', component: MovieTop250}
+        ]
+      },
+      // forum
+      {
+        path: 'forum', 
+        component: Forum,
+        children: [
+          {path: 'Forums', component: Forums},
+          {path: 'subject/:id', component: PostDetail},
         ]
       },
     ]

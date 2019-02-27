@@ -12,8 +12,8 @@
                       <div class="item" :style="getStyle('BOOK_EXPRESS', 4)" @click="handleExpress(4)"></div>
                     </div>
                     <div class="page-btn">
-                        <a href="javascript:void(0);" @click="handleExpress('prev')" class="prev">‹</a>
-                        <a href="javascript:void(0);" @click="handleExpress('next')" class="next">›</a>
+                      <a href="javascript:void(0);" @click="handleExpress('prev')" class="prev">‹</a>
+                      <a href="javascript:void(0);" @click="handleExpress('next')" class="next">›</a>
                     </div>
                     <ul class="new-book-body">
                       <li :class="getClass(index)" v-for="(item, index) in book_express" :key="item.id">

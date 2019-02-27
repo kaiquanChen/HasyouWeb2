@@ -1,0 +1,30 @@
+#forum {
+    display: flex;
+
+    .left, .right, .center {
+        flex-direction: column;
+    }
+
+    .left, .right {
+        width: 25%;
+    }
+
+    .center {
+        width: 49%;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    #forum {
+        display: block;
+
+        .left, .right {
+            display: none;
+        }
+
+        .center {
+            width: 100%;
+        }
+    }
+}

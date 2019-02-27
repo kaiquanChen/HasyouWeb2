@@ -38,12 +38,12 @@
               <a href="/music">音乐</a>
             </li>
             <li class="menu-item">
-              <a href="/forum">论坛</a>
+              <a href="/forum/forums">论坛</a>
             </li>
             <li class="menu-item">
               <a href="/blog">博客</a>
             </li>
-            <li class="menu-item menu-right" v-if="!user"><a href="/register">注册</a></li>
+            `<li class="menu-item menu-right" v-if="!user"><a href="/register">注册</a></li>
             <li class="menu-item menu-right" v-if="!user"><a href="/login">登录</a></li>
             <li class="menu-item menu-right" v-if="user"><a @click="logout()">退出</a></li>
             <li class="menu-item menu-right" v-if="user">
@@ -88,7 +88,7 @@
               </a>
             </li>
             <li>
-              <a href="/forum" class="home">
+              <a href="/forum/forums" class="home">
               <img class="icon-header-phone" src="../../assets/header/icon/header-forum-icon.png">&emsp;论坛
               </a>
             </li>
