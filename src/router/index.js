@@ -15,6 +15,7 @@ import BookList from '@/components/book/BookList'
 import Movie from '@/components/movie/Movie'
 import Movies from '@/components/movie/Movies'
 import MovieDetail from '@/components/movie/MovieDetail'
+import MovieTop250 from '@/components/movie/MovieTop250'
 
 /* import Read from '@/components/read/Read'
 import Music from '@/components/music/Music'
@@ -76,8 +77,9 @@ export const routes = [
         path: 'movie', 
         component: Movie,
         children: [
+          {path: 'subject/:id', component: MovieDetail},
           {path: 'movies', component: Movies},
-          {path: 'subject/:id', component: MovieDetail}
+          {path: 'top250', component: MovieTop250}
         ]
       },
     ]

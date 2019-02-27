@@ -3,7 +3,7 @@
     <div class="left">
         <h1 class="movie-title">{{data.title}}
           <span class="movie-year" v-if="data.year && data.year.length > 0">
-            ({{getYear(data.year)}})
+            ({{data.year}})
           </span>
         </h1>
         <div class="content">
@@ -33,7 +33,7 @@
                 <a class="movie-cast" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
                 <a class="movie-cast" v-else>{{cast.name}}</a>
               </span>
-              <a class="load-more" @click="loadMore()">更多...</a>
+              <a class="load-more" @click="loadMore()" v-if="casts.length > 0">更多...</a>
             </div>
             <div v-if="casts && casts.length > 0" v-show="show_full_casts">
               <label>主演:</label>

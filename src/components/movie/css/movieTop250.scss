@@ -1,0 +1,98 @@
+#movie-top250 {
+    margin-top: 30px;
+    margin-bottom: 100px;
+    display: flex;
+
+    .left, .right {
+        flex-direction: column;
+    }
+
+    .left {
+        width: 70%;
+
+        h1 {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 15px 0;
+            line-height: 1.1;
+            border-bottom: 1px dashed #333;
+        }
+
+        .movie-top250-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px dashed #333;
+
+            .movie-image {
+
+                img {
+                    width: 100px;
+                    height: 148px;
+                }
+            }
+
+            .info {
+                padding-left: 20px;
+
+                .info-item {
+                    display: block;
+                    margin-bottom: 10px;
+                }
+
+                .movie-title {
+
+                    a {
+                        color: #369;
+                    }
+
+                    a:hover {
+                        background-color: #369;
+                        color: #ffffff;
+                    }
+                }
+
+                .movie-summary {
+                    
+                    p {
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                        -webkit-line-clamp: 2;
+                        overflow: hidden;
+                    }
+
+                    a {
+                        color: #369;
+                    }
+
+                    a:hover {
+                        background-color: #369;
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+        .pagination {
+            text-align: center;
+            margin-top: 10px;
+        }
+    }
+
+    .right {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #movie-top250 {
+        display: block;
+        
+        .left, .right {
+            width: 100%;
+        }
+    }
+}
