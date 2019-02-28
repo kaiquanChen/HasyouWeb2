@@ -1,27 +1,34 @@
 <template>
     <div id="post-detail">
       <div class="left">
-        <div class="post-header">
-          <span class="header nav">
-            <a href="/fourm/forums">论坛首页</a>&nbsp;>
-            <a :href="getNodeRoutes(node.id)">{{node.title}}</a>
-          </span>
-          <span class="header title">
-            {{post.title}}
-          </span>
-          <span class="header info">
-            <span class="creator-name">{{member.username}}</span> · 
-            <span class="create-time">{{post.create_time}}</span>
-            <!-- <span class="creator-name"></span> -->
-          </span>
+        <div class="post-top">
+          <div class="post-header">
+            <span class="header nav">
+              <a href="/fourm/forums">论坛首页</a>&nbsp;>
+              <a :href="getNodeRoutes(node.id)">{{node.title}}</a>
+            </span>
+            <span class="header title">
+              {{post.title}}
+            </span>
+            <span class="header info">
+              <span class="creator-name">{{member.username}}</span> · 
+              <span class="create-time">{{post.create_time}}</span> · 
+              <a target="_blank" :href="'https://www.v2ex.com/t/' + post.id" class="v2ex">原网页</a>
+            </span>
+          </div>
+          <div class="post-avatar">
+            <a target="_blank" :href="member.avatar_large"><img :src="member.avatar_large" :alt="member.username"></a>
+          </div>
         </div>
-        <div class="post-avatar">
-          <a target="_blank" :href="member.avatar_large"><img :src="member.avatar_large" :alt="member.username"></a>
+        <div class="post-body">
+          <div class="markdown" v-html="content"></div>
         </div>
+        <div class="post-operation">
+            <a href="javascript:void(0);" class="follow">加入收藏</a>
+            <a href="javascript:void(0);" class="ignore">忽略主题</a>
+          </div>
       </div>
-      <div class="right">
-        <h1>Hell David!</h1>
-      </div>
+      <div class="right"></div>
     </div>
 </template>
 

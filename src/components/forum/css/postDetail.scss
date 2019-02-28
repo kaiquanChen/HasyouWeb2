@@ -9,7 +9,6 @@
 
     .left {
         width: 70%;
-        padding: 10px;
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         position: relative;
@@ -17,6 +16,11 @@
 
     .right {
         width: 30%;
+    }
+
+    .post-top {
+        padding: 10px;
+        border-bottom: 1px solid #e2e2e2;
     }
 
     .post-header {
@@ -31,6 +35,8 @@
         top: 10px;
         
         img {
+            width: 73px;
+            height: 73px;
             border-radius: 4px;
         }
     }
@@ -64,6 +70,66 @@
 
     .info {
         color: #999999;
+
+        .v2ex {
+            color: #999999;
+        }
+    }
+
+    .post-operation {
+        padding: 10px;
+        border-radius: 0 0 3px 3px;
+        text-align: left;
+        font-size: 14px;
+        line-height: 120%;
+        background: linear-gradient(to bottom,#eee 0,#ccc 100%);
+
+        .follow, .ignore {
+            color: rgba(0, 0, 0, 0.65);
+        }
+
+        .ignore {
+            margin-left: 20px;
+        }
+
+        .follow:hover, .ignore:hover {
+            color: #333;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 15px;
+            text-shadow: 0 1px 0 #fff;
+        }
+    }
+
+    .markdown {
+        padding: 10px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #000;
+        word-break: break-word;
+
+        a {
+            color: #778087;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        img {
+            max-width: 100% !important;
+        }
+        
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            line-height: 150%;
+            margin: 0px 0px 10px 0px;
+            padding: 0px;
+        }
+
+        li {
+            display: list-item;
+            text-align: -webkit-match-parent;
+        }
     }
 }
 
