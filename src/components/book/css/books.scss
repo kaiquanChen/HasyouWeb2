@@ -303,6 +303,11 @@
 
                         .info {
                             text-align: center;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1;
                         }
 
                         .cover {
@@ -350,6 +355,15 @@
                             margin-left: 15px;
                             margin-bottom: 15px;
                             margin-right: 0;
+
+                            .info {
+                                text-align: center;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                display: -webkit-box;
+                                -webkit-box-orient: vertical;
+                                -webkit-line-clamp: 1;
+                            }
                 
                             .cover {
                 

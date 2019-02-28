@@ -101,7 +101,7 @@
         }
     }
 
-    .markdown {
+    .post-body {
         padding: 10px;
         font-size: 14px;
         line-height: 1.6;
@@ -125,11 +125,6 @@
             margin: 0px 0px 10px 0px;
             padding: 0px;
         }
-
-        li {
-            display: list-item;
-            text-align: -webkit-match-parent;
-        }
     }
 }
 
@@ -137,6 +132,8 @@
 @media screen and (max-width: 600px) {
     #post-detail {
         display: block;
+        margin-top: 30px;
+        margin-bottom: 50px;
     
         .left, .right {
             width: 100%;
