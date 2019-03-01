@@ -21,6 +21,7 @@ import MovieTop250 from '@/components/movie/MovieTop250'
 import Forum from '@/components/forum/Forum'
 import Forums from '@/components/forum/Forums'
 import PostDetail from '@/components/forum/PostDetail'
+import GoNode from '@/components/forum/GoNode'
 
 
 
@@ -32,7 +33,6 @@ import Kind from '@/components/movie/Kind'
 import Event from '@/components/event/Event'
 import BookList from '@/components/book/BookList'
 import Post from '@/components/forum/Post'
-import GoNode from '@/components/forum/GoNode'
 import Node from '@/components/forum/Node'
 import MovieList from '@/components/movie/MovieList'
 import MovieTOP250 from '@/components/movie/MovieTOP250'
@@ -96,6 +96,7 @@ export const routes = [
         children: [
           {path: 'Forums', component: Forums},
           {path: 'subject/:id', component: PostDetail},
+          {path: 'node/:id', component: GoNode},
         ]
       },
     ]
