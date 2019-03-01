@@ -1,7 +1,7 @@
 #post-detail {
     display: flex;
     margin-top: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 
     .left, .right {
         flex-direction: column;
@@ -9,6 +9,9 @@
 
     .left {
         width: 70%;
+    }
+
+    .post {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
         position: relative;
@@ -124,6 +127,103 @@
             line-height: 150%;
             margin: 0px 0px 10px 0px;
             padding: 0px;
+        }
+    }
+
+    .comment {
+        margin-top: 20px;
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+
+        .comment-header {
+            padding: 10px;
+            border-bottom: 1px solid #e2e2e2;
+            height: 37px;
+            position: relative;
+            
+            .post-node {
+                position: absolute;
+                right: 0;
+                top: 6px;
+
+                a {
+                    padding: 5px 10px 5px 10px;
+                    color: #778087;
+                    line-height: 100%;
+                    background-color: #f0f0f0;
+                    border-radius: 10px;
+                    margin: 0 5px 0 5px;
+                    display: inline-block;
+                }
+
+                a:hover {
+                    background-color: #99a;
+                    color: #fff;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .pagination {
+            border-bottom: 1px solid #e2e2e2;
+            height: 47px;
+            margin-top: 10px;
+        }
+
+        .comment-body {
+
+            .comment-item {
+                border-bottom: 1px solid #e2e2e2;
+                display: flex;
+                padding: 10px;
+
+                .avatar {
+                    width: 48px;
+                }
+
+                .comment-info {
+                    padding-left: 10px;
+                    width: 100%;
+                    
+                    .comment-info-top {
+                        flex-direction: column;
+
+                        .creator-name {
+                            color: grey;
+                            text-decoration: none;
+                            word-break: break-word;
+                            font-weight: bold;
+                        }
+
+                        .create-time, .create-device {
+                            font-size: 11px;
+                            color: #ccc;
+                        }
+    
+                        .comment-floor {
+                            float: right;    
+                            font-size: 9px;
+                            line-height: 9px;
+                            font-weight: 500;
+                            border-radius: 10px;
+                            display: inline-block;
+                            background-color: #f0f0f0;
+                            color: #ccc;
+                            padding: 2px 5px 2px 5px;
+                            cursor: pointer;
+                        }
+                    }
+
+                    .comment-info-content {
+                        flex-direction: column;
+                        margin-top: 10px;
+                        font-size: 14px;
+                        line-height: 1.6;
+                        color: #000;
+                        word-break: break-word;
+                    }
+                }
+            }
         }
     }
 }

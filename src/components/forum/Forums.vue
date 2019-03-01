@@ -25,12 +25,12 @@
                                 <a class="post-title" target="_blank" :href="getPostRoutes(item.id)">{{item.title}}</a>
                             </span>
                             <span class="post-info" v-if="checkMedia()">
-                                <a :href="getNodeRoutes(item.id)" class="post-node">{{item.node.title}}</a>&nbsp;•&nbsp;
+                                <a :href="getNodeRoutes(item.node.id)" class="post-node">{{item.node.title}}</a>&nbsp;•&nbsp;
                                 <a href="javascript:void(0);" class="post-creator"><strong>{{item.member.username}}</strong></a>&nbsp;•&nbsp;
                                 <span class="post-time">{{item.create_time}}</span>
                             </span>
                             <span class="post-info" v-else>
-                                <a :href="getNodeRoutes(item.id)" class="post-node">{{item.node.title}}</a>&emsp;•&emsp;
+                                <a :href="getNodeRoutes(item.node.id)" class="post-node">{{item.node.title}}</a>&emsp;•&emsp;
                                 <a href="javascript:void(0);" class="post-creator"><strong>{{item.member.username}}</strong></a>&emsp;•&emsp;
                                 <span class="post-time">{{item.create_time}}</span>
                             </span>
