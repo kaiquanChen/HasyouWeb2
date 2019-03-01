@@ -42,12 +42,15 @@
         </div>
     </div>
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <Node></Node>
+    </div>
   </div>
 </template>
 
 <script>
   import global_ from "../config/Global"
+  import Node from "./Node"
 
   const post_url = global_.URLS.POST_URL;
   const node_url = global_.URLS.NODE_URL;
@@ -67,6 +70,7 @@
         right_nodes: []
       };
     },
+    components:{Node},
     methods: {
       toggle(id) {
         this.getPostList(id);

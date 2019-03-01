@@ -19,6 +19,7 @@
 
     .right {
         width: 30%;
+        margin-top: -60px;
     }
 
     .post-top {
@@ -172,6 +173,22 @@
 
         .comment-body {
 
+            .comment-item-empty {
+                text-align: center;
+                padding: 10px;
+
+                .notice, .btn-load-comment {
+                    display: block;
+                }
+                
+                .btn-load-comment {
+                    margin-top: 15px;
+                    border: 1px solid #e5e5e5;
+                    background: linear-gradient(to bottom, #eee 0, #ccc 100%);
+                    cursor: pointer;
+                }
+            }
+
             .comment-item {
                 border-bottom: 1px solid #e2e2e2;
                 display: flex;
@@ -233,10 +250,14 @@
     #post-detail {
         display: block;
         margin-top: 30px;
-        margin-bottom: 50px;
+        margin-bottom: 200px;
     
         .left, .right {
             width: 100%;
+        }
+
+        .right {
+            margin-top: 60px;
         }
     }
 }

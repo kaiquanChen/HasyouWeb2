@@ -32,11 +32,11 @@
         <div class="comment">
           <div class="comment-header">
             <span class="reply-info">
-              {{post.comment_count}}回复
+              {{post.comment_count === 0 ? comments.body.length : post.comment_count}}回复
               <strong>|</strong> 直到{{post.active_time}}
             </span>
             <span class="post-node">
-              <a :href="getNodeRoutes(node.id)">{{post.node.title}}</a>
+              <a :href="getNodeRoutes(node.id)">{{node.title}}</a>
             </span>
           </div>
           <div class="pagination" v-if="Math.ceil(comments.page.total / comments.page.count) > 1">
@@ -48,24 +48,30 @@
               </el-pagination>
           </div>
           <div class="comment-body">
-            <div class="comment-item" v-for="item in comments.body" :key="item.id">
-              <div class="comment-avatar">
-                <a href="javascript:void(0);" v-if="item.member">
-                  <img class="avatar" :src="item.member.avatar_normal" :alt="item.member.username">
-                </a>
-                <a href="javascript:void(0);" v-else>
-                  <img class="avatar" src="/static/image/user_anon.jpeg" :alt="item.author">
-                </a>
-              </div>
-              <div class="comment-info">
-                <div class="comment-info-top">
-                  <span class="creator-name">{{item.author}}</span>&emsp;
-                  <span class="create-time">{{item.create_time}}</span>&emsp;
-                  <span class="create-device" v-if="item.device !== 'Web'">via {{item.device}}</span>
-                  <span class="comment-floor">{{item.floor_number}}</span>
+            <div class="comment-items" v-if="comments.body && comments.body.length > 0">
+              <div class="comment-item" v-for="item in comments.body" :key="item.id">
+                <div class="comment-avatar">
+                  <a href="javascript:void(0);" v-if="item.member">
+                    <img class="avatar" :src="item.member.avatar_normal" :alt="item.member.username">
+                  </a>
+                  <a href="javascript:void(0);" v-else>
+                    <img class="avatar" src="/static/image/user_anon.jpeg" :alt="item.author">
+                  </a>
                 </div>
-                <div class="comment-info-content" v-html="item.content"></div>
+                <div class="comment-info">
+                  <div class="comment-info-top">
+                    <span class="creator-name">{{item.author}}</span>&emsp;
+                    <span class="create-time">{{item.create_time}}</span>&emsp;
+                    <span class="create-device" v-if="item.device !== 'Web'">via {{item.device}}</span>
+                    <span class="comment-floor">{{item.floor_number}}</span>
+                  </div>
+                  <div class="comment-info-content" v-html="item.content"></div>
+                </div>
               </div>
+            </div>
+            <div class="comment-item-empty" v-else>
+              <span class="notice">暂无评论...!</span>
+              <span v-show="!load" class="btn-load-comment" @click="loadComment()">点击加载评论</span>
             </div>
           </div>
           <div class="pagination" v-if="Math.ceil(comments.page.total / comments.page.count) > 1">
@@ -78,7 +84,9 @@
           </div>
         </div>
       </div>
-      <div class="right"></div>
+      <div class="right">
+        <Node></Node>
+      </div>
     </div>
 </template>
 
@@ -88,6 +96,7 @@
     
     import 'highlight.js/styles/default.css';
     import global_ from "../config/Global"
+    import Node from "./Node"
 
     marked.setOptions({
       renderer: new marked.Renderer(),
@@ -118,6 +127,7 @@
           member:{},
           node:{},
           content: "",
+          load: false,
           comments: {
             page:{
               total: 0,
@@ -128,7 +138,12 @@
           }
         };
       },
+      components:{Node},
       methods: {
+        loadComment() {
+          this.load = true;
+          this.getComments();
+        },
         handleCurrentChange(val) {
           this.comments.page.page = val;
           this.getComments();

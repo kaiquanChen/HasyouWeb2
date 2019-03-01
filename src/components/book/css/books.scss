@@ -73,7 +73,7 @@
                     .book-item {
                         display: inline-block;
                         width: 115px;
-                        height: 205px;
+                        // height: 205px;
                         margin-right: 19px;
                         margin-bottom: 15px;
 
@@ -89,14 +89,19 @@
                             margin-top: 5px;
                             padding: 0 2px;
                             text-align: center;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            display: -webkit-box;
-                            -webkit-box-orient: vertical;
-                            -webkit-line-clamp: 1;
+
+                            .title, .author {
+                                display: block;
+                                overflow:hidden;
+                                white-space:nowrap;
+                                text-overflow:ellipsis;
+                            }
 
                             a {
                                 color: #3377aa;
+                                overflow:hidden;
+                                white-space:nowrap;
+                                text-overflow:ellipsis;
                             }
                         }
                     }
@@ -182,21 +187,18 @@
                             padding: 0 2px;
                             text-align: center;
 
-                            a {
-                                color: #3377aa;
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                display: -webkit-box;
-                                -webkit-box-orient: vertical;
-                                -webkit-line-clamp: 1;
+                            .title, .author {
+                                display: block;
+                                overflow:hidden;
+                                white-space:nowrap;
+                                text-overflow:ellipsis;
                             }
 
-                            .author {
-                                overflow: hidden;
-                                text-overflow: ellipsis;
-                                display: -webkit-box;
-                                -webkit-box-orient: vertical;
-                                -webkit-line-clamp: 1;
+                            a {
+                                color: #3377aa;
+                                overflow:hidden;
+                                white-space:nowrap;
+                                text-overflow:ellipsis;
                             }
                         }
                     }
@@ -303,11 +305,9 @@
 
                         .info {
                             text-align: center;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                            display: -webkit-box;
-                            -webkit-box-orient: vertical;
-                            -webkit-line-clamp: 1;
+                            overflow:hidden;
+                            white-space:nowrap;
+                            text-overflow:ellipsis;
                         }
 
                         .cover {

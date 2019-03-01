@@ -21,8 +21,8 @@
                           <a target="_blank" :href="gotoBookDetail(item.id)"><img :src="item.image_url" /></a>
                         </div>
                         <div class="info">
-                          <div class="title"><a :href="gotoBookDetail(item.id)">{{item.name}}</a></div>
-                          <div class="author">{{item.authors[0]}}</div>
+                          <span class="title"><a :href="gotoBookDetail(item.id)">{{item.name}}</a></span>
+                          <span class="author">{{item.authors[0]}}</span>
                         </div>
                       </li>
                     </ul>

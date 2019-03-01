@@ -51,12 +51,15 @@
                 </div>
             </div>
         </div>
-        <div class="right"></div>
+        <div class="right">
+            <Node></Node>
+        </div>
     </div>
 </template>
 
 <script>
   import global_ from "../config/Global"
+  import Node from "./Node"
 
   const post_url = global_.URLS.POST_URL;
   const node_url = global_.URLS.NODE_URL;
@@ -75,9 +78,9 @@
                 }
             },
             home_nodes: [],
-            right_nodes: [],
         }
       },
+      components:{Node},
       methods: {
         handleCurrentChange(val) {
             this.posts.page.page = val;
@@ -124,48 +127,10 @@
             this.posts.page.page = data.body.data.page;
             this.posts.page.count = data.body.data.count;
             });
-        },
-        getNodeList() {
-            let node_home_url = node_url + "home";
-            this.$http.get(node_home_url, {
-            headers: {
-                "bid": global_.FUNC.getBid(),
-                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-            }
-            }).then((data) => {
-            if (data.status !== 200) {
-                console.log(data);
-                alert("数据获取失败!");
-                return;
-            }
-
-            this.home_nodes = data.body.data;
-            if (this.home_nodes.length !== 0) {
-                this.activeName = this.home_nodes[0].name;
-            }
-            });
-        },
-        getMoreNodeList() {
-            let more_node_url = node_url + "list";
-            this.$http.get(more_node_url, {
-            headers: {
-                "bid": global_.FUNC.getBid()
-            }
-            }).then((data) => {
-            if (data.status !== 200) {
-                console.log(data);
-                alert("数据获取失败!");
-                return;
-            }
-
-            this.right_nodes = data.body.data.body;
-            });
         }
       },
       created() {
-        this.getNodeList();
         this.getPostList(this.activeName);
-        this.getMoreNodeList();
       }
     }
 </script>
