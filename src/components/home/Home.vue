@@ -33,5 +33,6 @@
 <style lang="scss" scoped>
   .withyu-home-center {
     padding-top: 59px;
+    padding-bottom: 50px;
   }
 </style>
