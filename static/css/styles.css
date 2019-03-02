@@ -72,3 +72,10 @@
     margin: 0px 0px 10px 0px;
     padding: 0px;
 }
+
+.book-list-summary span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

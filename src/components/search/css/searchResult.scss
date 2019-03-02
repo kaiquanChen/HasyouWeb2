@@ -1,0 +1,125 @@
+#search-result {
+    display: flex;
+
+    .left, .right, .center {
+        flex-direction: column;
+        width: 25%;
+    }
+
+    .center {
+        padding: 30px 0;
+        width: 50%;
+    }
+
+    .center-left, .center-right {
+        display: inline-block;
+    }
+
+    .center-left {
+        border: 1px solid #e2e2e2;
+        border-radius: 4px;
+        width: 60%;
+
+        h1 {
+            padding: 10px;
+        }
+
+        h1 {
+            border-bottom: 1px solid #e2e2e2;
+        }
+
+        .high-light {
+            color: red;
+        }
+
+        .results {
+            
+            .result-item {
+                padding: 10px;
+                border-bottom: 1px solid #e2e2e2;
+                display: flex;
+
+                .result-item-info, .result-item-image {
+                    flex-direction: column;
+                }
+
+                .result-item-info {
+                    width: 85%;
+                    position: relative;
+                    
+                    .item-info1 {
+                        margin-bottom: 5px;
+                    }
+
+                    .item-info2 {
+                        margin-bottom: 5px;
+                    }
+
+                    .title {
+
+                        a {
+                            color: #3377aa;
+                        }
+                    }
+
+                    .book-list-rate {
+                        display: inline;
+                        margin-left: 10px;
+                    }
+
+                    .item-info {
+                        color: rgb(153, 153, 153);
+                    }
+
+                    .text-info {
+                        display: block;
+                        overflow: hidden;
+                        -webkit-line-clamp: 2;
+                        text-overflow: ellipsis;
+                        display: -webkit-box;
+                        -webkit-box-orient: vertical;
+                    }
+                }
+
+                .result-item-image {
+                    width: 15%;
+
+                    img {
+                        width: 65px;
+                        height: 93px;
+                    }
+                }
+            }
+
+            .pagination {
+                text-align: center;
+            }
+        }
+    }
+
+    .center-right {
+        width: 39%;
+    }
+
+
+}
+
+
+@media screen and (max-width: 600px) {
+    #search-result {
+        display: block;
+
+        .left, .right {
+            display: none;
+        }
+
+        .center {
+            display: block;
+            width: 100%;
+
+            .center-left, .center-right {
+                display: block;
+            }
+        }
+    }
+}

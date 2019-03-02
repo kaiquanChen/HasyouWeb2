@@ -137,7 +137,7 @@
           },
           search() {
             this.globalSearch();
-            // todo goto search page
+            this.$router.push("/search");
           },
           getUserInfo() {
             let token = global_.FUNC.getToken();

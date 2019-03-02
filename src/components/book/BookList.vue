@@ -30,7 +30,7 @@
                                     &nbsp;{{book.stars}}
                                 </el-rate>
                             </div>
-                            <p class="summary">
+                            <p class="book-list-summary">
                                 <span v-if="book.intro.length > 0">{{book.intro[0]}}</span>
                             </p>
                         </div>

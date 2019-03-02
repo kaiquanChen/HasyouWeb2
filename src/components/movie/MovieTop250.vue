@@ -36,22 +36,13 @@
                    / {{movie.countries[0]}}
                 </span>
               </span>
-              <span class="info-item movie-summary" v-show="!show_summary[movie.id]">
-                <p v-if="movie.summaries && movie.summaries.length > 0">
-                  {{movie.summaries[0]}}
+              <span class="info-item movie-summary" v-if="movie.movie_tag.vars.intro">
+                <p class="quote summary">
+                  <img src="/static/image/quotel.png" />
+                  {{movie.movie_tag.vars.intro}}
+                  <img src="/static/image/quoter.png" />
                 </p>
-                <!-- <a href="javascript:void(0);" @click="showSummary(movie.id)" v-if="movie.summaries && movie.summaries.length > 1">
-                  (展开全部)
-                </a> -->
               </span>
-              <!-- <span class="info-item movie-summary" v-show="show_summary[movie.id]">
-                <p v-if="movie.summaries && movie.summaries.length > 0" v-for="summary in movie.summaries">
-                  {{summary}}
-                </p>
-                <a href="javascript:void(0);" @click="showSummary()">
-                  (收起)
-                </a>
-              </span> -->
             </div>
           </div>
           <div class="pagination">

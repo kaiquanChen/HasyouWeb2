@@ -23,7 +23,8 @@ import Forums from '@/components/forum/Forums'
 import PostDetail from '@/components/forum/PostDetail'
 import GoNode from '@/components/forum/GoNode'
 
-
+// search
+import SearchResult from '@/components/search/SearchResult'
 
 
 /* import Read from '@/components/read/Read'
@@ -99,89 +100,12 @@ export const routes = [
           {path: 'node/:id', component: GoNode},
         ]
       },
-    ]
-  },
-
-  // about
-  /* {path: '/read', component: Read},
-  {path: '/music', component: Music},
-  {path: '/event', component: Event},
-  {path: '/movie/tag', component: MovieList},
-  {path: '/movie/subject/:id', component: MovieDetail},
-  {path: '/movie/top250', component: MovieTOP250},
-  {path: '/movie/:type', component: Kind},
-  {path: '/movie/annual/:year', component: MovieAnnual},
-  // book
-  {path: '/book', component: Book},
-  {path: '/book/tag', component: BookTag},
-  {path: '/book/tag/:tag_id', component: BookList},
-  {path: '/book/subject/:id', component: BookDetail},
-  {path: '/book/top250', component: BookTOP250},
-  {path: '/book/annual/:year', component: BookAnnual},
-  // forum
-  {path: '/forum', component: Forum},
-  {path: '/forum/:id', component: Post},
-  {path: '/forum/node/:id', component: GoNode},
-  {path: '/forum/go/node', component: Node},
-  // note
-  {path: '/note', component: Note},
-  {path: '/note/subject/:id', component: NoteDetail},
-  // search
-  {path: '/search', component: SearchResult},
-  // user
-  {path: '/register', component: Register},
-  
-  {
-    path: '/user/:id',
-    component: User,
-    children: [
+      // search
       {
-        path: 'note',
-        component: UserNote
-      },
-      {
-        path: 'album',
-        component: Album
-      },
-      {
-        path: 'info',
-        component: UserInfo
-      },
-      {
-        path: 'password',
-        component: UserPassword
-      },
-      {
-        path: 'step',
-        component: UserStep
+        path: 'search', 
+        component: SearchResult,
+        children: []
       }
     ]
   },
-  // blog
-  {
-    path: '/blog',
-    component: Blog,
-    children: [
-      {
-        path: 'latest',
-        component: Blogs
-      },
-      {
-        path: ':name',
-        component: MyBlog
-      },
-      {
-        path: 'tag',
-        component: BlogTag},
-      {
-        path: ':id/subject',
-        component: BlogDetail
-      },
-      {
-        path: ':name/write',
-        component: WriteBlog
-      }
-    ]
-  },
-  {path: '/test', component: Test} */
 ]

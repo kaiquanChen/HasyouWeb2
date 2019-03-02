@@ -52,7 +52,7 @@
             <div v-if="data.countries && data.countries.length > 0">
               <label>制片国家/地区:</label>
               <span v-for="(country, index) in data.countries" v-if="index < 3">
-                <span class="movie-country" v-if="index <= 1">{{country}} <i>/ </i></span>
+                <span class="movie-country" v-if="index < data.countries.length - 1">{{country}} <i>/ </i></span>
                 <span class="movie-country" v-else>{{country}}</span>
               </span>
             </div>
@@ -271,7 +271,8 @@
                   page: 1,
                   count: 10
                 }
-              }
+              },
+              pager_count: 7
             }
           },
           methods: {
@@ -451,7 +452,7 @@
                     this.directors.push(item);
                   } else if (role === "编剧") {
                     this.writers.push(item);
-                  } else if (role === "演员") {
+                  } else if (role === "演员" || role === "配音") {
                     this.casts.push(item);
                   }
                   return;
