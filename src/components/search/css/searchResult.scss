@@ -83,6 +83,7 @@
 
                 .result-item-image {
                     width: 15%;
+                    text-align: right;
 
                     img {
                         width: 65px;
@@ -117,9 +118,17 @@
             display: block;
             width: 100%;
 
-            .center-left, .center-right {
-                display: block;
+            .center-left {
+                width: 100%;
             }
+
+            .center-right {
+                display: none;
+            }
+
+            // .center-left, .center-right {
+            //     display: block;
+            // }
         }
     }
 }
