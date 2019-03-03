@@ -30,7 +30,7 @@
             display: block;
             font-size: 25px;
             font-weight: bold;
-            color: #494949;
+            color: #3377aa;
             margin: 0;
             padding: 0 0 15px 0;
             line-height: 1.1;
@@ -42,6 +42,10 @@
 
         .avatar, .info, .rate {
             flex-direction: column;
+
+            a {
+                color: #3377aa;
+            }
         }
 
         .avatar {
@@ -259,7 +263,33 @@
                         margin-left: 5px;
                     }
 
-                    .userful {
+                    .userful {.update {
+                        cursor: pointer;
+                        display: block;
+                        text-align: center;
+                        background-color: #FFE4B5;
+                        width: 135px;
+                        height: 26px;
+                        line-height: 26px;
+                        border-radius: 4px;
+                        top: -80px;
+                    }
+        
+                    .user-operation {
+                        position: absolute;
+                        bottom: -40px;
+        
+                        .want-read, .read {
+                            cursor: pointer;
+                            display: inline-block;
+                            text-align: center;
+                            background-color: #FFE4B5;
+                            width: 65px;
+                            height: 26px;
+                            line-height: 26px;
+                            border-radius: 4px;
+                        }
+                    }
                         margin-right: 15px;
                         float: right;
                         width: 50px;
@@ -425,6 +455,19 @@
                     img {
                         width: 95px;
                         height: 160px;
+                    }
+
+                    .update {
+                        width: 95px;
+                    }
+        
+                    .user-operation {
+                        // bottom: 15px;
+                        bottom: 30px;
+        
+                        .want-read, .read {
+                            width: 45px;
+                        }
                     }
                 }
 

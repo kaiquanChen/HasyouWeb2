@@ -377,6 +377,18 @@
                     width: 95px;
                     height: 160px;
                 }
+
+                .update {
+                    width: 95px;
+                }
+    
+                .user-operation {
+                    bottom: 15px;
+    
+                    .want-read, .read {
+                        width: 45px;
+                    }
+                }
             }
 
             .info {
@@ -433,6 +445,17 @@
                 img {
                     width: 95px;
                     height: 160px;
+                }
+
+                .update {
+                    width: 95px;
+                }
+    
+                .user-operation {
+    
+                    .want-read, .read {
+                        width: 40px;
+                    }
                 }
             }
 
