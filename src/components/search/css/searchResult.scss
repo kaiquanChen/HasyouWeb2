@@ -72,12 +72,11 @@
                     }
 
                     .text-info {
+                        margin-top: 25px;
                         display: block;
                         overflow: hidden;
-                        -webkit-line-clamp: 2;
                         text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-box-orient: vertical;
+                        white-space: nowrap;
                     }
                 }
 

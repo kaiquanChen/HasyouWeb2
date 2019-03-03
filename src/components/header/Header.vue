@@ -18,8 +18,10 @@
         </select>
         <img class="search-img" @click="search()" src="../../assets/header/icon/search.png">
         <div class="content-user-info" v-if="user">
-          <img class="avatar" :src="user.avatar">
-          <a class="nickname-a" href="/login">{{user.nickname}}</a>
+          <a :href="user.avatar">
+              <img class="avatar" :src="user.avatar">
+          </a>
+          <!-- <a class="nickname-a" href="/login">{{user.nickname}}</a> -->
         </div>
       </div>
       <div class="right">
@@ -47,8 +49,9 @@
             <li class="menu-item menu-right" v-if="!user"><a href="/login">登录</a></li>
             <li class="menu-item menu-right" v-if="user"><a @click="logout()">退出</a></li>
             <li class="menu-item menu-right" v-if="user">
-              <img class="avatar" :src="user.avatar">
-              <a href="/login">{{user.nickname}}</a>
+              <a :href="user.avatar">
+                  <img class="avatar" :src="user.avatar">
+              </a>
             </li>
           </ul>
         </nav>
@@ -76,37 +79,37 @@
             <a href="/book/books" class="home">
               <img class="icon-header-phone" src="../../assets/header/icon/header-book-icon.png">&emsp;读书
             </a>
-            </li>
-            <li>
-              <a href="/movie/movies" class="home">
-                <img class="icon-header-phone" src="../../assets/header/icon/header-movie-icon.png">&emsp;影视
-              </a>
-            </li>
-            <li>
-              <a href="/music" class="home">
-                <img class="icon-header-phone" src="../../assets/header/icon/header-music-icon.png">&emsp;音乐
-              </a>
-            </li>
-            <li>
-              <a href="/forum/forums" class="home">
-              <img class="icon-header-phone" src="../../assets/header/icon/header-forum-icon.png">&emsp;论坛
-              </a>
-            </li>
-            <li>
-              <a href="/blog" class="home">
-              <img class="icon-header-phone" src="../../assets/header/icon/header-blog-icon.png">&emsp;博客
-              </a>
-            </li>
-            <li v-if="!user">
-              <a href="/login" class="home">
-                <img class="icon-header-phone" src="../../assets/header/icon/header-login-icon.png" />&emsp;登录
-              </a>
-            </li>
-            <li v-if="!user">
-              <a href="/register" class="home">
-                <img class="icon-header-phone" src="../../assets/header/icon/header-login-icon.png" />&emsp;注册
-              </a>
-            </li>
+          </li>
+          <li>
+            <a href="/movie/movies" class="home">
+              <img class="icon-header-phone" src="../../assets/header/icon/header-movie-icon.png">&emsp;影视
+            </a>
+          </li>
+          <li>
+            <a href="/music" class="home">
+              <img class="icon-header-phone" src="../../assets/header/icon/header-music-icon.png">&emsp;音乐
+            </a>
+          </li>
+          <li>
+            <a href="/forum/forums" class="home">
+            <img class="icon-header-phone" src="../../assets/header/icon/header-forum-icon.png">&emsp;论坛
+            </a>
+          </li>
+          <li>
+            <a href="/blog" class="home">
+            <img class="icon-header-phone" src="../../assets/header/icon/header-blog-icon.png">&emsp;博客
+            </a>
+          </li>
+          <li v-if="!user">
+            <a href="/login" class="home">
+              <img class="icon-header-phone" src="../../assets/header/icon/header-login-icon.png" />&emsp;登录
+            </a>
+          </li>
+          <li v-if="!user">
+            <a href="/register" class="home">
+              <img class="icon-header-phone" src="../../assets/header/icon/header-login-icon.png" />&emsp;注册
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -222,8 +225,9 @@
               }
             }).then((data) => {
               sessionStorage.removeItem("access_token");
+              sessionStorage.removeItem("user_info");
               this.user = null;
-              this.$router.push({path:"/login"});
+              this.$router.push({path: this.$route.path});
             });
           }
         },

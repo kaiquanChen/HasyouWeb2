@@ -103,6 +103,26 @@
         getNodeRoutes(id) {
             return "/forum/node/" + id;
         },
+        getNodeList() {
+            let node_home_url = node_url + "home";
+            this.$http.get(node_home_url, {
+            headers: {
+                "bid": global_.FUNC.getBid(),
+                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+            }
+            }).then((data) => {
+            if (data.status !== 200) {
+                console.log(data);
+                alert("数据获取失败!");
+                return;
+            }
+
+            this.home_nodes = data.body.data;
+            if (this.home_nodes.length !== 0) {
+                this.activeName = this.home_nodes[0].name;
+            }
+            });
+        },
         getPostList(type) {
             let url = post_url + "subjects";
             this.$http.get(url, {
@@ -131,6 +151,7 @@
       },
       created() {
         this.getPostList(this.activeName);
+        this.getNodeList();
       }
     }
 </script>

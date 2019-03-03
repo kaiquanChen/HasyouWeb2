@@ -93,7 +93,12 @@
             let token = res.data.access_token;
             sessionStorage.setItem("access_token", token);
             Bus.$emit('login-status', token);
-            this.$router.push({path:"/"});
+            let referer = this.$route.query.referer;
+            if (referer) {
+              this.$router.push({path: referer});
+            } else {
+              this.$router.push({path:"/"});
+            }
           });
         },
         validateParam() {

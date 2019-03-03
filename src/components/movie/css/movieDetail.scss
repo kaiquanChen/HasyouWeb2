@@ -28,12 +28,39 @@
         .avatar {
             flex-direction: column;
             width: 23%;
-            text-align: center;
+            position: relative;
 
             img {
                 margin: 0 auto;
                 width: 135px;
                 height: 200px;
+            }
+
+            .update {
+                cursor: pointer;
+                display: block;
+                text-align: center;
+                background-color: #FFE4B5;
+                width: 135px;
+                height: 26px;
+                line-height: 26px;
+                border-radius: 4px;
+            }
+
+            .user-operation {
+                position: absolute;
+                bottom: -30px;
+
+                .want-read, .read {
+                    cursor: pointer;
+                    display: inline-block;
+                    text-align: center;
+                    background-color: #FFE4B5;
+                    width: 65px;
+                    height: 26px;
+                    line-height: 26px;
+                    border-radius: 4px;
+                }
             }
         }
 
@@ -89,7 +116,7 @@
     }
 
     .movie-summary {
-        margin-top: 30px;
+        margin-top: 50px;
 
         h3 {
             color: #007722;
@@ -145,19 +172,20 @@
             }
 
             .celebrity-name {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                white-space: nowrap;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp: 1;
+                overflow:hidden;
+                display: block;
+                width: 95px;
+                text-align: center;
+                white-space:nowrap;
+                text-overflow:ellipsis;
             }
 
             .celebrity-roles-item {
                 overflow: hidden;
+                width: 95px;
+                text-align: center;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                width: 95px;
                 color: #9b9b9b;
             }
         }

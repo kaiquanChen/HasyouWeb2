@@ -11,6 +11,19 @@
             <a target="_blank" v-if="data.image_url" :href="data.image_url">
               <img :src="data.image_url" :alt="data.title">
             </a>
+            <div class="user-operation" v-if="data.operations && data.operations.length === 0">
+              <span class="read" @click="watchMovie()">看过</span>
+              <span class="want-read" @click="wantMovie()">想看</span>
+            </div>
+            <div class="operation-div" v-else>
+              <span class="operate"
+                    v-for="operate in data.operations"
+                    v-if="operate.operation === 'READ_BOOK'">已看</span>
+              <span class="operate"
+                    v-for="operate in data.operations"
+                    v-if="operate.operation === 'WANT_BOOK'">已加入要看计划</span>
+            </div>
+            <span class="update" @click="updateMovie()" v-if="user && user.id === 1">更新</span>
           </div>
           <div class="info">
             <div v-if="directors && directors.length > 0">
@@ -246,6 +259,7 @@
           name: "book",
           data() {
             return {
+              user:{},
               data:{},
               directors:[],
               writers:[],
@@ -277,6 +291,28 @@
           },
           methods: {
             undefied() {},
+            updateMovie() {
+              let movie_id = this.$route.params.id;
+              let update_movie_url = movie_url + "update/" + movie_id;
+              this.$http.get(update_movie_url, {
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  this.$message.error("数据更新错误,请稍后再试!");
+                  return;
+                }
+
+                this.data = data.body.data;
+                this.$message({
+                  message: "数据更新成功!",
+                  type: 'success'
+                });
+              });
+            },
             gotoAuthor(id) {
               return "https://www.douban.com/people/" + id;
             },
@@ -461,12 +497,29 @@
             },
             checkMedia() {
               return window.matchMedia('(max-width:600px)').matches;
-            }
+            },
+            getUserInfo() {
+              if (token) {
+                this.$http.get(global_.URLS.USER_INFO_URL, {
+                  headers:{
+                    bid: global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                  }
+                }).then((data) => {
+                  let res = data.body;
+                  if (res.code === 200) {
+                    this.user = res.data;
+                    sessionStorage.setItem("user_info", JSON.stringify(this.user));
+                  }
+                });
+              }
+            },
           },
           created() {
               this.getMovie();
               this.getMovieComment();
               this.getMovieReview();
+              this.getUserInfo();
           }
         }
     </script>

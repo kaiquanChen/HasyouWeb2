@@ -6,9 +6,22 @@
               <h1 class="book-title">{{data.name}}</h1>
               <div class="content">
                 <div class="avatar">
-                  <a target="_blank" v-if="data.image" :href="data.image.small">
-                    <img :src="data.image.small" :alt="data.name">
+                  <a target="_blank" v-if="data.image_url" :href="data.image_url">
+                    <img :src="data.image_url" :alt="data.name">
                   </a>
+                  <div class="user-operation" v-if="data.operations && data.operations.length === 0">
+                    <span class="read" @click="readBook()">读过</span>
+                    <span class="want-read" @click="wantReadBook()">想读</span>
+                  </div>
+                  <div class="operation-div" v-else>
+                    <span class="operate"
+                          v-for="operate in data.operations"
+                          v-if="operate.operation === 'READ_BOOK'">已读过本书</span>
+                    <span class="operate"
+                          v-for="operate in data.operations"
+                          v-if="operate.operation === 'WANT_BOOK'">本书已在要读计划内</span>
+                  </div>
+                  <span class="update" @click="updateBook()" v-if="user && user.id === 1">更新</span>
                 </div>
                 <div class="info">
                   <div v-if="data.authors && data.authors.length > 0">
@@ -68,7 +81,6 @@
                     </el-rate>
                   </div>
                 </div>
-              
               </div>
               <div class="book-summary">
                 <h3>内容简介  · · · · · ·</h3>
@@ -238,6 +250,7 @@
     name: "Book",
     data() {
       return {
+        user: {},
         review_selected: true,
         review_sort: 'hot',
         comment_selected: true,
@@ -276,6 +289,61 @@
       }
     },
     methods: {
+      undefied() {},
+      readBook() {
+        if (token) {
+          this.$http.post(read_url, {
+            body: {
+              book_id: this.$route.params.id
+            }
+          }, {
+            headers: {
+              bid: global_.FUNC.getBid(),
+              "X-HASYOU-TOKEN":token
+            }
+          }).then((data) => {
+            if (data.body.code === 200) {
+              this.data.operations.push(data.body.data);
+            } else if (data.body.code === 5006) {
+              this.$message({
+                message: '请先登录!',
+                type: 'warning'
+              });
+              this.$router.push({path: "/login"});
+            }
+          });
+        } else {
+          let referer = this.$route.path;
+          this.$router.push({path: "/login?referer=" + referer});
+        }
+      },
+      wantReadBook() {
+        if (token) {
+          this.$http.post(want_url, {
+            body: {
+              book_id: this.$route.params.id
+            }
+          }, {
+            headers: {
+              bid: global_.FUNC.getBid(),
+              "X-HASYOU-TOKEN":token
+            }
+          }).then((data) => {
+            if (data.body.code === 200) {
+              this.data.operations.push(data.body.data);
+            } else if (data.body.code === 5006) {
+              this.$message({
+                message: '请先登录!',
+                type: 'warning'
+              });
+              this.$router.push({path: "/login"});
+            }
+          });
+        } else {
+          let referer = this.$route.path;
+          this.$router.push({path: "/login?referer=" + referer});
+        }
+      },
       handleCommentPageChange(val) {
         this.comments.page.page = val;
         this.getBookComment();
@@ -312,15 +380,6 @@
       },
       getStars(stars) {
         return stars / 2;
-      },
-      getImage(data) {
-        if (data.image_url) {
-          return data.image_url;
-        } else if (data.image) {
-          return data.image.medium;
-        } else {
-          return "";
-        }
       },
       checkMedia() {
         return window.matchMedia('(max-width:415px)').matches;
@@ -476,6 +535,22 @@
           this.comments.page.count = data.body.data.count;
         });
       },
+      getUserInfo() {
+        if (token) {
+          this.$http.get(global_.URLS.USER_INFO_URL, {
+            headers:{
+              bid: global_.FUNC.getBid(),
+              "X-HASYOU-TOKEN": token
+            }
+          }).then((data) => {
+            let res = data.body;
+            if (res.code === 200) {
+              this.user = res.data;
+              sessionStorage.setItem("user_info", JSON.stringify(this.user));
+            }
+          });
+        }
+      },
       getBookReview() {
         let book_id = this.$route.params.id;
         this.$http.get(review_url + book_id, {
@@ -501,59 +576,6 @@
           this.reviews.page.count = data.body.data.count;
         });
       },
-      readBook() {
-        if (token) {
-          this.$http.post(read_url, {
-            body: {
-              book_id: this.$route.params.id
-            }
-          }, {
-            headers: {
-              bid: global_.FUNC.getBid(),
-              "X-HASYOU-TOKEN":token
-            }
-          }).then((data) => {
-            if (data.body.code === 200) {
-              this.data.operations.push(data.body.data);
-            } else if (data.body.code === 5006) {
-              this.$message({
-                message: '请先登录!',
-                type: 'warning'
-              });
-              this.$router.push({path: "/login"});
-            }
-          });
-        } else {
-          this.$router.push({path: "/login"});
-        }
-      },
-      wantReadBook() {
-        let token = sessionStorage.getItem("access_token");
-        if (token) {
-          this.$http.post(want_url, {
-            body: {
-              book_id: this.$route.params.id
-            }
-          }, {
-            headers: {
-              bid: global_.FUNC.getBid(),
-              "X-HASYOU-TOKEN":token
-            }
-          }).then((data) => {
-            if (data.body.code === 200) {
-              this.data.operations.push(data.body.data);
-            } else if (data.body.code === 5006) {
-              this.$message({
-                message: '请先登录!',
-                type: 'warning'
-              });
-              this.$router.push({path: "/login"});
-            }
-          });
-        } else {
-          this.$router.push({path: "/login"});
-        }
-      },
       isEmpty(array) {
         return JSON.stringify(array) !== '[]';
       },
@@ -578,6 +600,7 @@
       this.getBookComment();
       this.getBookReview();
       this.getBookAnnotation();
+      this.getUserInfo();
     }
   }
 </script>

@@ -26,11 +26,11 @@
                                 </el-rate>
                             </div>
                             <div class="item-info2">
-                                <span class="it" v-if="item.origin_title">{{item.origin_title}} /</span>
-                                <span class="item-info" v-if="item.type === 'book' && item.vars.authors && index < 1" v-for="(author, index) in item.vars.authors">{{author}} / </span>
-                                <span class="item-info" v-if="item.type === 'book' && item.vars.translators && index < 1" v-for="(translator, index) in item.vars.translators">{{translator}} / </span>
-                                <span class="item-info" v-if="item.type === 'movie' && item.vars.year">{{item.vars.year}} / </span>
-                                <span class="item-info" v-if="item.type === 'movie' && item.vars.countries">{{item.vars.countries[0]}}</span>
+                                <span class="it" v-if="item.origin_title">{{item.origin_title}}</span>
+                                <span class="item-info" v-if="item.type === 'book' && item.vars.authors && index < 1" v-for="(author, index) in item.vars.authors"> / {{author}}</span>
+                                <span class="item-info" v-if="item.type === 'book' && item.vars.translators && index < 1" v-for="(translator, index) in item.vars.translators"> / {{translator}}</span>
+                                <span class="item-info" v-if="item.type === 'movie' && item.vars.year"> / {{item.vars.year}}</span>
+                                <span class="item-info" v-if="item.type === 'movie' && item.vars.countries"> / {{item.vars.countries[0]}}</span>
                             </div>
                             <span class="intro text-info">{{item.intro}}</span>
                         </div>
