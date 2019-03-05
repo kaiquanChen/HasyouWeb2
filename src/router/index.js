@@ -16,6 +16,7 @@ import Movie from '@/components/movie/Movie'
 import Movies from '@/components/movie/Movies'
 import MovieDetail from '@/components/movie/MovieDetail'
 import MovieTop250 from '@/components/movie/MovieTop250'
+import MovieAnnual from '@/components/movie/MovieAnnual'
 
 // forum
 import Forum from '@/components/forum/Forum'
@@ -108,4 +109,9 @@ export const routes = [
       }
     ]
   },
+  {
+    path: '/movie/annual/:year', 
+    component: MovieAnnual,
+    children: []
+  }
 ]

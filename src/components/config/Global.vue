@@ -150,7 +150,7 @@
   }
 
   let getBrowserHeight = function () {
-    return document.documentElement.clientHeight;
+    return document.documentElement.scrollHeight;
   }
 
   let getBrowserWidth = function () {
