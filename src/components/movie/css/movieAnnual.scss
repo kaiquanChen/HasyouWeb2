@@ -1,7 +1,33 @@
 #movie-annual {
+    position: relative;
+
+    .next {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: rgba(0,0,0,.2);
+        border: 1px solid #fff;
+        position: absolute;
+        right: 50px;
+        bottom: 50px;
+        z-index: 3;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+
+        .icon-down {
+            width: 0;
+            height: 0;
+            margin-top: 0.5em;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-top: 25px solid #ffffff;
+        }
+    }
 
     .annual-header {
         position: fixed;
+        display: flex;
         width: 100%;
         top: 0;
         left: 0;
@@ -10,8 +36,60 @@
         background: rgba(0,0,0,.4);
         z-index: 4;
         color: #ffffff;
-        text-align: center;
         line-height: 40px;
+
+        .header-logo, .header-title, .header-annual-menu-btn {
+            flex-direction: column;
+            width: 33%;
+        }
+
+        .header-annual-menu {
+            position: fixed;
+            width: 301px;
+            right: 0;
+            top: 0;
+            right: 0;
+            background: rgba(0,0,0,.9);
+            padding: 1.8rem 2.5rem;
+            line-height: 1;
+            white-space: nowrap;
+            box-sizing: border-box;
+            max-height: 100vh;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-transition: right .5s;
+            transition: right .5s;
+
+            .menu-item {
+                margin: 10px 0;
+            }
+
+            a {
+                color: hsla(0,0%,100%,.54);
+            }
+
+            a:visited, a:hover {
+                color: #ffffff;
+            }
+        }
+
+        .header-logo {
+            padding-left: 30px;
+            font-weight: 700;
+
+            .index {
+                color: #ffffff;
+            }
+        }
+
+        .header-title {
+            text-align: center;
+        }
+
+        .header-annual-menu-btn {
+            text-align: right;
+            cursor: pointer;
+        }
     }
 
     .annual-items {
@@ -19,14 +97,24 @@
         .annual-item {
             position: relative;
 
-            .annual-preview {
-                width: 100%;
+            .annual-item-body {
                 position: absolute;
-                top: 15%;
+                width: 65%;
+                height: 80%;
+                left: 17%;
+                top: 10%;
+            }
+
+            .annual-item-dialogue {
+                width: 100%;
+            }
+
+            .annual-preview {
 
                 .annual-preview-body {
-                    margin-left: 60%;
-                    width: 25%;
+                    position: absolute;
+                    width: 414px;
+                    right: 0;
                     padding: 18px;
                     background-color: rgba(114, 63, 50, 0.85);
                     border-radius: 4px;
@@ -93,16 +181,18 @@
             }
 
             .annual-item-list {
-                width: 100%;
                 position: absolute;
-                bottom: 20%;
-                margin: 0 auto;
+                bottom: 50px;
+                right: 0;
                 display: block;
-                text-align: center;
+                height: 173px;
+                display: flex;
 
                 .annual-movie-item {
-                    display: inline-block;
+                    flex-direction: column;
                     margin-left: 20px;
+                    width: 94px;
+                    cursor: pointer;
 
                     img {
                         width: 94px;
@@ -123,8 +213,31 @@
                         word-break: break-all;
 
                         .movie-rate {
+                            display: inline-block;
+                            width: 20px;
                             color: #f6a623;
                         }
+                    }
+                }
+            }
+
+            .annual-dialogue {
+                padding: 30px;
+                position: absolute;
+                bottom: 0;
+                height: 182px;
+                text-align: center;
+                background: #000000;
+                width: 100%;
+
+                .text {
+                    color: #ffffff;
+                    font-size: calc(1.7rem + 3.3 * (100vw - 414px) / 952);
+
+                    a {
+                        color: inherit;
+                        font-size: calc(1rem + 3.3 * (100vw - 414px) / 952);
+                        text-decoration: none;
                     }
                 }
             }

@@ -5,11 +5,11 @@ import Login from '@/components/login/Login'
 // book
 import Book from '@/components/book/Book'
 import Books from '@/components/book/Books'
-import BookAnnual from '@/components/book/Annual'
 import BookDetail from '@/components/book/BookDetail'
 import BookTop250 from '@/components/book/BookTop250'
 import BookTag from '@/components/book/BookTag'
 import BookList from '@/components/book/BookList'
+import BookAnnual from '@/components/book/BookAnnual'
 
 // movie
 import Movie from '@/components/movie/Movie'
@@ -26,6 +26,10 @@ import GoNode from '@/components/forum/GoNode'
 
 // search
 import SearchResult from '@/components/search/SearchResult'
+
+// test
+import Test from '@/components/Test'
+
 
 
 /* import Read from '@/components/read/Read'
@@ -74,7 +78,7 @@ export const routes = [
         component: Book,
         children: [
           {path: 'books', component: Books},
-          {path: 'annual/:year', component: BookAnnual},
+          // {path: 'annual/:year', component: BookAnnual},
           {path: 'subject/:id', component: BookDetail},
           {path: 'top250', component: BookTop250},
           {path: 'tag', component: BookTag},
@@ -109,9 +113,7 @@ export const routes = [
       }
     ]
   },
-  {
-    path: '/movie/annual/:year', 
-    component: MovieAnnual,
-    children: []
-  }
+  {path: '/movie/annual/:year', component: MovieAnnual},
+  {path: '/book/annual/:year', component: BookAnnual},
+  {path: '/test', component: Test}
 ]
