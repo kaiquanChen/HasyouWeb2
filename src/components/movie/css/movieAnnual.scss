@@ -47,7 +47,7 @@
             position: fixed;
             width: 301px;
             right: 0;
-            top: 0;
+            top: 40px;
             right: 0;
             background: rgba(0,0,0,.9);
             padding: 1.8rem 2.5rem;
@@ -64,6 +64,13 @@
                 margin: 10px 0;
             }
 
+            .active-menu-item {
+
+                a {
+                    color: #ffffff;
+                }
+            }
+
             a {
                 color: hsla(0,0%,100%,.54);
             }
@@ -74,6 +81,7 @@
         }
 
         .header-logo {
+            font-size: 24px;
             padding-left: 30px;
             font-weight: 700;
 
@@ -96,6 +104,7 @@
 
         .annual-item {
             position: relative;
+            background-color: #000000;
 
             .annual-item-body {
                 position: absolute;
@@ -193,6 +202,7 @@
                     margin-left: 20px;
                     width: 94px;
                     cursor: pointer;
+                    list-style: none;
 
                     img {
                         width: 94px;

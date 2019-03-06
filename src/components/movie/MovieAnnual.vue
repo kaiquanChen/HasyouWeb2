@@ -7,12 +7,11 @@
         <div class="header-title">
           豆瓣{{year}}年度榜单电影
         </div>
-        <div class="header-annual-menu-btn">
-          目录
-        </div>
-        <div class="header-annual-menu">
-          <div class="menu-item" v-for="(item, index) in body" :key="item.id">
-            <a :href="'#anchor' + (index + 1)">{{item.payload.title}}</a>
+        <div class="header-annual-menu-btn" @click="showNav()">目录</div>
+        <div class="header-annual-menu" v-show="show_nav">
+          <div :class="getMenuClass(index)" v-for="(item, index) in body" :key="item.id">
+            <a @click="gotoAnchor(index)" v-if="item.kind_str === 'top10'">{{item.payload.title}}</a>
+            <a @click="gotoAnchor(index)" v-else-if="item.kind_str === 'dialogue'">台词 - 《{{item.subject.title}}》</a>
           </div>
         </div>
       </header>
@@ -109,14 +108,37 @@
           i: 0,
           active_next_scroll: true,
           active_pre_scroll: true,
-          offset_top: 0
+          offset_top: 0,
+          show_nav: false
         };
       },
       mounted () {
           window.addEventListener('scroll', this.handleScroll, true);
       },
       methods: {
+        gotoAnchor(index) {
+          if (index === this.body.length - 1) {
+            this.show_next = false;
+          }
+
+          this.cursor = index + 1;
+          let selector = '#anchor' + this.cursor;
+          let anchor = this.$el.querySelector(selector)
+          document.documentElement.scrollTop = anchor.offsetTop
+          this.offset_top = anchor.offsetTop;
+        },
+        getMenuClass(index) {
+          let clazz = "menu-item";
+          if (this.cursor === (index + 1)) {
+            clazz += " active-menu-item";
+          }
+          return clazz;
+        },
+        showNav() {
+          this.show_nav = !this.show_nav;
+        },
         handleScroll() {
+          return;
           let selector = '#anchor' + this.cursor;
           let anchor = this.$el.querySelector(selector)
             let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -169,6 +191,7 @@
         },
         gotoNext(index) {
           if (index === this.body.length - 1) {
+            this.show_next = false;
             this.$message.error("没有更多内容了!");
             return;
           }
@@ -177,7 +200,7 @@
           let anchor = this.$el.querySelector(selector)
           this.cursor = index;
           this.offset_top = anchor.offsetTop;
-          document.documentElement.scrollTop = anchor.offsetTop
+          document.documentElement.scrollTop = anchor.offsetTop;
         },
         getAnnualStyle(item) {
           let background_img = item.payload.background_img;
