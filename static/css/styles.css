@@ -79,3 +79,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+      
+    i.el-rate__icon {
+      font-size: 11px;
+    }
+}

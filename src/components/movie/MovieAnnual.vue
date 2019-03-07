@@ -7,11 +7,20 @@
         <div class="header-title">
           豆瓣{{year}}年度榜单电影
         </div>
-        <div class="header-annual-menu-btn" @click="showNav()">目录</div>
+        <div class="header-annual-menu-btn" @click="showNav()">
+          <span>
+            <img class="menu-img" src="/static/icon/annual_menu.png"/>
+            目录
+          </span>
+        </div>
         <div class="header-annual-menu" v-show="show_nav">
           <div :class="getMenuClass(index)" v-for="(item, index) in body" :key="item.id">
-            <a @click="gotoAnchor(index)" v-if="item.kind_str === 'top10'">{{item.payload.title}}</a>
-            <a @click="gotoAnchor(index)" v-else-if="item.kind_str === 'dialogue'">台词 - 《{{item.subject.title}}》</a>
+            <a @click="gotoAnchor(index + 1)" v-if="item.kind_str === 'top10'">
+              <b v-if="cursor === (index + 1)">> </b>{{item.payload.title}}
+            </a>
+            <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'dialogue'">
+              <b v-if="cursor === (index + 1)">> </b>台词 - 《{{item.subject.title}}》
+            </a>
           </div>
         </div>
       </header>
@@ -23,7 +32,7 @@
           :key="index + 1">
           <div :class="getAnnualBodyClass(item.kind_str)">
             <div class="annual-preview" v-if="item.kind_str === 'top10'">
-              <div class="annual-preview-body">
+              <div :style="getPreviewStyle(item)" class="annual-preview-body">
                 <div class="annual-name">
                   {{item.payload.title}}
                 </div>
@@ -31,7 +40,9 @@
                   <div class="movie-info-top">
                     <div class="movie-image">
                       <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">
-                        <img :src="item.subjects[0].image_url" alt="item.subjects[0].title">
+                        <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
+                        <span class="preview-no">{{index + 1}}</span>
+                        <img class="preview-image" :src="item.subjects[0].image_url" alt="item.subjects[0].title">
                       </a>
                     </div>
                     <div class="movie-info-right">
@@ -59,12 +70,14 @@
               </div>
             </div>
             <ul class="annual-item-list" v-if="item.kind_str === 'top10'">
-              <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index) in item.subjects" v-if="index >= 1" :key="movie.id">
+              <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.subjects" v-if="index2 >= 1" :key="movie.id">
                 <div class="movie-item-image">
-                  <img :src="movie.image_url" :alt="movie.title">
+                  <img class="preview-image" :src="movie.image_url" :alt="movie.title">
+                  <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
+                  <span class="preview-no">{{index2 + 1}}</span>
                 </div>
                 <div class="movie-info">
-                  {{movie.title}}
+                  {{getMovieTitle(movie.title)}}
                   <span class="movie-rate">{{movie.average}}</span>
                 </div>
               </li>
@@ -76,6 +89,9 @@
               </p>
             </div>
           </div>
+          <button v-show="show_previous" class="previous" @click="gotoPre((index))">
+            <div class="icon-down"></div>
+          </button>
           <button v-show="show_next" class="next" @click="gotoNext((index + 2))">
             <div class="icon-down"></div>
           </button>
@@ -100,11 +116,9 @@
             total: 0
           },
           body:[],
-          web: true,
           year: "",
-          up: false,
-          more_message: "点击加载更多",
           show_next: true,
+          show_previous: false,
           i: 0,
           active_next_scroll: true,
           active_pre_scroll: true,
@@ -116,16 +130,29 @@
           window.addEventListener('scroll', this.handleScroll, true);
       },
       methods: {
-        gotoAnchor(index) {
-          if (index === this.body.length - 1) {
-            this.show_next = false;
+        getPreviewStyle(annual) {
+          if (annual.payload.background_color) {
+            return "background-color: " + annual.payload.background_color + ";";
+          } else {
+            return "background-color: rgba(114, 63, 50, 0.85);";
           }
-
-          this.cursor = index + 1;
+        },
+        getParentStyle() {
+          return "height: " + this.browserHeight + "px;";
+        },
+        getMovieTitle(title) {
+          if (title.length > 8) {
+            return title.substr(title, 8, title.length - 1) + "...";
+          }
+          return title;
+        },
+        gotoAnchor(index) {
+          this.cursor = index;
           let selector = '#anchor' + this.cursor;
-          let anchor = this.$el.querySelector(selector)
-          document.documentElement.scrollTop = anchor.offsetTop
+          let anchor = this.$el.querySelector(selector);
+          document.documentElement.scrollTop = anchor.offsetTop;
           this.offset_top = anchor.offsetTop;
+          this.calcArrows();
         },
         getMenuClass(index) {
           let clazz = "menu-item";
@@ -138,28 +165,28 @@
           this.show_nav = !this.show_nav;
         },
         handleScroll() {
-          return;
-          let selector = '#anchor' + this.cursor;
-          let anchor = this.$el.querySelector(selector)
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-            let scroll = scrollTop - this.i;
-            this.i = scrollTop;
-              if (scroll < 0) {
-                if (this.active_pre_scroll) {
-                  this.active_pre_scroll = false;
-                  this.gotoPre(this.cursor - 1);
-                } else if (anchor.offsetTop === this.offset_top) {
-                  this.active_pre_scroll = true;
-                }
-              } else {
-                if (this.active_next_scroll) {
-                  this.active_next_scroll = false;
-                  this.gotoNext(this.cursor + 1);
-                } else if (anchor.offsetTop === this.offset_top) {
-                  this.active_next_scroll = true;
-                }
-              }
-          
+          let anchor = this.$el.querySelector('#anchor' + this.cursor)
+          document.documentElement.scrollTop = anchor.offsetTop;
+          // let selector = '#anchor' + this.cursor;
+          // let anchor = this.$el.querySelector(selector)
+          //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+          //   let scroll = scrollTop - this.i;
+          //   this.i = scrollTop;
+          //   if (scroll < 0) {
+          //     if (this.active_pre_scroll) {
+          //       this.active_pre_scroll = false;
+          //       this.gotoPre(this.cursor - 1);
+          //     } else if (anchor.offsetTop === this.offset_top) {
+          //       this.active_pre_scroll = true;
+          //     }
+          //   } else {
+          //     if (this.active_next_scroll) {
+          //       this.active_next_scroll = false;
+          //       this.gotoNext(this.cursor + 1);
+          //     } else if (anchor.offsetTop === this.offset_top) {
+          //       this.active_next_scroll = true;
+          //     }
+          //   }
         },
         gotoMovieDetail(id) {
           let router = this.$router.resolve({ path: '/movie/subject/' + id});
@@ -175,32 +202,48 @@
         getMovieDetail(id) {
           return "/movie/subject/" + id;
         },
+        calcArrows() { // 计算上下箭头
+          if (this.body.length > 1) {
+            if (this.cursor === 1) {
+              this.show_previous = false;
+              this.show_next = true;
+            } else if (this.cursor > 1 && this.cursor < this.body.length - 1) {
+              this.show_next = true;
+              this.show_previous = true;
+            } else {
+              this.show_next = false;
+              this.show_previous = true;
+            }
+          } else {
+            this.show_previous = false;
+            this.show_next = false;
+          }
+        },
         getStars(stars) {
           return stars / 2;
         },
         gotoPre(index) {
-          if (index === 0) {
-            return;
+          if (index !== 0) {
+            let selector = '#anchor' + index;
+            let anchor = this.$el.querySelector(selector)
+            document.documentElement.scrollTop = anchor.offsetTop;
+            this.cursor = index;
+            this.offset_top = anchor.offsetTop;
           }
 
-          let selector = '#anchor' + index;
-          let anchor = this.$el.querySelector(selector)
-          document.documentElement.scrollTop = anchor.offsetTop
-          this.cursor = index;
-          this.offset_top = anchor.offsetTop;
+          this.calcArrows();
         },
         gotoNext(index) {
           if (index === this.body.length - 1) {
-            this.show_next = false;
             this.$message.error("没有更多内容了!");
-            return;
+          } else {
+            let selector = '#anchor' + index;
+            let anchor = this.$el.querySelector(selector)
+            this.cursor = index;
+            this.offset_top = anchor.offsetTop;
+            document.documentElement.scrollTop = anchor.offsetTop;
           }
-
-          let selector = '#anchor' + index;
-          let anchor = this.$el.querySelector(selector)
-          this.cursor = index;
-          this.offset_top = anchor.offsetTop;
-          document.documentElement.scrollTop = anchor.offsetTop;
+          this.calcArrows();
         },
         getAnnualStyle(item) {
           let background_img = item.payload.background_img;
