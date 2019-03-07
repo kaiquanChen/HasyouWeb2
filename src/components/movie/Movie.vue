@@ -4,11 +4,10 @@
         <div class="header-left"></div>
         <div class="header-center">
           <ul class="movie-header-nav">
-          <!-- <li><a href="/movie/books">选电影</a></li>
-          <li><a href="/movie/books">电视剧</a></li> -->
           <li><a href="/movie/annual/2018">2018年度榜单</a></li>
           <li><a href="/movie/annual/2017">2017年度榜单</a></li>
           <li><a href="/movie/annual/2016">2016年度榜单</a></li>
+          <li><a href="/movie/annual/2015">2015年度榜单</a></li>
         </ul>
         </div>
         <div class="header-right"></div>

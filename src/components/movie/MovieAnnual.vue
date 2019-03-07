@@ -130,6 +130,9 @@
           window.addEventListener('scroll', this.handleScroll, true);
       },
       methods: {
+        closeNav() {
+          alert("Hello David!");
+        },
         getPreviewStyle(annual) {
           if (annual.payload.background_color) {
             return "background-color: " + annual.payload.background_color + ";";

@@ -1,0 +1,98 @@
+#book-annual {
+
+    .annual-header {
+        position: fixed;
+        display: flex;
+        width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: rgba(0,0,0,.4);
+        z-index: 4;
+        color: #ffffff;
+        line-height: 40px;
+
+        .header-logo, .header-title, .header-annual-menu-btn {
+            flex-direction: column;
+            width: 33%;
+        }
+
+        .header-annual-menu::-webkit-scrollbar {
+            display: none;
+        }
+
+        .header-annual-menu {
+            position: fixed;
+            width: 241px;
+            right: 0;
+            top: 40px;
+            right: 0;
+            background: rgba(0,0,0,.9);
+            padding: 1.5rem 2rem 5rem 2rem;
+            line-height: 1;
+            white-space: nowrap;
+            box-sizing: border-box;
+            max-height: 100vh;
+            overflow: auto;
+            -webkit-overflow-scrolling: touch;
+            -webkit-transition: right .5s;
+            transition: right .5s;
+
+            .menu-item {
+                margin: 10px 0;
+            }
+
+            .active-menu-item {
+
+                a {
+                    color: #ffffff;
+                }
+            }
+
+            a {
+                color: hsla(0,0%,100%,.54);
+            }
+
+            a:visited, a:hover {
+                color: #ffffff;
+            }
+        }
+
+        .header-logo {
+            font-size: 24px;
+            padding-left: 30px;
+            font-weight: 700;
+
+            .index {
+                color: #ffffff;
+            }
+        }
+
+        .header-title {
+            text-align: center;
+        }
+
+        .header-annual-menu-btn {
+            text-align: right;
+
+            span {
+                position: relative;
+                line-height: 27px;
+                display: inline-block;
+                width: 65px;
+                height: 27px;
+                padding-right: 5px;
+                cursor: pointer;
+                border: 1px solid;
+                border-radius: 4px;
+
+                .menu-img {
+                    position: absolute;
+                    left: 10px;
+                    top: 5px;
+                }
+            }
+        }
+    }
+}
