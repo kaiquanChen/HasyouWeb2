@@ -41,7 +41,7 @@
                     <div class="movie-image">
                       <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">
                         <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
-                        <span class="preview-no">{{index + 1}}</span>
+                        <span class="preview-no">1</span>
                         <img class="preview-image" :src="item.subjects[0].image_url" alt="item.subjects[0].title">
                       </a>
                     </div>
