@@ -1,0 +1,151 @@
+#read {
+    display: flex;
+
+    .left, .center, .right {
+        flex-direction: column;
+        width: 25%;
+    }
+
+    .center {
+        width: 50%;
+
+        .title {
+            height: 53px;
+            text-align: center;
+            line-height: 53px;
+            color: #738381;
+            font-weight: 800;
+            font-size: 22px;
+            background-size: 130%;
+            border-bottom: 1px #738381 solid;
+        }
+
+        .moment-items {
+
+            .moment-item:hover {
+                background-color: #deefed;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+            .moment-item {
+                width: 50%;
+                padding: 30px;
+                padding-left: 1rem;
+                border-radius: 5px;
+                border-bottom: 1px #deefed solid;
+
+                .moment-title {
+                    font-size: 18px;
+                    font-weight: 800;
+                    height: 20px;
+                    line-height: 20px;
+                    color: #1b2522;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
+                .moment-content {
+                    margin-bottom: 7px;
+                    font-size: 14px;
+                    color: #1b2522;
+                    word-wrap: break-word;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    text-overflow: -o-ellipsis-lastline;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 4;
+                    -webkit-box-orient: vertical;
+                    line-height: 21px;
+                }
+
+                .moment-images {
+                    padding: 0;
+                    margin-bottom: 15px;
+
+                    .image-item {
+                        list-style: none;
+                        display: inline;
+                        margin: 10px;
+
+                        img {
+                            max-width: 100px;
+                            max-width: 100px;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+
+                .moment-info {
+                    padding: 0 10px;
+
+                    .creator-avatar {
+
+                        img {
+                            width: 24px;
+                            height: 24px;
+                        }
+                    }
+
+                    .creator-name {
+                        margin-left: 10px;
+                        color: #21bba6;
+                        margin-right: 10px;
+                    }
+                    
+                     .create-time, .vote {
+                        margin-left: 10px;
+                        display: inline-block;
+                        color: #21bba6;
+                        height: 25px;
+                        line-height: 25px;
+                        border: 1px solid #80bbb9;
+                        border-radius: 5px;
+                        padding: 0 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #read {
+        display: block;
+        padding: 10px;
+        
+        .left, .right {
+            display: none;
+        }
+
+        .center {
+            display: block;
+            width: 100%;
+
+            .title {
+                font-size: 18px;
+            }
+
+            .moment-items {
+
+                .moment-item {
+                    width: 100%;
+
+                    .moment-images {
+    
+                        .image-item {
+                            margin: 10px 8px;
+    
+                            img {
+                                max-width: 100px;
+                                max-height: 100px;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,9 @@
 <template>
-    <h1>Hello David!</h1>
+  <div v-masonry origin-left="false" transition-duration="1s" item-selector=".item">
+    <div v-masonry-tile class="item" v-for="(item, index) in blocks">
+      <p>{{item}}</p>
+    </div>
+  </div> 
 </template>
 
 <script>
@@ -7,6 +11,9 @@
       name: "book",
       data() {
         return {
+          blocks: [
+            1, 2, 3, 5, 6
+          ]
         };
       },
       methods: {

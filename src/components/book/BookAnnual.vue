@@ -20,9 +20,6 @@
                     <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'excerpt'">
                         <b v-if="cursor === (index + 1)">> </b>书摘 - 《{{item.subject.name}}》
                     </a>
-                    <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'the_fallen'">
-                        <b v-if="cursor === (index + 1)">> </b>2018逝者
-                    </a>
                 </div>
             </div>
         </header>
@@ -31,8 +28,7 @@
             class="annual-item" 
             :style="getAnnualStyle(item)" 
             v-for="(item, index) in body"
-            v-if="item.kind_str === 'top10' || item.kind_str === 'top5' 
-            || item.kind_str === 'excerpt' || item.kind_str === 'the_fallen'"
+            v-if="item.kind_str === 'top10' || item.kind_str === 'top5' || item.kind_str === 'excerpt'"
             :key="index + 1">
             <div :class="getAnnualBodyClass(item.kind_str)">
               <div class="annual-preview" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
@@ -158,15 +154,11 @@
             this.calcArrows();
           },
           gotoNext(index) {
-            if (index === this.body.length - 1) {
-              this.$message.error("没有更多内容了!");
-            } else {
-              let selector = '#anchor' + index;
-              let anchor = this.$el.querySelector(selector)
-              this.cursor = index;
-              this.offset_top = anchor.offsetTop;
-              document.documentElement.scrollTop = anchor.offsetTop;
-            }
+            let selector = '#anchor' + index;
+            let anchor = this.$el.querySelector(selector)
+            this.cursor = index;
+            this.offset_top = anchor.offsetTop;
+            document.documentElement.scrollTop = anchor.offsetTop;
             this.calcArrows();
           },
           gotoAnchor(index) {
@@ -182,7 +174,7 @@
               if (this.cursor === 1) {
                 this.show_previous = false;
                 this.show_next = true;
-              } else if (this.cursor > 1 && this.cursor < this.body.length - 1) {
+              } else if (this.cursor > 1 && this.cursor < this.body.length) {
                 this.show_next = true;
                 this.show_previous = true;
               } else {

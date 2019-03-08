@@ -10,8 +10,11 @@ import 'ant-design-vue/dist/antd.css'
 import {routes} from './router/index.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
- 
+import {VueMasonryPlugin} from 'vue-masonry'
+
 Vue.config.productionTip = false
+
+Vue.use(VueMasonryPlugin)
 
 Vue.use(Antd)
 Vue.use(VueRouter)

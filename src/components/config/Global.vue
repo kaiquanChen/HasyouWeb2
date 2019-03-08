@@ -8,7 +8,7 @@
   const TEST_URL = 'http://localhost:8028/'
   const FLY_URL = 'https://backend.hasyou.cn/'
 
-  const COMMON_URL = FLY_URL
+  const COMMON_URL = TEST_URL
 
   // short book
   const SHORT_BOOK_PREFIX = 'shortbook/'

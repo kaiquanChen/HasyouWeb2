@@ -10,6 +10,7 @@ import BookTop250 from '@/components/book/BookTop250'
 import BookTag from '@/components/book/BookTag'
 import BookList from '@/components/book/BookList'
 import BookAnnual from '@/components/book/BookAnnual'
+import Read from '@/components/book/Read'
 
 // movie
 import Movie from '@/components/movie/Movie'
@@ -82,7 +83,8 @@ export const routes = [
           {path: 'subject/:id', component: BookDetail},
           {path: 'top250', component: BookTop250},
           {path: 'tag', component: BookTag},
-          {path: 'tag/:tag_id', component: BookList}
+          {path: 'tag/:tag_id', component: BookList},
+          {path: 'read', component: Read}
         ]
       },
       // movie

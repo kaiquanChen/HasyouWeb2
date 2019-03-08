@@ -15,7 +15,7 @@
         </div>
         <div class="header-annual-menu" v-show="show_nav">
           <div :class="getMenuClass(index)" v-for="(item, index) in body" :key="item.id">
-            <a @click="gotoAnchor(index + 1)" v-if="item.kind_str === 'top10'">
+            <a @click="gotoAnchor(index + 1)" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
               <b v-if="cursor === (index + 1)">> </b>{{item.payload.title}}
             </a>
             <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'dialogue'">
@@ -31,7 +31,7 @@
           v-for="(item, index) in body"
           :key="index + 1">
           <div :class="getAnnualBodyClass(item.kind_str)">
-            <div class="annual-preview" v-if="item.kind_str === 'top10'">
+            <div class="annual-preview" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
               <div :style="getPreviewStyle(item)" class="annual-preview-body">
                 <div class="annual-name">
                   {{item.payload.title}}
@@ -69,7 +69,7 @@
                 </div>
               </div>
             </div>
-            <ul class="annual-item-list" v-if="item.kind_str === 'top10'">
+            <ul class="annual-item-list" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
               <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.subjects" v-if="index2 >= 1" :key="movie.id">
                 <div class="movie-item-image">
                   <img class="preview-image" :src="movie.image_url" :alt="movie.title">
@@ -196,7 +196,7 @@
           window.open(router.href, '_blank');
         },
         getAnnualBodyClass(kind_str) {
-          if (kind_str === "top10") {
+          if (kind_str === "top10" || kind_str === "top5") {
             return "annual-item-body";
           } else if(kind_str === "dialogue") {
             return "annual-item-dialogue";
@@ -210,7 +210,7 @@
             if (this.cursor === 1) {
               this.show_previous = false;
               this.show_next = true;
-            } else if (this.cursor > 1 && this.cursor < this.body.length - 1) {
+            } else if (this.cursor > 1 && this.cursor < this.body.length) {
               this.show_next = true;
               this.show_previous = true;
             } else {
@@ -237,15 +237,11 @@
           this.calcArrows();
         },
         gotoNext(index) {
-          if (index === this.body.length - 1) {
-            this.$message.error("没有更多内容了!");
-          } else {
-            let selector = '#anchor' + index;
-            let anchor = this.$el.querySelector(selector)
-            this.cursor = index;
-            this.offset_top = anchor.offsetTop;
-            document.documentElement.scrollTop = anchor.offsetTop;
-          }
+          let selector = '#anchor' + index;
+          let anchor = this.$el.querySelector(selector)
+          this.cursor = index;
+          this.offset_top = anchor.offsetTop;
+          document.documentElement.scrollTop = anchor.offsetTop;
           this.calcArrows();
         },
         getAnnualStyle(item) {
