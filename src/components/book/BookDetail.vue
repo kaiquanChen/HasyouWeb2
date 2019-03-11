@@ -101,7 +101,7 @@
               <div class="book-catalog">
                 <h3>目录  · · · · · ·</h3>
                 <span v-for="(catalog, index) in data.category"
-                  v-show="!catalog_show" v-if="index && index < 4">{{catalog}}</span>
+                  v-show="!catalog_show" v-if="index < 4">{{catalog}}</span>
                 <span v-for="(catalog, index) in data.category"
                   v-show="catalog_show">{{catalog}}</span>
                 <span class="catalog-show" 
@@ -118,11 +118,11 @@
                 <h3>{{data.name}}的短评  · · · · · ·</h3>
                 <span id="comment-nav-root">
                   <span @click="toggleCommentNav('hot')"
-                        v-bind:style="comment_selected ? 'color:black' : 'color:#3377aa'"
+                        v-bind:style="comment_selected ? 'color:#3377aa' : 'color:black'"
                         class="comment-nav">最热&nbsp;</span>
                   <span class="comment-nav">\</span>
                   <span @click="toggleCommentNav('latest')"
-                        v-bind:style="!comment_selected ? 'color:black' : 'color:#3377aa'"
+                        v-bind:style="!comment_selected ? 'color:#3377aa' : 'color:black'"
                         class="comment-nav">&nbsp;最新
                   </span>
                 </span>
@@ -159,11 +159,11 @@
                 <h3>{{data.name}}的书评  · · · · · ·</h3>
                 <span id="review-nav-root">
                 <span @click="toggleReviewNav('hot')"
-                      v-bind:style="review_selected ? 'color:black' : 'color:#3377aa'"
+                      v-bind:style="review_selected ? 'color:#3377aa' : 'color:black'"
                       class="review-nav">最热&nbsp;</span>
                 <span class="review-nav">\</span>
                 <span @click="toggleReviewNav('latest')"
-                      v-bind:style="!review_selected ? 'color:black' : 'color:#3377aa'"
+                      v-bind:style="!review_selected ? 'color:#3377aa' : 'color:black'"
                       class="review-nav">&nbsp;最新
                 </span>
                 <div class="book-review-body">

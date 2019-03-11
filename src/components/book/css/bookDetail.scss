@@ -28,12 +28,12 @@
         .book-title {
             word-wrap: break-word;
             display: block;
-            font-size: 25px;
-            font-weight: bold;
-            color: #3377aa;
             margin: 0;
             padding: 0 0 15px 0;
-            line-height: 1.1;
+            line-height: 1.1;    
+            margin-top: 0;
+            color: rgba(0, 0, 0, 0.85);
+            font-weight: 500;
         }
 
         .content {
@@ -134,8 +134,15 @@
             }
 
             .summary-show {
-                color: #3377aa;
-                cursor: pointer;
+
+                a {
+                    color: #3377aa;
+                }
+
+                a:hover {
+                    color: #ffffff;
+                    background-color: #3377aa;
+                }
             }
         }
 
@@ -153,8 +160,15 @@
 
             .catalog-show {
                 margin-top: 12px;
-                color: #3377aa;
-                cursor: pointer;
+
+                a {
+                    color: #3377aa;
+                }
+
+                a:hover {
+                    background-color: #3377aa;
+                    color: #ffffff;
+                }
             }
         }
 
