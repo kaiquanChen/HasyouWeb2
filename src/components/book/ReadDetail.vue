@@ -3,8 +3,7 @@
         <div class="left"></div>
         <div class="center">
             <h2 class="title">{{short_book.name}}</h2>
-            <div class="content" v-html="short_book.summary">
-            </div>
+            <div class="content" v-html="short_book.summary"></div>
         </div>
         <div class="right"></div>
     </div>

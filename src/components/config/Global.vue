@@ -22,6 +22,7 @@
   const BOOK_REVIEW_URL = COMMON_URL + DOUBAN_BOOK + "reviews/"
   const BOOK_ANNUAL_URL = COMMON_URL + 'book/annual/'
   const BOOK_READ_URL = BOOK_URL + "read";
+  const BOOK_RECORD_URL = BOOK_URL + "record";
   const BOOK_WANT_URL = BOOK_URL + "want";
 
   // douban annotation
@@ -40,6 +41,7 @@
   const MOVIE_GENRE_URL = DOUBAN_MOVIE + "tag/genres"
   const MOVIE_ANNUAL_URL = COMMON_URL + 'movie/annual/'
   const MOVIE_WATCH_URL = DOUBAN_MOVIE + "watched";
+  const MOVIE_RECORD_URL = DOUBAN_MOVIE + "record";
   const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
 
   // v2 post
@@ -206,9 +208,11 @@
     MOMENT_SUBJECTS_URL,
     MOVIE_GENRE_URL,
     MOVIE_WATCH_URL,
+    MOVIE_RECORD_URL,
     MOVIE_WANT_URL,
     BOOK_READ_URL,
     BOOK_WANT_URL,
+    BOOK_RECORD_URL,
     BOOK_ANNOTATION_URL,
 
 

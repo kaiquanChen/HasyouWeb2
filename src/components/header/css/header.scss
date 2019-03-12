@@ -6,14 +6,6 @@
   border-color: #e7e7e7;
   height: 59px;
 
-  .avatar {
-    position: absolute;
-    right: 10%;
-    top: -4px;
-    width: 30px;
-    border-radius: 50%;
-  }
-
   .left, .content {
     position: relative;
     display: inline-block;
@@ -88,13 +80,16 @@
   }
 
   .right {
+
     #phone-show {
       display: none;
     }
 
     .menu {
+      position: relative;
+      
       li {
-        display: inline;
+        display: inline-block;
         list-style-type: none;
         margin-left: 20px;
 
@@ -104,8 +99,70 @@
         }
       }
 
-      .menu-right {
-        float: right;
+      .login {
+        position: absolute;
+        right: 50px;
+      }
+
+      .register {
+        position: absolute;
+        right: 0;
+      }
+
+      .user-info {
+        position: absolute;
+        right: 15px;
+        display: inline-block;
+
+        .avatar {
+          margin-right: 15px;
+          width: 30px;
+          border-radius: 50%;
+        }
+
+        .arrow {
+          border-color: #fff transparent transparent transparent;
+          position: absolute;
+          right: 0;
+          top: 15px;
+          border-width: 3px 3px 0;
+          border-color: #777777 transparent transparent transparent;
+          border-style: solid dashed dashed dashed;
+          width: 0;
+          height: 0;
+          font-size: 0;
+          line-height: 0;
+        }
+
+        .user-menu {
+          position: absolute;
+          border: 1px solid #e6e6e6;
+          background: #fff;
+          white-space: nowrap;
+          right: 0;
+          top: 38px;
+          
+          .user-menu-items {
+            padding: 10px 0;
+
+            .user-menu-item {
+              display: block;
+              padding: 0 20px;
+              margin-left: 0;
+
+              a {
+                color: #3d3d3d;
+                line-height: 28px;
+                font-size: 12px;
+              }
+            }
+
+            .user-menu-item:hover {
+              color: #3d3d3d;
+              background-color: #f6f6f6;
+            }
+          }
+        }
       }
     }
   }
@@ -242,7 +299,7 @@
 
     .phone-nav {
 
-      ul {
+      .menu {
         
         li {
           height: 32px;

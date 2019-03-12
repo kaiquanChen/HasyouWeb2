@@ -29,6 +29,9 @@ import GoNode from '@/components/forum/GoNode'
 // search
 import SearchResult from '@/components/search/SearchResult'
 
+// user
+import User from '@/components/user/User'
+
 // test
 import Test from '@/components/Test'
 
@@ -51,7 +54,6 @@ import SearchResult from '@/components/SearchResult'
 // user
 import Register from '@/components/user/Register'
 import Album from '@/components/user/Album'
-import User from '@/components/user/User'
 import UserNote from '@/components/user/Note'
 import UserInfo from '@/components/user/UserInfo'
 import UserPassword from '@/components/user/UserPassword'
@@ -108,6 +110,12 @@ export const routes = [
           {path: 'subject/:id', component: PostDetail},
           {path: 'node/:id', component: GoNode},
         ]
+      },
+      // user
+      {
+        path: '/user/:id', 
+        component: User,
+        children: []
       },
       // search
       {

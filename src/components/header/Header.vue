@@ -11,18 +11,12 @@
         <input class="web-search" v-model="keywords" @keyup.enter="search()" placeholder="图书、电影、音乐、博客" />
         <select class="search-tag" v-model="type" v-show="!checkMedia()">
           <option value="全部">全部</option>
-          <option value="读书">读书</option>
-          <option value="电影">电影</option>
-          <option value="音乐">音乐</option>
-          <option value="博客">博客</option>
+          <option value="book">读书</option>
+          <option value="movie">电影</option>
+          <option value="music">音乐</option>
+          <option value="blog">博客</option>
         </select>
         <img class="search-img" @click="search()" src="../../assets/header/icon/search.png">
-        <div class="content-user-info" v-if="user">
-          <a :href="user.avatar">
-              <img class="avatar" :src="user.avatar">
-          </a>
-          <!-- <a class="nickname-a" href="/login">{{user.nickname}}</a> -->
-        </div>
       </div>
       <div class="right">
         <nav id="web-show">
@@ -45,19 +39,31 @@
             <li class="menu-item">
               <a href="/blog">博客</a>
             </li>
-            `<li class="menu-item menu-right" v-if="!user"><a href="/register">注册</a></li>
-            <li class="menu-item menu-right" v-if="!user"><a href="/login">登录</a></li>
-            <li class="menu-item menu-right" v-if="user"><a @click="logout()">退出</a></li>
-            <li class="menu-item menu-right" v-if="user">
-              <a :href="user.avatar">
+            <li class="menu-item menu-right register" v-if="!user"><a href="/register">注册</a></li>
+            <li class="menu-item menu-right login" v-if="!user"><a href="/login">登录</a></li>
+            <li class="menu-item menu-right user-info" v-if="user">
+              <a @click="showUserMenu()">
                   <img class="avatar" :src="user.avatar">
               </a>
+              <span @click="showUserMenu()" class="arrow"></span>
+              <div class="user-menu" v-if="user_menu_show">
+                <ul class="user-menu-items">
+                  <li class="user-menu-item">
+                    <a :href="gotoUserCenter(user.id)">个人主页</a>
+                  </li>
+                  <li class="user-menu-item">
+                    <a href="">账号管理</a>
+                  </li>
+                  <li class="user-menu-item">
+                    <a @click="logout()">退出</a>
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </nav>
         <nav id="phone-show">
-          <button type="button"
-                      @click="showNav()" class="menu-btn">
+          <button type="button" @click="showNav()" class="menu-btn">
                 <img class="btn-img" src="../../assets/header/icon/header-menu-phone.png">
             </button>
         </nav>
@@ -67,10 +73,10 @@
         <img class="search-img" @click="search()" src="../../assets/header/icon/search.png">
         <select class="search-tag" v-model="type" v-show="checkMedia()">
           <option value="全部">全部</option>
-          <option value="读书">读书</option>
-          <option value="电影">电影</option>
-          <option value="音乐">音乐</option>
-          <option value="博客">博客</option>
+          <option value="book">读书</option>
+          <option value="movie">电影</option>
+          <option value="music">音乐</option>
+          <option value="blog">博客</option>
         </select>
       </div>
       <div class="phone-nav phone-nav-item" v-show="collapse_show">
@@ -127,6 +133,7 @@
             collapse_show: false,
             keywords: "",
             user: null,
+            user_menu_show: false,
             page: {
               total: 0,
               p: 1,
@@ -135,6 +142,12 @@
           }
         },
         methods: {
+          gotoUserCenter(id) {
+            return "/user/" + id;
+          },
+          showUserMenu() {
+            this.user_menu_show = !this.user_menu_show;
+          },
           showNav() {
             this.collapse_show = !this.collapse_show;
           },
