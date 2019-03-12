@@ -80,7 +80,7 @@
         </select>
       </div>
       <div class="phone-nav phone-nav-item" v-show="collapse_show">
-        <ul>
+        <ul class="menu">
           <li>
             <a href="/book/books" class="home">
               <img class="icon-header-phone" src="../../assets/header/icon/header-book-icon.png">&emsp;读书
