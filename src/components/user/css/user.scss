@@ -118,7 +118,7 @@
                     color: #acacac;
                 }
 
-                .want-read-item, .read-item {
+                .want-read-item, .read-item, .watched-item, .want-movie-item {
                     list-style: none;
                     display: inline-block;
 
@@ -128,6 +128,27 @@
                         margin-left: 15px;
                         margin-bottom: 15px;
                     }
+                }
+            }
+
+            .note-item {
+                position: relative;
+                list-style: none;
+                margin: 5px 0;
+
+                a {
+                    color: #37a;
+                }
+
+                a:hover {
+                    color: #ffffff;
+                    background-color: #37a;
+                }
+
+                .note-create-time {
+                    position: absolute;
+                    right: 0;
+                    color: #acacac;
                 }
             }
         }
