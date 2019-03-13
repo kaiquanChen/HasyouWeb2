@@ -31,9 +31,12 @@ import SearchResult from '@/components/search/SearchResult'
 
 // user
 import User from '@/components/user/User'
+import AlbumUpload from '@/components/user/AlbumUpload'
+import UserHome from '@/components/user/UserHome'
 
 // test
 import Test from '@/components/Test'
+import FileUpload from '@/components/common/FileUpload'
 
 
 
@@ -81,8 +84,7 @@ export const routes = [
         path: 'book', 
         component: Book,
         children: [
-          {path: 'books', component: Books},
-          // {path: 'annual/:year', component: BookAnnual},
+          {path: '', component: Books},
           {path: 'subject/:id', component: BookDetail},
           {path: 'top250', component: BookTop250},
           {path: 'tag', component: BookTag},
@@ -96,8 +98,8 @@ export const routes = [
         path: 'movie', 
         component: Movie,
         children: [
+          {path: '', component: Movies},
           {path: 'subject/:id', component: MovieDetail},
-          {path: 'movies', component: Movies},
           {path: 'top250', component: MovieTop250}
         ]
       },
@@ -106,7 +108,7 @@ export const routes = [
         path: 'forum', 
         component: Forum,
         children: [
-          {path: 'Forums', component: Forums},
+          {path: '', component: Forums},
           {path: 'subject/:id', component: PostDetail},
           {path: 'node/:id', component: GoNode},
         ]
@@ -115,7 +117,10 @@ export const routes = [
       {
         path: '/user/:id', 
         component: User,
-        children: []
+        children: [
+          {path: '', component: UserHome, children: []},
+          {path: 'album/upload', component: AlbumUpload,children: []},
+        ]
       },
       // search
       {
@@ -127,5 +132,5 @@ export const routes = [
   },
   {path: '/movie/annual/:year', component: MovieAnnual},
   {path: '/book/annual/:year', component: BookAnnual},
-  {path: '/test', component: Test}
+  {path: '/test', component: FileUpload},
 ]

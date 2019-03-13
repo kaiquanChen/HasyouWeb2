@@ -38,7 +38,6 @@
         }
       },
       created() {
-        // this.$router.push({path: "/book/books"});
       }
     }
 </script>

@@ -29,82 +29,7 @@
                   <a href="">博客</a>
               </li>
           </ul>
-          <div class="record-items">
-                <h2 class="record album-record">我的相册 · · · · · ·
-                    <span>(<a class="record-count">全部{{getRecordCount(albums)}}</a>)</span>
-                </h2>
-                <div class="photos-btn">
-                    <span class="photos-btn-pic">
-                        <a target="_blank" class="lnk-create" href="#"><i>+</i>发照片</a>
-                    </span>
-                    <span class="photos-btn-pic">
-                        <a target="_blank" class="lnk-create-album" href="#"><i>+</i>新建相册</a>
-                    </span>
-                </div>
-                <ul class="record-items" v-if="albums && albums.length > 0">
-                    <li class="record-item" v-for="album in albums.body" :key="album.id">
-                        <a href="">{{album.name}}</a>
-                    </li>
-                </ul>
-                <ul class="record-item" v-else>去创建自己的第一个相册吧!</ul>
-          </div>
-          <div class="record-items">
-              <h2 class="record book-record">我读 · · · · · ·
-                  <span>(<a href="#" class="record-count">{{getRecordCount(read_books)}}本已读</a>)</span>
-                </h2>
-              <div class="book-want-read item">
-                  <div class="item-left book-want-read-left">想读</div>
-                  <ul class="book-want-read-right record-items" v-if="want_books && want_books.body.length > 0">
-                      <li class="want-read-item" v-for="want_book in want_books.body" :key="want_book.id">
-                          <a target="_blank" :href="gotoBookDetail(want_book.id)"><img :src="want_book.image_url" :alt="want_book.name"></a>
-                      </li>
-                  </ul>
-              </div>
-              <div class="book-read item">
-                  <div class="item-left book-read-left">读过</div>
-                  <ul class="book-read-right record-items" v-if="read_books && read_books.body.length > 0">
-                      <li class="read-item" v-for="read_book in read_books.body" :key="read_book.id">
-                          <a target="_blank" :href="gotoBookDetail(read_book.id)"><img :src="read_book.image_url" :alt="read_book.name"></a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-          <div class="record-items">
-              <h2 class="record movie-record">我看 · · · · · ·
-                <span>(<a href="#" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
-              </h2>
-            <div class="movie-want-read item">
-                <div class="item-left movie-want-watch-left">想看</div>
-                <ul class="movie-want-read-right record-items" v-if="want_movies && want_movies.body.length > 0">
-                    <li class="want-movie-item" v-for="want_movie in want_movies.body" :key="want_movie.id">
-                        <a target="_blank" :href="gotoMovieDetail(want_movie.id)"><img :src="want_movie.image_url" :alt="want_movie.name"></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="movie-watched item">
-                <div class="item-left movie-watched-left">看过</div>
-                <ul class="movie-watched-right record-items" v-if="watched_movies && watched_movies.body.length > 0">
-                    <li class="watched-item" v-for="watched_movie in watched_movies.body" :key="watched_movie.id">
-                        <a target="_blank" :href="gotoMovieDetail(watched_movie.id)"><img :src="watched_movie.image_url" :alt="watched_movie.title"></a>
-                    </li>
-                </ul>
-            </div>
-          </div>
-          <div class="record-items">
-              <h2 class="record note-record">我的笔记 · · · · · ·
-                <span>(<a href="#" class="record-count">共{{getRecordCount(notes)}}条</a>)</span>
-              </h2>
-              <ul class="record-items" v-if="notes && notes.body.length > 0">
-                  <li class="note-item" v-for="(note, index) in notes.body">
-                    {{index + 1}} . <a class="note-title" href="">{{note.title}}</a>
-                    <span class="note-create-time">{{note.create_time}}</span>
-                  </li>
-              </ul>
-              <ul class="records-items" v-else>写下笔记，记录的学习，生活，工作的脚步!</ul>
-          </div>
-          <div class="record-items">
-              <h2 class="record blog-record">我的博客 · · · · · ·</h2>
-          </div>
+          <router-view></router-view>
       </div>
       <div class="user-center-right"></div>
   </div> 
@@ -132,6 +57,9 @@
         };
       },
       methods: {
+          gotoAlbumUpload() {
+              return "/user/" + this.user.id + "/album/upload";
+          },
             gotoBookDetail(id) {
                 return "/book/subject/" + id;
             },

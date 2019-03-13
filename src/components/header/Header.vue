@@ -25,16 +25,16 @@
               <a href="/">首页</a>
             </li>
             <li class="menu-item">
-              <a href="/book/books">读书</a>
+              <a href="/book">读书</a>
             </li>
             <li class="menu-item">
-              <a href="/movie/movies">影视</a>
+              <a href="/movie">影视</a>
             </li>
             <li class="menu-item">
               <a href="/music">音乐</a>
             </li>
             <li class="menu-item">
-              <a href="/forum/forums">论坛</a>
+              <a href="/forum">论坛</a>
             </li>
             <li class="menu-item">
               <a href="/blog">博客</a>
@@ -82,12 +82,12 @@
       <div class="phone-nav phone-nav-item" v-show="collapse_show">
         <ul class="menu">
           <li>
-            <a href="/book/books" class="home">
+            <a href="/book" class="home">
               <img class="icon-header-phone" src="../../assets/header/icon/header-book-icon.png">&emsp;读书
             </a>
           </li>
           <li>
-            <a href="/movie/movies" class="home">
+            <a href="/movie" class="home">
               <img class="icon-header-phone" src="../../assets/header/icon/header-movie-icon.png">&emsp;影视
             </a>
           </li>
@@ -97,7 +97,7 @@
             </a>
           </li>
           <li>
-            <a href="/forum/forums" class="home">
+            <a href="/forum" class="home">
             <img class="icon-header-phone" src="../../assets/header/icon/header-forum-icon.png">&emsp;论坛
             </a>
           </li>

@@ -84,6 +84,9 @@
   const LOGOUT_URL = COMMON_URL + "user/logout";
   const REGISTER_URL = COMMON_URL + "user/register";
   const USER_INFO_URL = COMMON_URL + "user/info";
+  const USER_ALBUM_URL = COMMON_URL + "user/albums";
+  const SAVE_ALBUM_URL = COMMON_URL + "user/album/save";
+  const SAVE_PHOTO_URL = COMMON_URL + "user/photo/save";
 
   // blog
   const BLOG_URL = COMMON_URL + "blog";
@@ -242,6 +245,9 @@
     REGISTER_URL,
     USER_INFO_URL,
     LOGOUT_URL,
+    USER_ALBUM_URL,
+    SAVE_ALBUM_URL,
+    SAVE_PHOTO_URL,
 
     /* blog */
     SAVE_BLOG_URL,

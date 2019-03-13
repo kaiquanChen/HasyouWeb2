@@ -124,12 +124,8 @@
             this.book_top250 = data.body.data.body;
           });
         },
-        gotoBooks() {
-          this.$router.push({path: "/book/books"});
-        },
       },
       created() {
-        // this.$router.push({path: "/book/books"});
       }
     }
 </script>
