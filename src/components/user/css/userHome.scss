@@ -1,9 +1,44 @@
 #user-items {
 
+    .record {
+        font: 15px Arial, Helvetica, sans-serif;
+        color: #072;
+        margin: 0 0 12px 0;
+        line-height: 150%;
+    }
+
     .record-items {
         position: relative;
         margin-top: 20px;
 
+        .album {
+            list-style: none;
+            display: inline-block;
+            margin-right: 20px;
+
+            .album-card {
+                background: url('/static/icon/albumback_s.gif') 1px 1px no-repeat;
+                padding: 5px 8px 18px 5px;
+                cursor: pointer;
+
+                img {
+                    border-width: 0;
+                    vertical-align: middle;
+                    max-width: 100px;
+                    max-height: 100px;
+                }
+            }
+
+            a {
+                color: #37a;
+            }
+
+            a:hover {
+                color: #ffffff;
+                background-color: #37a;
+            }
+        }
+        
         .photos-btn {
             position: absolute;
             right: 0;

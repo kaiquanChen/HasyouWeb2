@@ -9,12 +9,17 @@
                     <a target="_blank" class="lnk-create" :href="gotoAlbumUpload()"><i>+</i>发照片</a>
                 </span>
                 <span class="photos-btn-pic">
-                    <a target="_blank" class="lnk-create-album" href="#"><i>+</i>新建相册</a>
+                    <a target="_blank" class="lnk-create-album" :href="gotoAlbumUpload()"><i>+</i>新建相册</a>
                 </span>
             </div>
             <ul class="record-items" v-if="albums && albums.length > 0">
-                <li class="record-item" v-for="album in albums.body" :key="album.id">
-                    <a href="">{{album.name}}</a>
+                <li class="record-item album" v-for="album in albums" :key="album.id">
+                    <div class="album-card" @click="gotoAlbumDetail(album.id)">
+                        <img :src="album.image_url" alt="card" v-if="album.image_url">
+                        <img src="/static/icon/photo_album_thumb.png" alt="" v-else>
+                    </div>
+                    <a class="album-name" target="_blank" :href="gotoAlbumDetail(album.id)">{{album.name}}</a><br>
+                    <span class="create-time">{{getDate(album.create_time)}}更新</span>
                 </li>
             </ul>
             <ul class="record-items" v-else>你还没有相册，去创建自己的第一个相册吧!</ul>
@@ -69,9 +74,6 @@
                 <span class="photos-btn-pic">
                     <a target="_blank" class="lnk-create" href="#"><i>+</i>写笔记</a>
                 </span>
-                <!-- <span class="photos-btn-pic">
-                    <a target="_blank" class="lnk-create-album" href="#"><i>+</i>新建相册</a>
-                </span> -->
             </div>
             <ul class="record-items" v-if="notes && notes.body.length > 0">
                 <li class="note-item" v-for="(note, index) in notes.body">
@@ -93,6 +95,7 @@
     const book_record_url = global_.URLS.BOOK_RECORD_URL;
     const movie_record_url = global_.URLS.MOVIE_RECORD_URL;
     const note_url = global_.URLS.NOTE_URL;
+    const user_album_url = global_.URLS.USER_ALBUM_URL;
     const token = sessionStorage.getItem("access_token");
     export default {
       name: "book",
@@ -109,6 +112,12 @@
         };
       },
       methods: {
+        gotoAlbumDetail(id) {
+            this.$router.push({path: "/user/" + this.user.id + "/album/" + id});
+        },
+          getDate(time) {
+              return time.split(" ")[0];
+          },
           gotoAlbumUpload() {
               return "/user/" + this.user.id + "/album/upload";
           },
@@ -157,41 +166,52 @@
                 });
           },
           getMovieRecords(type) {
-              this.$http.get(movie_record_url, {
-                    params: {
-                        type: type,
-                        count: 5
-                    },
-                    headers:{
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                    }
-                }).then((data) => {
-                    if (type === "WATCHED_MOVIE") {
-                        this.watched_movies = data.body.data;
-                    } else if (type === "WANT_WATCH") {
-                        this.want_movies = data.body.data;
-                    }
-                });
+            this.$http.get(movie_record_url, {
+                params: {
+                    type: type,
+                    count: 5
+                },
+                headers:{
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                }
+            }).then((data) => {
+                if (type === "WATCHED_MOVIE") {
+                    this.watched_movies = data.body.data;
+                } else if (type === "WANT_WATCH") {
+                    this.want_movies = data.body.data;
+                }
+            });
           },
           getNotes() {
-              this.$http.get(note_url + "subjects", {
-                    params: {
-                        type: "NOTE",
-                        count: 5
-                    },
-                    headers:{
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                    }
-                }).then((data) => {
-                    this.notes = data.body.data;
-                });
-          }
+            this.$http.get(note_url + "subjects", {
+                params: {
+                    type: "NOTE",
+                    count: 5
+                },
+                headers:{
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                }
+            }).then((data) => {
+                this.notes = data.body.data;
+            });
+          },
+          getAlbums() {
+            this.$http.get(user_album_url, {
+                headers: {
+                    "bid":global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then(data => {
+                this.albums = data.body.data;
+            });
+        }
       },
       created() {
           this.checkUserStatus();
           this.getUserInfo();
+          this.getAlbums();
           this.getBookRecords("READ_BOOK");
           this.getBookRecords("WANT_READ");
           this.getMovieRecords("WATCHED_MOVIE");

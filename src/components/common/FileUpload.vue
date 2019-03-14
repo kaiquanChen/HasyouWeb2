@@ -7,7 +7,7 @@
       :multiple="getMultiple()"
       :remove="removeFile()"
       @change="handleChange">
-      <div v-if="fileList.length < 30">
+      <div v-if="fileList.length < 500">
         <a-icon type="plus" />
         <div class="ant-upload-text">上传</div>
       </div>
@@ -30,7 +30,7 @@ export default {
       return true;
     },
     getUploadUrl() {
-      return "http://localhost:8028/file/upload?bid=" + global_.FUNC.getBid();
+      return "https://backend.hasyou.cn/file/upload?bid=" + global_.FUNC.getBid();
     },
     removeFile(f) {
     },

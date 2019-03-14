@@ -20,9 +20,6 @@
                   <a href="">相册</a>
               </li>
               <li class="user-menu-item">
-                  <a href="">相册</a>
-              </li>
-              <li class="user-menu-item">
                   <a href="">笔记</a>
               </li>
               <li class="user-menu-item">
@@ -60,12 +57,6 @@
           gotoAlbumUpload() {
               return "/user/" + this.user.id + "/album/upload";
           },
-            gotoBookDetail(id) {
-                return "/book/subject/" + id;
-            },
-            gotoMovieDetail(id) {
-                return "/movie/subject/" + id;
-            },
           getRecordCount(list) {
               if (list) {
                   return list.total;
@@ -86,65 +77,10 @@
                   this.$router.push({path: "/login"});
               }
           },
-          getBookRecords(type) {
-              this.$http.get(book_record_url, {
-                    params: {
-                        type: type,
-                        count: 5
-                    },
-                    headers:{
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                    }
-                }).then((data) => {
-                    if (type === "READ_BOOK") {
-                        this.read_books = data.body.data;
-                    } else if (type === "WANT_READ") {
-                        this.want_books = data.body.data;
-                    }
-                });
-          },
-          getMovieRecords(type) {
-              this.$http.get(movie_record_url, {
-                    params: {
-                        type: type,
-                        count: 5
-                    },
-                    headers:{
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                    }
-                }).then((data) => {
-                    if (type === "WATCHED_MOVIE") {
-                        this.watched_movies = data.body.data;
-                    } else if (type === "WANT_WATCH") {
-                        this.want_movies = data.body.data;
-                    }
-                });
-          },
-          getNotes() {
-              this.$http.get(note_url + "subjects", {
-                    params: {
-                        type: "NOTE",
-                        count: 5
-                    },
-                    headers:{
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                    }
-                }).then((data) => {
-                    this.notes = data.body.data;
-                });
-          }
       },
       created() {
           this.checkUserStatus();
           this.getUserInfo();
-          this.getBookRecords("READ_BOOK");
-          this.getBookRecords("WANT_READ");
-          this.getMovieRecords("WATCHED_MOVIE");
-          this.getMovieRecords("WANT_WATCH");
-          this.getNotes();
       }
     }
 </script>
