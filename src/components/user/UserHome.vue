@@ -2,7 +2,7 @@
   <div id="user-items">
         <div class="record-items">
             <h2 class="record album-record">我的相册 · · · · · ·
-                <span>(<a class="record-count">全部{{getRecordCount(albums)}}</a>)</span>
+                <span>(<a class="record-count">全部{{albums.length}}</a>)</span>
             </h2>
             <div class="photos-btn">
                 <span class="photos-btn-pic">
@@ -15,8 +15,9 @@
             <ul class="record-items" v-if="albums && albums.length > 0">
                 <li class="record-item album" v-for="album in albums" :key="album.id">
                     <div class="album-card" @click="gotoAlbumDetail(album.id)">
-                        <img :src="album.image_url" alt="card" v-if="album.image_url">
+                        <img :src="album.first_image_url" alt="card" v-if="album.first_image_url">
                         <img src="/static/icon/photo_album_thumb.png" alt="" v-else>
+                        <!-- <img src="/static/icon/photo_album_thumb.png" alt=""> -->
                     </div>
                     <a class="album-name" target="_blank" :href="gotoAlbumDetail(album.id)">{{album.name}}</a><br>
                     <span class="create-time">{{getDate(album.create_time)}}更新</span>
@@ -113,7 +114,7 @@
       },
       methods: {
         gotoAlbumDetail(id) {
-            this.$router.push({path: "/user/" + this.user.id + "/album/" + id});
+            return "/user/" + this.user.id + "/album/" + id;
         },
           getDate(time) {
               return time.split(" ")[0];

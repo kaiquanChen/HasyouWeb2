@@ -33,6 +33,7 @@ import SearchResult from '@/components/search/SearchResult'
 import User from '@/components/user/User'
 import AlbumUpload from '@/components/user/AlbumUpload'
 import UserHome from '@/components/user/UserHome'
+import Photo from '@/components/user/Photo'
 
 // test
 import Test from '@/components/Test'
@@ -118,8 +119,9 @@ export const routes = [
         path: '/user/:id', 
         component: User,
         children: [
-          {path: '', component: UserHome, children: []},
-          {path: 'album/upload', component: AlbumUpload,children: []},
+          {path: '', component: UserHome},
+          {path: 'album/upload', component: AlbumUpload},
+          {path: 'album/:album_id', component: Photo},
         ]
       },
       // search

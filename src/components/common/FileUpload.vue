@@ -38,8 +38,8 @@ export default {
       this.previewVisible = false
     },
     handlePreview (file) {
-      this.previewImage = file.url || file.thumbUrl
-      this.previewVisible = true
+      this.previewImage = file.url || file.thumbUrl;
+      this.previewVisible = true;
     },
     handleChange ({ file, fileList, event}) {
       if (file.status === "done") {

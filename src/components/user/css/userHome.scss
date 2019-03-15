@@ -17,11 +17,19 @@
             margin-right: 20px;
 
             .album-card {
+                position: relative;
                 background: url('/static/icon/albumback_s.gif') 1px 1px no-repeat;
-                padding: 5px 8px 18px 5px;
+                padding: 5px 8px 8px 5px;
                 cursor: pointer;
+                margin-bottom: 15px;
+                width: 113px;
+                height: 113px;
 
                 img {
+                    position: absolute;
+                    margin: auto auto;
+                    left: 0;
+                    right: 0;
                     border-width: 0;
                     vertical-align: middle;
                     max-width: 100px;

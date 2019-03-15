@@ -87,6 +87,7 @@
   const USER_ALBUM_URL = COMMON_URL + "user/albums";
   const SAVE_ALBUM_URL = COMMON_URL + "user/album/save";
   const SAVE_PHOTO_URL = COMMON_URL + "user/photo/save";
+  const USER_PHOTO_URL = COMMON_URL + "user/album/";
 
   // blog
   const BLOG_URL = COMMON_URL + "blog";
@@ -149,7 +150,7 @@
   let isReachBottom = function() {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 获取滚动条的高度
     const winHeight = document.documentElement.clientHeight || document.body.clientHeight; // 一屏的高度
-    const scrollHeight = getScrollHeight() // 获取文档总高度
+    const scrollHeight = getScrollHeight(); // 获取文档总高度
     let result = scrollTop >= parseInt(scrollHeight) - winHeight;
     return result;
   }
@@ -248,6 +249,7 @@
     USER_ALBUM_URL,
     SAVE_ALBUM_URL,
     SAVE_PHOTO_URL,
+    USER_PHOTO_URL,
 
     /* blog */
     SAVE_BLOG_URL,

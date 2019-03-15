@@ -1,0 +1,29 @@
+#album-photo {
+
+  .moment-item {
+    margin: 10px;
+    cursor: pointer;
+
+    .image-item {
+      max-width: 200px;
+      max-height: 200px;
+    }
+
+    .desc {
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #album-photo {
+
+    .moment-item {
+
+      .image-item {
+        max-width: 120px;
+        max-height: 200px;
+      }
+    }
+  }
+}
