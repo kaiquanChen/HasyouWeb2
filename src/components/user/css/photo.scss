@@ -18,8 +18,11 @@
 
 @media screen and (max-width: 600px) {
   #album-photo {
+    width: 100%;
 
     .moment-item {
+      margin-right: 10px;
+      margin-left: 3px;
 
       .image-item {
         width: 120px;
