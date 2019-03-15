@@ -68,7 +68,7 @@
         </div>
         <div class="record-items">
             <h2 class="record note-record">我的笔记 · · · · · ·
-            <span>(<a href="#" class="record-count">共{{getRecordCount(notes)}}条</a>)</span>
+            <span>(<a :href="gotoUserNotes()" class="record-count">共{{getRecordCount(notes)}}条</a>)</span>
             </h2>
             <div class="photos-btn">
                 <span class="photos-btn-pic">
@@ -114,6 +114,9 @@
         };
       },
       methods: {
+        gotoUserNotes() {
+            return "/user/" + this.user.id + "/notes";
+        },
         gotoItemList(type) {
             return "/user/" + this.user.id + "/subjects/" + type;
         },

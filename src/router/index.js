@@ -35,6 +35,7 @@ import AlbumUpload from '@/components/user/AlbumUpload'
 import UserHome from '@/components/user/UserHome'
 import Photo from '@/components/user/Photo'
 import UserAlbums from '@/components/user/UserAlbums'
+import UserNotes from '@/components/user/UserNotes'
 
 // common
 import ItemList from '@/components/common/user/ItemList'
@@ -128,6 +129,7 @@ export const routes = [
           {path: 'album/upload', component: AlbumUpload},
           {path: 'albums', component: UserAlbums},
           {path: 'album/:album_id', component: Photo},
+          {path: 'notes', component: UserNotes},
         ]
       },
       // search

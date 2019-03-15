@@ -159,5 +159,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/albumUpload'
+    @import './css/userNotes'
 </style>

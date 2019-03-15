@@ -20,7 +20,7 @@
                   <a :href="gotoUserAlbums()">相册</a>
               </li>
               <li class="user-menu-item">
-                  <a href="">笔记</a>
+                  <a :href="gotoUserNotes()">笔记</a>
               </li>
               <li class="user-menu-item">
                   <a href="">博客</a>
@@ -54,6 +54,9 @@
         };
       },
       methods: {
+          gotoUserNotes() {
+              return "/user/" + this.user.id + "/notes";
+          },
           gotoUserHome() {
               return "/user/" + this.user.id;
           },
@@ -62,9 +65,9 @@
           },
           gotoUserRecord(type) {
               if (type === "READ_BOOK") {
-                  return "/user/" + this.user.id + "/book/" + type;
+                  return "/user/" + this.user.id + "/subjects/" + type;
               } else if (type === "WATCHED_MOVIE") {
-                  return "/user/" + this.user.id + "/movie/" + type;
+                  return "/user/" + this.user.id + "/subjects/" + type;
               }
           },
           gotoAlbumUpload() {

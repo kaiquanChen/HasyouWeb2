@@ -56,8 +56,7 @@
           this.$http.get(photo_url + album_id, {
               params: {
                   p: this.page.page,
-                  count: this.page.count,
-                  total: this.page.total
+                  count: this.page.count
               },
               headers:{
                   "bid": global_.FUNC.getBid(),
