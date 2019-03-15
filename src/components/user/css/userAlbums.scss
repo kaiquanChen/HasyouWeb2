@@ -1,0 +1,143 @@
+#user-album {
+    position: relative;
+
+    .photos-btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .photos-btn-pic {
+            display: inline-block;
+            margin-left: 1em;
+
+            a {    
+                color: #777;
+                display: inline-block;
+                background: #fcf7f3;
+                line-height: 21px;
+                zoom: 1;
+                padding: 0 10px 0 10px;
+                vertical-align: baseline;
+                line-height: 1.5;
+                height: 1.5em;
+                overflow: hidden;
+                border: 1px solid #edded4;
+                border-radius: 2px;
+                letter-spacing: 2px;
+                text-decoration: none;
+            }
+
+            a:hover {
+                color: #777;
+                background: #edded4;
+            }
+        }
+    }
+  
+    .record-items {
+        position: relative;
+        margin-top: 20px;
+        padding-left: 0;
+
+        .album {
+            list-style: none;
+            display: inline-block;
+            margin-right: 20px;
+
+            .album-card {
+                position: relative;
+                background: url('/static/icon/albumback_s.gif') 1px 1px no-repeat;
+                padding: 5px 8px 8px 5px;
+                cursor: pointer;
+                margin-bottom: 15px;
+                width: 113px;
+                height: 113px;
+
+                img {
+                    position: absolute;
+                    margin: auto auto;
+                    left: 0;
+                    right: 0;
+                    border-width: 0;
+                    vertical-align: middle;
+                    max-width: 100px;
+                    max-height: 100px;
+                }
+            }
+
+            a {
+                color: #37a;
+            }
+
+            a:hover {
+                color: #ffffff;
+                background-color: #37a;
+            }
+        }
+
+        .record {
+
+            span {
+                color: gray;
+
+                .record-count {
+                    color: #37a;
+                    text-decoration: none;
+                    font-size: 13px;
+                }
+
+                .record-count:hover {
+                    color: #ffffff;
+                    background-color: #37a;
+                }
+            }
+        }
+
+        .item {
+            display: flex;
+
+            .item-left {
+                flex-direction: column;
+                line-height: 128px;
+                height: 128px;    
+                font-size: 13px;
+                width: 26px;
+                white-space: nowrap;
+                color: #acacac;
+            }
+
+            .want-read-item, .read-item, .watched-item, .want-movie-item {
+                list-style: none;
+                display: inline-block;
+
+                img {
+                    max-width: 85px;
+                    max-height: 125px;
+                    margin-left: 15px;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+
+        .note-item {
+            position: relative;
+            list-style: none;
+            margin: 5px 0;
+
+            a {
+                color: #37a;
+            }
+
+            a:hover {
+                color: #ffffff;
+                background-color: #37a;
+            }
+
+            .note-create-time {
+                position: absolute;
+                right: 0;
+                color: #acacac;
+            }
+        }
+    }
+}

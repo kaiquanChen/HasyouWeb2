@@ -1,0 +1,61 @@
+#item-list {
+  
+  .items {
+
+    .item {
+      display: inline-block;
+      padding: 20px 0;
+      margin-left: 20px;
+
+      .item-card {
+        cursor: pointer;
+        max-width: 110px;
+        position: relative;
+
+        .item-badge {
+          position: absolute;
+          top: -4px;
+          left: -4px;
+        }
+
+        .item-stars {
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          color: #ffffff;
+        }
+      }
+
+      .item-image {
+        width: 100%;
+        height: 133px;
+      }
+
+      .bottom {
+        text-align: center;
+        padding: 5px 0;
+
+        .item-info-name {
+          cursor: pointer;
+          color: #3377aa;
+          display:block;
+          overflow:hidden;
+          word-break:keep-all;
+          white-space:nowrap;
+          text-overflow:ellipsis;
+        }
+
+        .item-info-name:hover {
+          background-color: #3377aa;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .pagination {
+      margin-top: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  }
+}

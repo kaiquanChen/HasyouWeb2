@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import global_ from "./../config/Global";
+import global_ from "../../config/Global";
 
 const file_upload_url = global_.URLS.FILE_URL;
 export default {

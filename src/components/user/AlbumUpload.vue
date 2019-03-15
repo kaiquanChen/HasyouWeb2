@@ -43,7 +43,7 @@
 
 <script>
     import global_ from "../config/Global";
-    import FileUpload from "../common/FileUpload";
+    import FileUpload from "../common/file/FileUpload";
 
     const user_album_url = global_.URLS.USER_ALBUM_URL;
     const save_album_url = global_.URLS.SAVE_ALBUM_URL;

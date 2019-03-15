@@ -1,9 +1,7 @@
 <template>
-  <div v-masonry origin-left="false" transition-duration="1s" item-selector=".item">
-    <div v-masonry-tile class="item" v-for="(item, index) in blocks">
-      <p>{{item}}</p>
-    </div>
-  </div> 
+  <div>
+    <button @click="fn" v-freq="{click:500}">点点点</button>
+  </div>
 </template>
 
 <script>
@@ -17,6 +15,9 @@
         };
       },
       methods: {
+        fn() {
+          console.log("hello david!");
+        }
       },
       created() {
         // this.$router.push({path: "/book/books"});

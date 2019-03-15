@@ -2,7 +2,7 @@
   <div id="user-items">
         <div class="record-items">
             <h2 class="record album-record">我的相册 · · · · · ·
-                <span>(<a class="record-count">全部{{albums.length}}</a>)</span>
+                <span>(<a :href="gotoUserAlbums()" class="record-count">全部{{albums ? albums.length : 0}}</a>)</span>
             </h2>
             <div class="photos-btn">
                 <span class="photos-btn-pic">
@@ -17,7 +17,6 @@
                     <div class="album-card" @click="gotoAlbumDetail(album.id)">
                         <img :src="album.first_image_url" alt="card" v-if="album.first_image_url">
                         <img src="/static/icon/photo_album_thumb.png" alt="" v-else>
-                        <!-- <img src="/static/icon/photo_album_thumb.png" alt=""> -->
                     </div>
                     <a class="album-name" target="_blank" :href="gotoAlbumDetail(album.id)">{{album.name}}</a><br>
                     <span class="create-time">{{getDate(album.create_time)}}更新</span>
@@ -27,7 +26,7 @@
         </div>
         <div class="record-items">
             <h2 class="record book-record">我读 · · · · · ·
-                <span>(<a href="#" class="record-count">{{getRecordCount(read_books)}}本已读</a>)</span>
+                <span>(<a :href="gotoItemList('READ_BOOK')" class="record-count">{{getRecordCount(read_books)}}本已读</a>)</span>
             </h2>
             <div class="book-want-read item">
                 <div class="item-left book-want-read-left">想读</div>
@@ -48,7 +47,7 @@
         </div>
         <div class="record-items">
             <h2 class="record movie-record">我看 · · · · · ·
-            <span>(<a href="#" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
+            <span>(<a :href="gotoItemList('WATCHED_MOVIE')" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
             </h2>
         <div class="movie-want-read item">
             <div class="item-left movie-want-watch-left">想看</div>
@@ -85,7 +84,9 @@
             <ul class="records-items" v-else>写下笔记，记录的学习，生活，工作的脚步!</ul>
         </div>
         <div class="record-items">
-            <h2 class="record blog-record">我的博客 · · · · · ·</h2>
+            <h2 class="record blog-record">我的博客 · · · · · ·
+                <span>(<a href="#" class="record-count">全部{{blogs ? blogs.length : 0}}</a>)</span>
+            </h2>
         </div>
   </div> 
 </template>
@@ -113,61 +114,49 @@
         };
       },
       methods: {
+        gotoItemList(type) {
+            return "/user/" + this.user.id + "/subjects/" + type;
+        },
         gotoAlbumDetail(id) {
             return "/user/" + this.user.id + "/album/" + id;
         },
-          getDate(time) {
-              return time.split(" ")[0];
-          },
-          gotoAlbumUpload() {
-              return "/user/" + this.user.id + "/album/upload";
-          },
-            gotoBookDetail(id) {
-                return "/book/subject/" + id;
-            },
-            gotoMovieDetail(id) {
-                return "/movie/subject/" + id;
-            },
-          getRecordCount(list) {
-              if (list) {
-                  return list.total;
-              } else {
-                  return 0;
-              }
-          },
-          checkUserStatus() {
-              if (!token) {
-                  this.$router.push({path: "/login"});
-              }
-          },
-          getUserInfo() {
-              let user_info = sessionStorage.getItem("user_info");
-              if (user_info) {
-                this.user = JSON.parse(user_info);
-              } else {
-                  this.$router.push({path: "/login"});
-              }
-          },
-          getBookRecords(type) {
-              this.$http.get(book_record_url, {
-                    params: {
-                        type: type,
-                        count: 5
-                    },
-                    headers:{
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                    }
-                }).then((data) => {
-                    if (type === "READ_BOOK") {
-                        this.read_books = data.body.data;
-                    } else if (type === "WANT_READ") {
-                        this.want_books = data.body.data;
-                    }
-                });
-          },
-          getMovieRecords(type) {
-            this.$http.get(movie_record_url, {
+        gotoUserAlbums() {
+            return "/user/" + this.user.id + "/albums";
+        },
+        getDate(time) {
+            return time.split(" ")[0];
+        },
+        gotoAlbumUpload() {
+            return "/user/" + this.user.id + "/album/upload";
+        },
+        gotoBookDetail(id) {
+            return "/book/subject/" + id;
+        },
+        gotoMovieDetail(id) {
+            return "/movie/subject/" + id;
+        },
+        getRecordCount(list) {
+            if (list) {
+                return list.total;
+            } else {
+                return 0;
+            }
+        },
+        checkUserStatus() {
+            if (!token) {
+                this.$router.push({path: "/login"});
+            }
+        },
+        getUserInfo() {
+            let user_info = sessionStorage.getItem("user_info");
+            if (user_info) {
+            this.user = JSON.parse(user_info);
+            } else {
+                this.$router.push({path: "/login"});
+            }
+        },
+        getBookRecords(type) {
+            this.$http.get(book_record_url, {
                 params: {
                     type: type,
                     count: 5
@@ -177,36 +166,54 @@
                     "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
                 }
             }).then((data) => {
-                if (type === "WATCHED_MOVIE") {
-                    this.watched_movies = data.body.data;
-                } else if (type === "WANT_WATCH") {
-                    this.want_movies = data.body.data;
+                if (type === "READ_BOOK") {
+                    this.read_books = data.body.data;
+                } else if (type === "WANT_READ") {
+                    this.want_books = data.body.data;
                 }
             });
-          },
-          getNotes() {
-            this.$http.get(note_url + "subjects", {
-                params: {
-                    type: "NOTE",
-                    count: 5
-                },
-                headers:{
-                    "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-                }
-            }).then((data) => {
-                this.notes = data.body.data;
-            });
-          },
-          getAlbums() {
-            this.$http.get(user_album_url, {
-                headers: {
-                    "bid":global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
-                }
-            }).then(data => {
-                this.albums = data.body.data;
-            });
+        },
+        getMovieRecords(type) {
+        this.$http.get(movie_record_url, {
+            params: {
+                type: type,
+                count: 5
+            },
+            headers:{
+                "bid": global_.FUNC.getBid(),
+                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+            }
+        }).then((data) => {
+            if (type === "WATCHED_MOVIE") {
+                this.watched_movies = data.body.data;
+            } else if (type === "WANT_WATCH") {
+                this.want_movies = data.body.data;
+            }
+        });
+        },
+        getNotes() {
+        this.$http.get(note_url + "subjects", {
+            params: {
+                type: "NOTE",
+                count: 5
+            },
+            headers:{
+                "bid": global_.FUNC.getBid(),
+                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+            }
+        }).then((data) => {
+            this.notes = data.body.data;
+        });
+        },
+        getAlbums() {
+        this.$http.get(user_album_url, {
+            headers: {
+                "bid":global_.FUNC.getBid(),
+                "X-HASYOU-TOKEN": token
+            }
+        }).then(data => {
+            this.albums = data.body.data;
+        });
         }
       },
       created() {

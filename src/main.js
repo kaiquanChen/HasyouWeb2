@@ -11,11 +11,12 @@ import {routes} from './router/index.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {VueMasonryPlugin} from 'vue-masonry'
+import gallery from 'img-vuer'
 
 Vue.config.productionTip = false
 
 Vue.use(VueMasonryPlugin)
-
+Vue.use(gallery)
 Vue.use(Antd)
 Vue.use(VueRouter)
 Vue.use(VueResource)

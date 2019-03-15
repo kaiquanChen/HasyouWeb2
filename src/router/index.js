@@ -34,10 +34,14 @@ import User from '@/components/user/User'
 import AlbumUpload from '@/components/user/AlbumUpload'
 import UserHome from '@/components/user/UserHome'
 import Photo from '@/components/user/Photo'
+import UserAlbums from '@/components/user/UserAlbums'
+
+// common
+import ItemList from '@/components/common/user/ItemList'
+
 
 // test
 import Test from '@/components/Test'
-import FileUpload from '@/components/common/FileUpload'
 
 
 
@@ -120,7 +124,9 @@ export const routes = [
         component: User,
         children: [
           {path: '', component: UserHome},
+          {path: 'subjects/:type', component: ItemList},
           {path: 'album/upload', component: AlbumUpload},
+          {path: 'albums', component: UserAlbums},
           {path: 'album/:album_id', component: Photo},
         ]
       },
@@ -134,5 +140,5 @@ export const routes = [
   },
   {path: '/movie/annual/:year', component: MovieAnnual},
   {path: '/book/annual/:year', component: BookAnnual},
-  {path: '/test', component: FileUpload},
+  {path: '/test', component: Test},
 ]

@@ -8,16 +8,16 @@
           </h1>
           <ul class="user-menu-items">
               <li class="user-menu-item">
-                  <a href="">个人主页</a>
+                  <a :href="gotoUserHome()">个人主页</a>
               </li>
               <li class="user-menu-item">
-                  <a href="">读书</a>
+                  <a :href="gotoUserRecord('READ_BOOK')">读书</a>
               </li>
               <li class="user-menu-item">
-                  <a href="">观影</a>
+                  <a :href="gotoUserRecord('WATCHED_MOVIE')">观影</a>
               </li>
               <li class="user-menu-item">
-                  <a href="">相册</a>
+                  <a :href="gotoUserAlbums()">相册</a>
               </li>
               <li class="user-menu-item">
                   <a href="">笔记</a>
@@ -54,6 +54,19 @@
         };
       },
       methods: {
+          gotoUserHome() {
+              return "/user/" + this.user.id;
+          },
+          gotoUserAlbums() {
+              return "/user/" + this.user.id + "/albums";
+          },
+          gotoUserRecord(type) {
+              if (type === "READ_BOOK") {
+                  return "/user/" + this.user.id + "/book/" + type;
+              } else if (type === "WATCHED_MOVIE") {
+                  return "/user/" + this.user.id + "/movie/" + type;
+              }
+          },
           gotoAlbumUpload() {
               return "/user/" + this.user.id + "/album/upload";
           },
