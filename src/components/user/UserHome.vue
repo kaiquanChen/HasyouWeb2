@@ -72,7 +72,7 @@
             </h2>
             <div class="photos-btn">
                 <span class="photos-btn-pic">
-                    <a target="_blank" class="lnk-create" href="#"><i>+</i>写笔记</a>
+                    <a target="_blank" class="lnk-create" href="/note/edit"><i>+</i>写笔记</a>
                 </span>
             </div>
             <ul class="record-items" v-if="notes && notes.body.length > 0">

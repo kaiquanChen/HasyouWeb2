@@ -1,7 +1,7 @@
 <template>
     <div id="edit-note">
         <div class="note-header">
-            <input class="note-title" type="text" v-model="title" placeholder="请输入标题...">
+            <input class="note-title" type="text" v-model="title" placeholder="输入文章标题...">
         </div>
       <mavon-editor
         ref=md
@@ -37,7 +37,7 @@
       methods: {
           getBrowserHeight() {
             let h = document.documentElement.clientHeight;
-            return "height: " + h + "px";
+            return "height: " + (h - 63) + "px";
           },
           checkUserState() {
             let token = sessionStorage.getItem("access_token");
