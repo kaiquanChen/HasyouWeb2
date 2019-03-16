@@ -196,8 +196,8 @@
               }
 
               let res = data.body.data;
-              res["keywords"] = this.keywords;
-              Bus.$emit('search-on', res);
+              res["keywords"] = this.keywoemit
+              Bus.$emit('search-on', res);emit
 
               sessionStorage.setItem("search_record", this.keywords);
 

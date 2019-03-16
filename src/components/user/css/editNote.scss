@@ -1,0 +1,19 @@
+#edit-note {
+  width: 100%;
+
+  .note-header {
+    display: flex;
+    height: 63px;
+
+    .note-title {
+      flex-direction: column;
+      padding-left: 30px;
+      width: 80%;
+      border: none;
+      outline: none;
+      font-weight: 700;
+      color: #000;
+      font-size: 2rem;
+    }
+  }
+}

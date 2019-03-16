@@ -8,7 +8,7 @@
   const TEST_URL = 'http://localhost:8028/'
   const FLY_URL = 'https://backend.hasyou.cn/'
 
-  const COMMON_URL = FLY_URL
+  const COMMON_URL = TEST_URL
 
   // short book
   const SHORT_BOOK_PREFIX = 'shortbook/'
@@ -68,6 +68,8 @@
 
   // youni note
   const NOTE_URL = COMMON_URL + "note/";
+  const NOTE_UPDATE_URL = NOTE_URL + "update";
+  const NOTE_CREATE_URL = NOTE_URL + "create";
 
   // moment
   const MOMENT_URL = COMMON_URL + "moment/";
@@ -243,6 +245,8 @@
 
     /* note */
     NOTE_URL,
+    NOTE_UPDATE_URL,
+    NOTE_CREATE_URL,
 
     /* other */
     GROUP,

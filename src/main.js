@@ -12,6 +12,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {VueMasonryPlugin} from 'vue-masonry'
 import gallery from 'img-vuer'
+import 'mavon-editor/dist/css/index.css'
+import mavonEditor from 'mavon-editor'
 
 Vue.config.productionTip = false
 
@@ -21,6 +23,7 @@ Vue.use(Antd)
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(mavonEditor)
 
 const router = new VueRouter({
   routes,
