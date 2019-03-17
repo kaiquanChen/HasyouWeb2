@@ -22,9 +22,6 @@
               <li class="user-menu-item">
                   <a :href="gotoUserNotes()">笔记</a>
               </li>
-              <li class="user-menu-item">
-                  <a href="">博客</a>
-              </li>
           </ul>
           <router-view></router-view>
       </div>

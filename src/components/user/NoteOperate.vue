@@ -1,8 +1,8 @@
 <template>
   <ul id="note-operate">
     <li class="item-operate">笔记详情</li>
-    <li class="item-operate">修改内容</li>
-    <li @click="editTagName()" class="item-operate">修改标签</li>
+    <li @click="sendMessage('edit')" class="item-operate" >修改内容</li>
+    <li @click="sendMessage('tag')" class="item-operate">修改标签</li>
     <li class="item-operate">删除笔记</li>
   </ul>
 </template>
@@ -21,9 +21,12 @@
         };
       },
       methods: {
-        editTagName() {
-          Bus.$emit("edit-tag-name", true);
-          Bus.$emit("popover-show", true);
+        sendMessage(type) {
+          if (type === "edit") {
+            Bus.$emit("note-edit", true);
+          } else if (type === "tag") {
+            Bus.$emit("edit-tag-name", true);
+          }
         }
       },
       created() {

@@ -37,6 +37,7 @@ import Photo from '@/components/user/Photo'
 import UserAlbums from '@/components/user/UserAlbums'
 import UserNotes from '@/components/user/UserNotes'
 import EditNote from '@/components/user/EditNote'
+import NoteDetail from '@/components/user/NoteDetail'
 
 // common
 import ItemList from '@/components/common/user/ItemList'
@@ -97,6 +98,11 @@ export const routes = [
           {path: 'album/:album_id', component: Photo},
           {path: 'notes', component: UserNotes},
         ]
+      },
+      {
+        path: '/note/subject/:id',
+        component: NoteDetail,
+        children: []
       },
       // search
       {

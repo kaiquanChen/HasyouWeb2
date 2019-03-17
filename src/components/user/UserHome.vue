@@ -83,11 +83,11 @@
             </ul>
             <ul class="records-items" v-else>写下笔记，记录的学习，生活，工作的脚步!</ul>
         </div>
-        <div class="record-items">
+        <!-- <div class="record-items">
             <h2 class="record blog-record">我的博客 · · · · · ·
                 <span>(<a href="#" class="record-count">全部{{blogs ? blogs.length : 0}}</a>)</span>
             </h2>
-        </div>
+        </div> -->
   </div> 
 </template>
 

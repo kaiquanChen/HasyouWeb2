@@ -14,7 +14,7 @@
           <option value="book">读书</option>
           <option value="movie">电影</option>
           <option value="music">音乐</option>
-          <option value="blog">博客</option>
+          <option value="blog">笔记</option>
         </select>
         <img class="search-img" @click="search()" src="../../assets/header/icon/search.png">
       </div>
@@ -37,7 +37,7 @@
               <a href="/forum">论坛</a>
             </li>
             <li class="menu-item">
-              <a href="/blog">博客</a>
+              <a href="/blog">笔记</a>
             </li>
             <li class="menu-item menu-right register" v-if="!user"><a href="/register">注册</a></li>
             <li class="menu-item menu-right login" v-if="!user"><a href="/login">登录</a></li>
@@ -76,7 +76,7 @@
           <option value="book">读书</option>
           <option value="movie">电影</option>
           <option value="music">音乐</option>
-          <option value="blog">博客</option>
+          <option value="blog">笔记</option>
         </select>
       </div>
       <div class="phone-nav phone-nav-item" v-show="collapse_show">
@@ -103,7 +103,7 @@
           </li>
           <li>
             <a href="/blog" class="home">
-            <img class="icon-header-phone" src="../../assets/header/icon/header-blog-icon.png">&emsp;博客
+            <img class="icon-header-phone" src="../../assets/header/icon/header-blog-icon.png">&emsp;笔记
             </a>
           </li>
           <li v-if="!user">

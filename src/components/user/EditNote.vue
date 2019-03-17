@@ -1,13 +1,31 @@
 <template>
     <div id="edit-note">
         <div class="note-header">
-            <input class="note-title" type="text" v-model="title" placeholder="输入文章标题...">
+          <input class="note-title" type="text" v-model="note.title" placeholder="输入文章标题...">
+          <a-checkbox class="permission" @change="onChange" v-bind:checked="getCheck()">公开</a-checkbox>
+          <el-select
+            class="select-tag"
+            v-model="note.tag_name"
+            filterable
+            size="medium"
+            allow-create
+            default-first-option
+            placeholder="请选择文章标签">
+            <el-option
+              v-for="(item, index) in tag_list"
+              :key="index"
+              :label="item"
+              :value="item">
+            </el-option>
+          </el-select>
+          <el-button @click="saveEvent" class="btn save-btn" type="primary">提交</el-button>
+          <el-button class="btn cancel-btn" type="info">取消</el-button>
         </div>
       <mavon-editor
         ref=md
-        v-model="content"
+        v-model="note.content"
         :style="getBrowserHeight()"
-        @save="save(false)"
+        @save="saveEvent"
         @imgAdd="$imgAdd"
         @imgDel="$imgDel"
         id="edit-markdown"
@@ -18,23 +36,40 @@
 
 <script>
     import global_ from "../config/Global";
-    import NoteOperate from "./NoteOperate";
     import Bus from "../../js/bus"
 
     const note_url = global_.URLS.NOTE_URL;
-    const note_update_url = global_.URLS.NOTE_UPDATE_URL;
+    const upload_url = global_.URLS.FILE_URL;
+    const note_save_url = global_.URLS.NOTE_SAVE_URL;
     const token = sessionStorage.getItem("access_token");
     export default {
       name: "note",
       data() {
         return {
-            tag: {},
+          user: {},
+          note: {
+            id: null,
+            title: "",
             content: "",
-            title: ""
+            html_content: "",
+            tag_name: "",
+            is_private: true,
+            file_ids: []
+          },
+          tag_list:[]
         };
       },
-      components:{NoteOperate},
       methods: {
+          getCheck() {
+            if (this.note.is_private) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+          onChange(e) {
+            this.note.is_private = e.target.checked;
+          },
           getBrowserHeight() {
             let h = document.documentElement.clientHeight;
             return "height: " + (h - 63) + "px";
@@ -48,16 +83,41 @@
               this.user = JSON.parse(user_json);
             }
           },
-          save(published) {
-            this.params.published = published;
-            this.checkParams();
-            this.$http.post(save_blog_url, {
+          getNoteTags() {
+            this.$http.get(note_url + "tags", {
+              headers: {
+                bid: global_.FUNC.getBid(),
+                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+              }
+            }).then((data) => {
+              let res = data.body;
+              if (res.code !== 200) {
+                this.$message.error("数据获取失败!");
+                console.log(data);
+                return;
+              }
+              this.tag_list = res.data;
+            });
+          },
+          saveEvent(value, render) {
+            this.note.content = value;
+            this.note.html_content = render;
+            this.save()
+          },
+          save() {
+            if (!this.checkParams()) {
+              return;
+            }
+
+            this.$http.post(note_save_url, {
               body: {
-                id: this.params.id,
-                title: this.params.title,
-                content: this.params.content,
-                published: this.params.published,
-                is_private: this.params.is_private
+                id: this.note.id,
+                title: this.note.title,
+                content: this.note.content,
+                html_content: this.note.html_content,
+                is_private: this.note.is_private === false ? 1 : 0,
+                tag_name: this.note.tag_name,
+                type: "NOTE"
               }
             }, {
               headers: {
@@ -87,14 +147,15 @@
               method:"post",
               headers: {
                 'Content-Type': 'multipart/form-data',
-                "bid": global_.FUNC.getBid()
+                "bid": global_.FUNC.getBid(),
+                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
               }
             };
             axios(options).then((res) => {
               if (res.data.code === 200) {
                 let fly_file = res.data.data[0];
                 this.$refs.md.$img2Url(pos, fly_file["file_url"]);
-                this.params.file_ids.push(fly_file.id);
+                this.note.file_ids.push(fly_file.id);
               }
             });
           },
@@ -102,18 +163,52 @@
             // delete
           },
           checkParams() {
-            let params = this.params;
-            if (!params.title) {
+            if (!this.note.title) {
               this.$message.error("文章标题不能为空!");
-              return;
+              return false;
             }
 
-            if (!params.content) {
+            if (!this.note.content) {
               this.$message.error("文章内容不能为空!");
+              return false;
+            }
+
+            if (!this.note.tag_name) {
+              this.$message.error("文章标签不能为空!");
+              return false;
+            }
+
+            return true;
+          },
+          getUserInfo() {
+            let user_info = sessionStorage.getItem("user_info");
+            if (user_info) {
+              this.user = JSON.parse(user_info);
+            } else {
+                this.$router.push({path: "/login"});
+            }
+          },
+          getNote() {
+            this.note.id = this.$route.query.id;
+            if (this.note.id) {
+              this.$http.get(note_url + "subject/" + this.note.id, {
+                headers: {
+                  bid: global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                }
+              }).then((data) => {
+                let res = data.body;
+                if (res.code === 200) {
+                  this.note = res.data;
+                }
+              });
             }
           }
       },
       created() {
+        this.getNoteTags();
+        this.getUserInfo();
+        this.getNote();
       }
     }
 </script>

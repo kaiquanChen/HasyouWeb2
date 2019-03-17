@@ -1,7 +1,7 @@
 <template>
     <div class="user-note-items">
         <div class="user-note-item" v-for="(item, index) in notes" :key="item.id">
-            <a class="item-title" href="">{{index + 1}} . {{item.title}}</a>
+            <a target="_blank" class="item-title" :href="gotoNoteDetail(item.id)">{{index + 1}} . {{item.title}}</a>
             <a-tag @click="gotoNoteTag(item.tag_name)" class="item-tag" color="orange" v-if="item.tag_name">{{item.tag_name}}</a-tag>
             <el-popover
                 class="popover"
@@ -36,12 +36,14 @@
                 total: 0
             },
             pop_show: false,
-            select_tag: {},
             popover_show: false
         };
       },
       components:{NoteOperate},
       methods: {
+          gotoNoteDetail(id) {
+              return "/note/subject/" + id;
+          },
           gotoNoteTag(tag_name) {
               Bus.$emit("goto-note-tag", tag_name);
           },

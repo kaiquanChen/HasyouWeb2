@@ -149,6 +149,10 @@
             Bus.$on("select-tag", response => {
                 this.select_tag = response;
             });
+
+            Bus.$on("note-edit", response => {
+                this.$router.push({path: "/note/edit?id=" + this.select_tag.id});
+            });
           }
       },
       created() {

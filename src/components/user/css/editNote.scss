@@ -4,16 +4,50 @@
   .note-header {
     display: flex;
     height: 63px;
+    position: relative;
 
     .note-title {
       flex-direction: column;
       padding-left: 30px;
-      width: 80%;
+      width: 75%;
       border: none;
       outline: none;
       font-weight: 700;
       color: #000;
       font-size: 2rem;
+    }
+
+    .permission {
+      line-height: 63px;
+      display: inline-block;
+      font-size: 20px;
+      white-space: nowrap;
+      color: #007fff;
+      cursor: pointer;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .select-tag {
+      width: 160px;
+      margin-left: 10px;
+      line-height: 63px;
+    }
+
+    .btn {
+      position: absolute;
+    }
+
+    .save-btn {
+      right: 90px;
+      top: 10px;
+    }
+
+    .cancel-btn {
+      right: 10px;
+      top: 10px;
     }
   }
 }
