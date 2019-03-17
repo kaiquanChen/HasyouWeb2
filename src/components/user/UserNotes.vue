@@ -2,7 +2,7 @@
     <div id="user-note">
         <h1>我的笔记 {{getTitle()}}
             <span class="photos-btn-pic">
-                <a target="_blank" class="lnk-create" :href="gotoEditNote()"><i>+</i>写笔记</a>
+                <a target="_blank" class="lnk-create" href="/note/edit"><i>+</i>写笔记</a>
             </span>
         </h1>
         <NoteList v-bind:notes="notes" v-bind:user="user"></NoteList>
@@ -55,9 +55,6 @@
       },
       components:{NoteOperate, NoteList},
       methods: {
-          gotoEditNote() {
-              return "/notes/edit";
-          },
           getTitle(title) {
               if (title) {
                   return " - " + title;
