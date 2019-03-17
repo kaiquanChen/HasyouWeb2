@@ -49,44 +49,12 @@
               this.page.page = val;
               this.getNotes();
           },
-          save() {
-              this.$http.post(note_update_url, {
-                body: {
-                    id: this.select_tag.id,
-                    tag_name: this.select_tag.tag_name
-                }
-            }, {
-                headers: {
-                    "bid":global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
-                }
-            }).then(data => {
-                let res = data.body;
-                if (res.code === 5006) {
-                    this.error_message = "账号或密码错误!";
-                    return;
-                }
-
-                if (res.code === 5001) {
-                    this.$router.push({path:"/register"});
-                    return;
-                }
-                this.notes.map((item, key) => {
-                    if (item.id === res.data.id) {
-                        this.notes[key] = res.data;
-                        return;
-                    }
-                })
-                this.$message.success("操作成功!");
-                this.hideModal();
-            });
-          },
           hideModal() {
               this.pop_show = false;
               this.popover_show = false;
           },
           show(item) {
-              this.select_tag = item;
+              Bus.$emit("select-tag", item);
           },
           checkUserStatus() {
               if (!token) {

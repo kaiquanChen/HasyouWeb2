@@ -105,9 +105,6 @@
               this.pop_show = !this.pop_show;
               Bus.$emit("popover-show", false);
           },
-          show(item) {
-              this.select_tag = item;
-          },
           checkUserStatus() {
               if (!token) {
                   this.$router.push({path: "/login"});
@@ -150,6 +147,10 @@
             Bus.$on("goto-note-tag", response => {
                 this.title = response;
                 this.getNotes();
+            });
+            
+            Bus.$on("select-tag", response => {
+                this.select_tag = response;
             });
           }
       },
