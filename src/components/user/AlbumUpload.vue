@@ -21,7 +21,7 @@
                 <textarea class="item" v-model="album_description" maxlength="128" type="text"/>
                 <div class="album-btn">
                     <span class="btn-save" @click="saveAlbum()">保存</span>
-                    <span class="btn-calcel">取消</span>
+                    <span class="btn-cancel" @click="cancelUpload()">取消</span>
                 </div>
             </div>
             <div class="existed-albums" v-show="select">
@@ -34,7 +34,7 @@
                 </ul>
                 <div class="album-btn">
                     <span class="btn-save" @click="savePhotos()">保存</span>
-                    <span class="btn-calcel">取消</span>
+                    <span class="btn-cancel" @click="cancelUpload()">取消</span>
                 </div>
             </div>
         </div>
@@ -53,9 +53,10 @@
       name: "book",
       data() {
         return {
+            user: null,
             file_ids:[],
             albums:[],
-            select: true,
+            select: false,
             album_name: "",
             album_description: "",
             select_album: {},
@@ -76,6 +77,9 @@
               } else {
                 return "";
               }
+          },
+          cancelUpload() {
+              this.$router.push({path: "/user/" + this.user.id});
           },
           savePhotos() {
               if (!this.file_ids || this.file_ids.length === 0) {
@@ -150,10 +154,19 @@
             }).then(data => {
                 this.albums = data.body.data;
             });
+        },
+        getUserInfo() {
+            let user_info = sessionStorage.getItem("user_info");
+            if (user_info) {
+                this.user = JSON.parse(user_info);
+            } else {
+                this.$router.push({path: "/login"});
         }
+        },
       },
       created() {
         this.getAlbums();
+        this.getUserInfo();
       }
     }
 </script>

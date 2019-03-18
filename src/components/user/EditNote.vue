@@ -2,7 +2,7 @@
     <div id="edit-note">
         <div class="note-header">
           <input class="note-title" type="text" v-model="note.title" placeholder="输入文章标题...">
-          <a-checkbox class="permission" @change="onChange" v-bind:checked="getCheck()">公开</a-checkbox>
+          <el-checkbox class="permission" @change="onChange" size="medium" :value="!note.is_private">公开</el-checkbox>
           <el-select
             class="select-tag"
             v-model="note.tag_name"
@@ -19,7 +19,7 @@
             </el-option>
           </el-select>
           <el-button @click="saveEvent" class="btn save-btn" type="primary">提交</el-button>
-          <el-button class="btn cancel-btn" type="info">取消</el-button>
+          <el-button @click="cancel" class="btn cancel-btn" type="info">取消</el-button>
         </div>
       <mavon-editor
         ref=md
@@ -60,15 +60,8 @@
         };
       },
       methods: {
-          getCheck() {
-            if (this.note.is_private) {
-              return false;
-            } else {
-              return true;
-            }
-          },
-          onChange(e) {
-            this.note.is_private = e.target.checked;
+          onChange() {
+            this.note.is_private = !this.note.is_private;
           },
           getBrowserHeight() {
             let h = document.documentElement.clientHeight;
@@ -103,6 +96,9 @@
             this.note.content = value;
             this.note.html_content = render;
             this.save()
+          },
+          cancel() {
+            this.$router.push({path: "/user/" + this.user.id + "/notes"});
           },
           save() {
             if (!this.checkParams()) {
@@ -200,6 +196,11 @@
                 let res = data.body;
                 if (res.code === 200) {
                   this.note = res.data;
+                  if (res.data.is_private === 0) {
+                    this.note.is_private = false;
+                  } else {
+                    this.note.is_private = true;
+                  }
                 }
               });
             }

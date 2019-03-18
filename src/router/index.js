@@ -100,6 +100,11 @@ export const routes = [
         ]
       },
       {
+        path: '/note',
+        component: NoteDetail,
+        children: []
+      },
+      {
         path: '/note/subject/:id',
         component: NoteDetail,
         children: []

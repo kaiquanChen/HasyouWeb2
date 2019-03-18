@@ -136,9 +136,7 @@
           },
           getMessage() {
             Bus.$on("edit-tag-name", response => {
-                if (response) {
-                    this.pop_show = response;
-                }
+                this.pop_show = response;
             });
 
             Bus.$on("goto-note-tag", response => {
@@ -152,6 +150,14 @@
 
             Bus.$on("note-edit", response => {
                 this.$router.push({path: "/note/edit?id=" + this.select_tag.id});
+            });
+
+            Bus.$on("note-detail", response => {
+                this.$router.push({path: "/note/subject/" + this.select_tag.id});
+            });
+
+            Bus.$on("note-delete", response => {
+
             });
           }
       },

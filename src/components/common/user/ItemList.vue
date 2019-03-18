@@ -9,9 +9,9 @@
           <span class="item-stars" v-if="type === 'WATCHED_MOVIE'">{{item.average}}</span>
           <span class="item-stars" v-else-if="type === 'READ_BOOK'">{{item.stars}}</span>
           <div class="bottom clearfix">
-              <time class="time">{{ getDate(item.create_time) }}</time><br>
               <a v-if="type === 'WATCHED_MOVIE'" target="_blank" :href="gotoItemDetail(item.id)" class="item-info-name">{{item.title}}</a>
               <a v-else-if="type === 'READ_BOOK'" target="_blank" :href="gotoItemDetail(item.id)" class="item-info-name">{{item.name}}</a>
+              <time class="time">{{ getDate(item.create_time) }}</time>
             </div>
         </el-card>
       </div>

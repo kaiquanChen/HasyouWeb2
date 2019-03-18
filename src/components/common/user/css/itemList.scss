@@ -36,6 +36,7 @@
         padding: 5px 0;
 
         .item-info-name {
+          margin-bottom: 5px;
           cursor: pointer;
           color: #3377aa;
           display:block;
@@ -48,6 +49,10 @@
         .item-info-name:hover {
           background-color: #3377aa;
           color: #ffffff;
+        }
+
+        .time {
+          color: #acacac;
         }
       }
     }

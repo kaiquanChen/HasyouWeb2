@@ -77,17 +77,12 @@
             </div>
             <ul class="record-items" v-if="notes && notes.body.length > 0">
                 <li class="note-item" v-for="(note, index) in notes.body">
-                {{index + 1}} . <a class="note-title" href="">{{note.title}}</a>
+                {{index + 1}} . <a target="_blank" class="note-title" :href="gotoNoteDetail(note.id)">{{note.title}}</a>
                 <span class="note-create-time">{{note.create_time}}</span>
                 </li>
             </ul>
             <ul class="records-items" v-else>写下笔记，记录的学习，生活，工作的脚步!</ul>
         </div>
-        <!-- <div class="record-items">
-            <h2 class="record blog-record">我的博客 · · · · · ·
-                <span>(<a href="#" class="record-count">全部{{blogs ? blogs.length : 0}}</a>)</span>
-            </h2>
-        </div> -->
   </div> 
 </template>
 
@@ -114,6 +109,9 @@
         };
       },
       methods: {
+        gotoNoteDetail(id) {
+            return "/note/subject/" + id;
+        },
         gotoUserNotes() {
             return "/user/" + this.user.id + "/notes";
         },
@@ -177,46 +175,46 @@
             });
         },
         getMovieRecords(type) {
-        this.$http.get(movie_record_url, {
-            params: {
-                type: type,
-                count: 5
-            },
-            headers:{
-                "bid": global_.FUNC.getBid(),
-                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-            }
-        }).then((data) => {
-            if (type === "WATCHED_MOVIE") {
-                this.watched_movies = data.body.data;
-            } else if (type === "WANT_WATCH") {
-                this.want_movies = data.body.data;
-            }
-        });
+            this.$http.get(movie_record_url, {
+                params: {
+                    type: type,
+                    count: 5
+                },
+                headers:{
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                }
+            }).then((data) => {
+                if (type === "WATCHED_MOVIE") {
+                    this.watched_movies = data.body.data;
+                } else if (type === "WANT_WATCH") {
+                    this.want_movies = data.body.data;
+                }
+            });
         },
         getNotes() {
-        this.$http.get(note_url + "subjects", {
-            params: {
-                type: "NOTE",
-                count: 5
-            },
-            headers:{
-                "bid": global_.FUNC.getBid(),
-                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
-            }
-        }).then((data) => {
-            this.notes = data.body.data;
-        });
+            this.$http.get(note_url + "subjects", {
+                params: {
+                    type: "NOTE",
+                    count: 5
+                },
+                headers:{
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                }
+            }).then((data) => {
+                this.notes = data.body.data;
+            });
         },
         getAlbums() {
-        this.$http.get(user_album_url, {
-            headers: {
-                "bid":global_.FUNC.getBid(),
-                "X-HASYOU-TOKEN": token
-            }
-        }).then(data => {
-            this.albums = data.body.data;
-        });
+            this.$http.get(user_album_url, {
+                headers: {
+                    "bid":global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then(data => {
+                this.albums = data.body.data;
+            });
         }
       },
       created() {
