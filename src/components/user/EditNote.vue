@@ -95,7 +95,6 @@
             });
           },
           saveEvent(value, render) {
-            alert(value);
             this.note.content = value;
             this.note.html_content = render;
             this.save()
