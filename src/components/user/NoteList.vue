@@ -12,7 +12,7 @@
                 <NoteOperate></NoteOperate>
                 <el-button style="border:#fff;" slot="reference">●●●</el-button>
             </el-popover>
-            <span class="item-time">{{item.update_time}}</span>
+            <span class="item-time">{{getCreateTime(item.update_time)}}</span>
         </div>
     </div>
 </template>
@@ -41,6 +41,18 @@
       },
       components:{NoteOperate},
       methods: {
+          getCreateTime(s) {
+                let arr = s.split(" ");
+                if (arr.length > 2) {
+                    return arr[0] + " " + arr[1] + arr[arr.length - 1].substr(arr[arr.length - 1].length - 1, arr[arr.length - 1].length);
+                } else {
+                    if (arr.length === 2) {
+                        return arr[0] + " " + arr[1];
+                    } else {
+                        return arr[0];
+                    }
+                }
+          },
           gotoNoteDetail(id) {
               return "/note/subject/" + id;
           },

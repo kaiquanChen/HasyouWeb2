@@ -21,10 +21,6 @@
       display: inline-block;
       color: #3377aa;
       width: 350px;
-      overflow:hidden;
-      word-break:keep-all;
-      white-space:nowrap;
-      text-overflow:ellipsis;
     }
 
     .item-title:hover {
@@ -56,5 +52,29 @@
 
   button:hover {
     color: #fff;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .user-note-items {
+
+    .user-note-item {
+
+      .item-title {
+        width: 180px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .user-note-items {
+
+    .user-note-item {
+
+      .item-title {
+        width: 160px;
+      }
+    }
   }
 }

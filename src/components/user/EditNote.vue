@@ -18,7 +18,7 @@
               :value="item">
             </el-option>
           </el-select>
-          <el-button @click="saveEvent" class="btn save-btn" type="primary">提交</el-button>
+          <el-button @click="save" class="btn save-btn" type="primary">提交</el-button>
           <el-button @click="cancel" class="btn cancel-btn" type="info">取消</el-button>
         </div>
       <mavon-editor
@@ -59,6 +59,8 @@
           tag_list:[]
         };
       },
+      mounted() {
+      },
       methods: {
           onChange() {
             this.note.is_private = !this.note.is_private;
@@ -93,6 +95,7 @@
             });
           },
           saveEvent(value, render) {
+            alert(value);
             this.note.content = value;
             this.note.html_content = render;
             this.save()
@@ -131,6 +134,7 @@
                 message: '保存成功!',
                 type: 'success'
               });
+              this.note = res.data;
             });
           },
           $imgAdd(pos, $file) {

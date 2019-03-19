@@ -2,6 +2,9 @@
     <div id="note-detail">
       <div class="col-1"></div>
       <div class="col-2">
+        <div class="note-nav">
+          <span class="note-nav-list" target="_blank" @click="gotoMyNotes()">我的笔记</span> > <span>{{note.title}}</span>
+        </div>
         <div class="note-header">
           <div class="left">
             <img v-if="note.user" class="note-user-avatar" :src="note.user.avatar" :alt="note.user.nickname">
@@ -36,6 +39,9 @@
         };
       },
       methods: {
+          gotoMyNotes() {
+            this.$router.push({path: "/user/" + this.user.id + "/notes"});
+          },
           getBrowserHeight() {
             let h = document.documentElement.clientHeight;
             return "height: " + (h - 150) + "px";

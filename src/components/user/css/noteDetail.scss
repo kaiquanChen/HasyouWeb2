@@ -14,6 +14,20 @@
     padding: 30px;
     border-radius: 5px;
 
+    .note-nav {
+      margin-bottom: 20px;
+
+      .note-nav-list {
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .note-nav-list:hover {
+        text-decoration: underline;
+        color: #333333;
+      }
+    }
+
     .note-header {
       display: flex;
 
@@ -49,4 +63,19 @@
   h1, h2, h3, h4, li {
     font-weight: bold;
   }
+}
+
+@media screen and (max-width: 600px) {
+  #note-detail {
+
+    .col-1, .col-3 {
+      display: none;
+    }
+
+    .col-2 {
+      display: block;
+      width: 100%;
+      padding: 20px 10px;
+    }
+  } 
 }

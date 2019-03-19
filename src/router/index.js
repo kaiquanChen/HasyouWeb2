@@ -38,6 +38,7 @@ import UserAlbums from '@/components/user/UserAlbums'
 import UserNotes from '@/components/user/UserNotes'
 import EditNote from '@/components/user/EditNote'
 import NoteDetail from '@/components/user/NoteDetail'
+import Register from '@/components/login/Register'
 
 // common
 import ItemList from '@/components/common/user/ItemList'
@@ -52,6 +53,7 @@ export const routes = [
     children:[
       {path: 'about', component: About},
       {path: 'login', component: Login},
+      {path: 'register', component: Register},
       // book
       {
         path: 'book', 

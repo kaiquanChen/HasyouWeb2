@@ -72,31 +72,31 @@
                     id: this.select_tag.id,
                     tag_name: this.select_tag.tag_name
                 }
-            }, {
-                headers: {
-                    "bid":global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
-                }
-            }).then(data => {
-                let res = data.body;
-                if (res.code === 5006) {
-                    this.error_message = "账号或密码错误!";
-                    return;
-                }
-
-                if (res.code === 5001) {
-                    this.$router.push({path:"/register"});
-                    return;
-                }
-                this.notes.map((item, key) => {
-                    if (item.id === res.data.id) {
-                        this.notes[key] = res.data;
+                }, {
+                    headers: {
+                        "bid":global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    }
+                }).then(data => {
+                    let res = data.body;
+                    if (res.code === 5006) {
+                        this.error_message = "账号或密码错误!";
                         return;
                     }
-                })
-                this.$message.success("操作成功!");
-                this.hideModal();
-            });
+
+                    if (res.code === 5001) {
+                        this.$router.push({path:"/register"});
+                        return;
+                    }
+                    this.notes.map((item, key) => {
+                        if (item.id === res.data.id) {
+                            this.notes[key] = res.data;
+                            return;
+                        }
+                    })
+                    this.$message.success("操作成功!");
+                    this.hideModal();
+                });
           },
           hideModal() {
               this.pop_show = !this.pop_show;
@@ -134,6 +134,30 @@
                 this.page.total = data.body.data.total;
             });
           },
+          deleteNote() {
+            this.$http.get(note_url + "subject/delete/" + this.select_tag.id, {
+                headers:{
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                }
+            }).then(data => {
+                if (data.body.code !== 200) {
+                    this.$message.error("删除失败！");
+                    return;
+                }
+                this.$message.success("删除成功!");
+                this.diffNote();
+            });
+          },
+          diffNote() {
+              let notes = this.notes;
+              notes.map((item, index) => {
+                  if (item.id === this.select_tag.id) {
+                      notes.splice(index, 1);
+                  }
+              });
+              this.notes = notes;
+          },
           getMessage() {
             Bus.$on("edit-tag-name", response => {
                 this.pop_show = response;
@@ -157,7 +181,7 @@
             });
 
             Bus.$on("note-delete", response => {
-
+                this.deleteNote();
             });
           }
       },
