@@ -14,7 +14,7 @@
             </div>
             <ul class="record-items" v-if="albums && albums.length > 0">
                 <li class="record-item album" v-for="album in albums" :key="album.id">
-                    <div class="album-card" @click="gotoAlbumDetail(album.id)">
+                    <div class="album-card" @click="flipToAlbumDetail(album.id)">
                         <img :src="album.first_image_url" alt="card" v-if="album.first_image_url">
                         <img src="/static/icon/photo_album_thumb.png" alt="" v-else>
                     </div>
@@ -117,6 +117,9 @@
         },
         gotoItemList(type) {
             return "/user/" + this.user.id + "/subjects/" + type;
+        },
+        flipToAlbumDetail(id) {
+            this.$router.push({path: "/user/" + this.user.id + "/album/" + id});
         },
         gotoAlbumDetail(id) {
             return "/user/" + this.user.id + "/album/" + id;

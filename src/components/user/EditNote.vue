@@ -113,7 +113,7 @@
                 title: this.note.title,
                 content: this.note.content,
                 html_content: this.note.html_content,
-                is_private: this.note.is_private === false ? 1 : 0,
+                is_private: this.note.is_private === false ? 0 : 1,
                 tag_name: this.note.tag_name,
                 type: "NOTE"
               }
@@ -134,6 +134,11 @@
                 type: 'success'
               });
               this.note = res.data;
+              if (res.data.is_private === 1) {
+                this.note.is_private = true;
+              } else if (res.data.is_private === 0) {
+                this.note.is_private = false;
+              }
             });
           },
           $imgAdd(pos, $file) {

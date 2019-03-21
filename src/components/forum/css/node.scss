@@ -5,6 +5,13 @@
     .node-body {
         border: 1px solid #e2e2e2;
         border-radius: 4px;
+        position: relative;
+        
+        .pagination {
+            position: absolute;
+            top: -3px;
+            right: 0;
+        }
 
         h3 {
             text-align: left;

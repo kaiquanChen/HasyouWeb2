@@ -5,7 +5,6 @@
       listType="picture-card"
       :fileList="fileList"
       :multiple="getMultiple()"
-      :remove="removeFile()"
       @change="handleChange">
       <div v-if="fileList.length < 500">
         <a-icon type="plus" />
@@ -17,7 +16,9 @@
 <script>
 import global_ from "../../config/Global";
 
+let file_url = global_.URLS.FILE_URL;
 const file_upload_url = global_.URLS.FILE_URL;
+const token = sessionStorage.getItem("access_token");;
 export default {
   data () {
     return {
@@ -30,9 +31,7 @@ export default {
       return true;
     },
     getUploadUrl() {
-      return "https://backend.hasyou.cn/file/upload?bid=" + global_.FUNC.getBid();
-    },
-    removeFile(f) {
+      return file_url + "?bid=" + global_.FUNC.getBid() + "&X-HASYOU-TOKEN=" + token;
     },
     handleCancel () {
       this.previewVisible = false

@@ -1,14 +1,15 @@
 <template>
     <div id="node">
         <div class="node-body">
-            <h3>更多节点</h3>
-            <div class="pagination">
-                <a-pagination simple
-                    @change="handleNodeChange"
-                    :pageSize="page.count" 
-                    :defaultCurrent="page.page" 
-                    :total="page.total" />
-            </div>
+            <h3>更多节点
+                <div class="pagination">
+                    <a-pagination simple
+                        @change="handleNodeChange"
+                        :pageSize="page.count" 
+                        :defaultCurrent="page.page" 
+                        :total="page.total" />
+                </div>
+            </h3>
             <div class="node-items">
                 <a class="node-item" :href="getNodeRoutes(item.id)" v-for="item in nodes" :key="item.id">
                     {{item.title}}

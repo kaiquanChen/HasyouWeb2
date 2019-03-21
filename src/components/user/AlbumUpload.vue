@@ -109,6 +109,9 @@
                     return;
                 }
 
+                if (res.code === 200) {
+                    this.$router.push({path: "/user/" + this.user.id + "/albums"});
+                }
             });
           },
           saveAlbum() {

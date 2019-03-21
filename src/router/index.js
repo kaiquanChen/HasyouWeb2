@@ -40,6 +40,12 @@ import EditNote from '@/components/user/EditNote'
 import NoteDetail from '@/components/user/NoteDetail'
 import Register from '@/components/login/Register'
 
+// home
+import Index from '@/components/home/Index'
+
+// note
+import Note from '@/components/note/Note'
+
 // common
 import ItemList from '@/components/common/user/ItemList'
 
@@ -51,6 +57,7 @@ export const routes = [
     path: '/', 
     component: Home, 
     children:[
+      {path: '', component: Index},
       {path: 'about', component: About},
       {path: 'login', component: Login},
       {path: 'register', component: Register},
@@ -103,7 +110,7 @@ export const routes = [
       },
       {
         path: '/note',
-        component: NoteDetail,
+        component: Note,
         children: []
       },
       {

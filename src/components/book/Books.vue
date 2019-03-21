@@ -122,11 +122,11 @@
           return "background: #cccccc;";
         },
         getClass(index) {
-          if ((index + 1) % 5 === 0) {
-            return "book-item" + " last";
-          } else if (index % 3 === 0) {
-            return "book-item" + " first";
-          }
+          // if ((index + 1) % 5 === 0) {
+          //   return "book-item" + " last";
+          // } else if (index % 3 === 0) {
+          //   return "book-item" + " first";
+          // }
           return "book-item";
         },
         getBookList(type, count) {
