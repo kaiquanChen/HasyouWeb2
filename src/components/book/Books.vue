@@ -6,10 +6,7 @@
                 <div class="new-book">
                     <h2><b>最新图书</b></h2>
                     <div class="page-btn-dot" v-if="!checkMedia()">
-                      <div class="item" :style="getStyle('BOOK_EXPRESS', 1)" @click="handleExpress(1)"></div>
-                      <div class="item" :style="getStyle('BOOK_EXPRESS', 2)" @click="handleExpress(2)"></div>
-                      <div class="item" :style="getStyle('BOOK_EXPRESS', 3)" @click="handleExpress(3)"></div>
-                      <div class="item" :style="getStyle('BOOK_EXPRESS', 4)" @click="handleExpress(4)"></div>
+                      <div class="item" :style="getStyle('BOOK_EXPRESS', index)" @click="handleExpress(index)"  v-for="index in Math.ceil(express_page.total / express_page.count)"></div>
                     </div>
                     <div class="page-btn">
                       <a href="javascript:void(0);" @click="handleExpress('prev')" class="prev">‹</a>
@@ -30,8 +27,7 @@
                 <div class="good-market">
                   <h2><b>畅销图书</b></h2>
                   <div class="page-btn-dot" v-if="!checkMedia()">
-                    <div class="item" :style="getStyle('GOOD_MARKET', 1)" @click="handleGoodMarket(1)"></div>
-                    <div class="item" :style="getStyle('GOOD_MARKET', 2)" @click="handleGoodMarket(2)"></div>
+                    <div class="item" :style="getStyle('GOOD_MARKET', index)" @click="handleGoodMarket(index)" v-for="index in Math.ceil(good_market_page.total / good_market_page.count)"></div>
                   </div>
                   <div class="page-btn">
                       <a href="javascript:void(0);" @click="handleGoodMarket('prev')" class="prev">‹</a>
@@ -214,7 +210,7 @@
           return "/book/tag/" + id;
         },
         checkMedia() {
-          return window.matchMedia('(max-width:415px)').matches;
+          return window.matchMedia('(max-width:600px)').matches;
         },
         getHotTags() {
           this.$http.get(tag_url + "subjects/DOUBAN_BOOK", {

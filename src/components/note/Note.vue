@@ -1,6 +1,6 @@
 <template>
     <div id="note">
-      <h1>Hello David!</h1>
+      <h1>仓库准备...</h1>
     </div>
 </template>
 
@@ -36,7 +36,6 @@
         },
       },
       created() {
-        this.getUserInfo();
       }
     }
 </script>
