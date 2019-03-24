@@ -4,8 +4,7 @@
         <div class="in-theaters">
           <h2><b>正在热映</b></h2>
           <div class="page-btn-dot" v-if="!checkMedia()">
-            <div class="item" :style="getStyle('IN_THEATERS', 1)" @click="handleInTheaters(1)"></div>
-            <div class="item" :style="getStyle('IN_THEATERS', 2)" @click="handleInTheaters(2)"></div>
+            <div class="item" :style="getStyle('IN_THEATERS', index)" @click="handleInTheaters(index)" v-for="index in Math.ceil(in_theaters_page.total / in_theaters_page.count)"></div>
           </div>
           <div class="page-btn">
             <a href="javascript:void(0);" @click="handleInTheaters('prev')" class="prev">‹</a>
@@ -28,12 +27,7 @@
         </div>
         <div class="coming-soon">
           <h2><b>即将上映</b></h2><div class="page-btn-dot" v-if="!checkMedia()">
-            <div class="item" :style="getStyle('COMING_SOON', 1)" @click="handleComingSoon(1)"></div>
-            <div class="item" :style="getStyle('COMING_SOON', 2)" @click="handleComingSoon(2)"></div>
-            <div class="item" :style="getStyle('COMING_SOON', 3)" @click="handleComingSoon(3)"></div>
-            <div class="item" :style="getStyle('COMING_SOON', 4)" @click="handleComingSoon(4)"></div>
-            <div class="item" :style="getStyle('COMING_SOON', 5)" @click="handleComingSoon(5)"></div>
-            <div class="item" :style="getStyle('COMING_SOON', 6)" @click="handleComingSoon(6)"></div>
+            <div class="item" :style="getStyle('COMING_SOON', index)" @click="handleComingSoon(index)" v-for="index in Math.ceil(coming_soon_page.total / coming_soon_page.count)"></div>
           </div>
           <div class="page-btn">
             <a href="javascript:void(0);" @click="handleComingSoon('prev')" class="prev">‹</a>
@@ -57,8 +51,7 @@
         <div class="new-movies">
           <h2><b>最新电影</b></h2>
           <div class="page-btn-dot" v-if="!checkMedia()">
-            <div class="item" :style="getStyle('NEW_MOVIES', 1)" @click="handleNewMovie(1)"></div>
-            <div class="item" :style="getStyle('NEW_MOVIES', 2)" @click="handleNewMovie(2)"></div>
+            <div class="item" :style="getStyle('NEW_MOVIES', index)" @click="handleNewMovie(index)" v-for="index in Math.ceil(new_page.total / new_page.count)"></div>
           </div>
           <div class="page-btn">
             <a href="javascript:void(0);" @click="handleNewMovie('prev')" class="prev">‹</a>
