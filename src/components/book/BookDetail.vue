@@ -148,8 +148,8 @@
                   </div>
                   <div class="pagination">
                       <el-pagination
-                      @current-change="handleCommentPageChange"
-                      layout="prev, pager, next"
+                        @current-change="handleCommentPageChange"
+                        layout="prev, pager, next"
                       :total="comments.page.total">
                     </el-pagination>
                   </div>
@@ -245,7 +245,7 @@
   const read_url = global_.URLS.BOOK_READ_URL;
   const want_url = global_.URLS.BOOK_WANT_URL;
   const annotation_url = global_.URLS.BOOK_ANNOTATION_URL;
-  const token = sessionStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   export default {
     name: "Book",
     data() {
@@ -546,7 +546,7 @@
             let res = data.body;
             if (res.code === 200) {
               this.user = res.data;
-              sessionStorage.setItem("user_info", JSON.stringify(this.user));
+              localStorage.setItem("user_info", JSON.stringify(this.user));
             }
           });
         }

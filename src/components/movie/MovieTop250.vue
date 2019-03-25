@@ -38,9 +38,9 @@
               </span>
               <span class="info-item movie-summary" v-if="movie.movie_tag.vars.intro">
                 <p class="quote summary">
-                  <img src="/static/image/quotel.png" />
+                  <img src="/static/image/quotel.png"/>
                   {{movie.movie_tag.vars.intro}}
-                  <img src="/static/image/quoter.png" />
+                  <img src="/static/image/quoter.png"/>
                 </p>
               </span>
             </div>
@@ -49,6 +49,7 @@
             <el-pagination
               @current-change="handleCurrentChange"
               layout="prev, pager, next"
+              :pageSize="page.count"
               :total="page.total">
             </el-pagination>
           </div>

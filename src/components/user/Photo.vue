@@ -21,7 +21,7 @@
     import global_ from "../config/Global";
 
     const photo_url = global_.URLS.USER_PHOTO_URL;
-    const token = sessionStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     export default {
       name: "book",
       data() {
@@ -60,7 +60,7 @@
               },
               headers:{
                   "bid": global_.FUNC.getBid(),
-                  "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                  "X-HASYOU-TOKEN": localStorage.getItem("access_token")
               }
           }).then((data) => {
             if (data.body.data.body.length === 0) {

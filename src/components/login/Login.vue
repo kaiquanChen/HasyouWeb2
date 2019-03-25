@@ -43,6 +43,26 @@
         }
       },
       methods: {
+        getUserInfo(token) {
+          this.$http.get(global_.URLS.USER_INFO_URL, {
+            headers:{
+              bid: global_.FUNC.getBid(),
+              "X-HASYOU-TOKEN": token
+            }
+          }).then((data) => {
+            let res = data.body;
+            if (res.code === 200) {
+              localStorage.setItem("user_info", JSON.stringify(res.data));
+              Bus.$emit('login-status', token);
+              let referer = this.$route.query.referer;
+              if (referer) {
+                this.$router.push({path: referer});
+              } else {
+                this.$router.push({path:"/"});
+              }
+            }
+          });
+        },
         goto() {
           this.$router.push("/register");
         },
@@ -52,7 +72,7 @@
           sessionStorage.setItem("signature", signature);
         },
         checkUserState() {
-          let token = sessionStorage.getItem("access_token");
+          let token = localStorage.getItem("access_token");
           if (token) {
             this.$router.push({path: "/"});
           }
@@ -91,14 +111,8 @@
             }
 
             let token = res.data.access_token;
-            sessionStorage.setItem("access_token", token);
-            Bus.$emit('login-status', token);
-            let referer = this.$route.query.referer;
-            if (referer) {
-              this.$router.push({path: referer});
-            } else {
-              this.$router.push({path:"/"});
-            }
+            localStorage.setItem("access_token", token);
+            this.getUserInfo(token);
           });
         },
         validateParam() {

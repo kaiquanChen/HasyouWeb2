@@ -48,7 +48,8 @@
     const user_album_url = global_.URLS.USER_ALBUM_URL;
     const save_album_url = global_.URLS.SAVE_ALBUM_URL;
     const save_photo_url = global_.URLS.SAVE_PHOTO_URL;
-    const token = sessionStorage.getItem("access_token");
+    // const token = sessionStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     export default {
       name: "book",
       data() {
@@ -159,7 +160,8 @@
             });
         },
         getUserInfo() {
-            let user_info = sessionStorage.getItem("user_info");
+            let user_info = localStorage.getItem("user_info");
+            // let user_info = sessionStorage.getItem("user_info");
             if (user_info) {
                 this.user = JSON.parse(user_info);
             } else {

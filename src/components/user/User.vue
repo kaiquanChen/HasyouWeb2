@@ -35,7 +35,7 @@
     const book_record_url = global_.URLS.BOOK_RECORD_URL;
     const movie_record_url = global_.URLS.MOVIE_RECORD_URL;
     const note_url = global_.URLS.NOTE_URL;
-    const token = sessionStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     export default {
       name: "book",
       data() {
@@ -83,17 +83,16 @@
               }
           },
           getUserInfo() {
-              let user_info = sessionStorage.getItem("user_info");
-              if (user_info) {
-                this.user = JSON.parse(user_info);
+              if (token) {
+                this.user = global_.FUNC.getUserInfo();
               } else {
                   this.$router.push({path: "/login"});
               }
           },
       },
       created() {
-          this.checkUserStatus();
-          this.getUserInfo();
+        this.checkUserStatus();
+        this.getUserInfo();
       }
     }
 </script>

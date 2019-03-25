@@ -33,9 +33,9 @@
                                 </el-rate>
                             </div>
                             <p class="quote summary">
-                                <img src="/static/image/quotel.png" />
+                                <img src="/static/image/quotel.png" v-if="book.vars.intro"/>
                                 {{book.vars.intro}}
-                                <img src="/static/image/quoter.png" />
+                                <img src="/static/image/quoter.png" v-if="book.vars.intro"/>
                             </p>
                         </div>
                     </div>
@@ -43,6 +43,7 @@
                         <el-pagination
                             @current-change="handleTop250PageChange"
                             layout="prev, pager, next"
+                            :pageSize="page.count"
                             :total="page.total">
                         </el-pagination>
                     </div>
@@ -63,9 +64,9 @@
         return {
           book_top250:[],
           page: {
-              total: 0,
-              page: 1,
-              count: 25
+            total: 250,
+            page: 1,
+            count: 25
           },
           pager_count: 7
         };
