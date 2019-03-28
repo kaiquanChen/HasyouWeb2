@@ -15,7 +15,7 @@
           </div>
         </div>
         <h1 class="note-title">{{note.title}}</h1>
-        <div class="body" v-html="note.html_content"></div>
+        <div class="markdown" v-html="note.html_content"></div>
       </div>
       <div class="col-3"></div>
     </div>

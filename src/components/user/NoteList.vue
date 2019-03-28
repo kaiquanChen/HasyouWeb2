@@ -1,7 +1,7 @@
 <template>
     <div class="user-note-items">
         <div class="user-note-item" v-for="(item, index) in notes" :key="item.id">
-            <a target="_blank" class="item-title" :href="gotoNoteDetail(item.id)">{{index + 1}} . {{item.title}}</a>
+            <a target="_blank" class="item-title" :href="gotoNoteDetail(item.id)">{{index + 1 + (page.page - 1) * page.count}} . {{item.title}}</a>
             <a-tag @click="gotoNoteTag(item.tag_name)" class="item-tag" color="orange" v-if="item.tag_name">{{item.tag_name}}</a-tag>
             <el-popover
                 class="popover"
@@ -27,14 +27,14 @@
     const token = localStorage.getItem("access_token");
     export default {
       name: "note",
-      props:["notes"],
+      props:["notes", "page"],
       data() {
         return {
-            page: {
-                page: 1,
-                count: 20,
-                total: 0
-            },
+            // page: {
+            //     page: 1,
+            //     count: 20,
+            //     total: 0
+            // },
             pop_show: false,
             popover_show: false
         };
@@ -58,10 +58,6 @@
           },
           gotoNoteTag(tag_name) {
               Bus.$emit("goto-note-tag", tag_name);
-          },
-          handleCurrentChange(val) {
-              this.page.page = val;
-              this.getNotes();
           },
           hideModal() {
               this.pop_show = false;

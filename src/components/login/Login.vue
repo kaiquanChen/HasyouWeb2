@@ -43,6 +43,26 @@
         }
       },
       methods: {
+        getUserInfo(token) {
+          this.$http.get(global_.URLS.USER_INFO_URL, {
+            headers:{
+              bid: global_.FUNC.getBid(),
+              "X-HASYOU-TOKEN": token
+            }
+          }).then((data) => {
+            let res = data.body;
+            if (res.code === 200) {
+              localStorage.setItem("user_info", JSON.stringify(res.data));
+              Bus.$emit('login-status', token);
+              let referer = this.$route.query.referer;
+              if (referer) {
+                this.$router.push({path: referer});
+              } else {
+                this.$router.push({path:"/"});
+              }
+            }
+          });
+        },
         goto() {
           this.$router.push("/register");
         },
@@ -99,6 +119,7 @@
             } else {
               this.$router.push({path:"/"});
             }
+            this.getUserInfo(token);
           });
         },
         validateParam() {

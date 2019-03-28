@@ -5,7 +5,7 @@
                 <a target="_blank" class="lnk-create" href="/note/edit"><i>+</i>写笔记</a>
             </span>
         </h1>
-        <NoteList v-bind:notes="notes" v-bind:user="user"></NoteList>
+        <NoteList v-bind:notes="notes" v-bind:user="user" v-bind:page="page"></NoteList>
         <div class="pagination">
             <el-pagination
               @current-change="handleCurrentChange"

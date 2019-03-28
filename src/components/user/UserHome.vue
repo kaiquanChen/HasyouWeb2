@@ -154,9 +154,12 @@
         getUserInfo() {
             let user_info = localStorage.getItem("user_info");
             if (user_info) {
-            this.user = JSON.parse(user_info);
-            } else {
-                this.$router.push({path: "/login"});
+                this.user = JSON.parse(user_info);
+                if (token) {
+                    this.user = global_.FUNC.getUserInfo();
+                } else {
+                    this.$router.push({path: "/login"});
+                }
             }
         },
         getBookRecords(type) {

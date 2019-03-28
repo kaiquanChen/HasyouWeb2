@@ -148,8 +148,8 @@
                   </div>
                   <div class="pagination">
                       <el-pagination
-                      @current-change="handleCommentPageChange"
-                      layout="prev, pager, next"
+                        @current-change="handleCommentPageChange"
+                        layout="prev, pager, next"
                       :total="comments.page.total">
                     </el-pagination>
                   </div>

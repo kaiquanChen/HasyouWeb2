@@ -156,21 +156,7 @@
             this.$router.push("/search");
           },
           getUserInfo() {
-            let token = global_.FUNC.getToken();
-            if (token) {
-              this.$http.get(global_.URLS.USER_INFO_URL, {
-                headers:{
-                  bid: global_.FUNC.getBid(),
-                  "X-HASYOU-TOKEN": token
-                }
-              }).then((data) => {
-                let res = data.body;
-                if (res.code === 200) {
-                  this.user = res.data;
-                  sessionStorage.setItem("user_info", JSON.stringify(this.user));
-                }
-              });
-            }
+            this.user = global_.FUNC.getUserInfo();
           },
           globalSearch() {
             if (!this.keywords) {
@@ -196,10 +182,10 @@
               }
 
               let res = data.body.data;
-              res["keywords"] = this.keywoemit
-              Bus.$emit('search-on', res);emit
+              res["keywords"] = this.keywords
+              Bus.$emit('search-on', res);
 
-              sessionStorage.setItem("search_record", this.keywords);
+              localStorage.setItem("search_record", this.keywords);
 
               if (this.checkMedia()) {
                 this.mobile_nav_show = false;
@@ -210,7 +196,7 @@
             return window.matchMedia('(max-width:600px)').matches;
           },
           initKeywords() {
-            let data = sessionStorage.getItem("search_record");
+            let data = localStorage.getItem("search_record");
             if (data) {
               this.keywords = data;
               this.globalSearch();
@@ -234,13 +220,13 @@
             this.$http.get(global_.URLS.LOGOUT_URL, {
               headers:{
                 "bid": global_.FUNC.getBid(),
-                "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                "X-HASYOU-TOKEN": localStorage.getItem("access_token")
               }
             }).then((data) => {
-              sessionStorage.removeItem("access_token");
-              sessionStorage.removeItem("user_info");
+              localStorage.removeItem("access_token");
+              localStorage.removeItem("user_info");
               this.user = null;
-              this.$router.push({path: this.$route.path});
+              this.$router.push({path: "/login"});
             });
           }
         },

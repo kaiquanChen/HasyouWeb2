@@ -114,20 +114,20 @@
   }
 
   let getToken = function () {
-    return sessionStorage.getItem("access_token");
+    return localStorage.getItem("access_token");
   }
 
   let setToken = function (token) {
-    sessionStorage.setItem("access_token", token);
+    localStorage.setItem("access_token", token);
   }
 
   let setUserInfo = function (user_info) {
     let user_json = JSON.stringify(user_info);
-    sessionStorage.setItem("user_info", user_info);
+    localStorage.setItem("user_info", user_info);
   }
 
   let getUserInfo = function () {
-    let user_json = sessionStorage.getItem("user_info");
+    let user_json = localStorage.getItem("user_info");
     return JSON.parse(user_json);
   }
 
