@@ -36,7 +36,7 @@
 
     const note_url = global_.URLS.NOTE_URL;
     const note_update_url = global_.URLS.NOTE_UPDATE_URL;
-    const token = sessionStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     export default {
       name: "book",
       data() {
@@ -108,7 +108,7 @@
               }
           },
           getUserInfo() {
-              let user_info = sessionStorage.getItem("user_info");
+              let user_info = localStorage.getItem("user_info");
               if (user_info) {
                 this.user = JSON.parse(user_info);
               } else {
@@ -125,7 +125,7 @@
                 },
                 headers:{
                     "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                    "X-HASYOU-TOKEN": token
                 }
             }).then(data => {
                 this.notes = data.body.data.body;
@@ -138,7 +138,7 @@
             this.$http.get(note_url + "subject/delete/" + this.select_tag.id, {
                 headers:{
                     "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                    "X-HASYOU-TOKEN": token
                 }
             }).then(data => {
                 if (data.body.code !== 200) {

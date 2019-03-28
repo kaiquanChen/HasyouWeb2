@@ -254,7 +254,7 @@
       const review_url = global_.URLS.MOVIE_REVIEW_URL;
       const watch_url = global_.URLS.MOVIE_WATCH_URL;
       const want_url = global_.FUNC.MOVIE_WANT_URL;
-      const token = sessionStorage.getItem("access_token");
+      const token = localStorage.getItem("access_token");
         export default {
           name: "book",
           data() {
@@ -509,7 +509,7 @@
                   let res = data.body;
                   if (res.code === 200) {
                     this.user = res.data;
-                    sessionStorage.setItem("user_info", JSON.stringify(this.user));
+                    localStorage.setItem("user_info", JSON.stringify(this.user));
                   }
                 });
               }

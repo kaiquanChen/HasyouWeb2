@@ -24,7 +24,7 @@
 
     const note_url = global_.URLS.NOTE_URL;
     const note_update_url = global_.URLS.NOTE_UPDATE_URL;
-    const token = sessionStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     export default {
       name: "note",
       props:["notes"],
@@ -76,7 +76,7 @@
               }
           },
           getUserInfo() {
-              let user_info = sessionStorage.getItem("user_info");
+              let user_info = localStorage.getItem("user_info");
               if (user_info) {
                 this.user = JSON.parse(user_info);
               } else {

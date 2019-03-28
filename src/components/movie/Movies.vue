@@ -380,7 +380,7 @@
           }
         },
         getMovieDetail(id) {
-          return "subject/" + id;
+          return "/movie/subject/" + id;
         },
         gotoTag(id) {
           return "/book/tag/" + id;

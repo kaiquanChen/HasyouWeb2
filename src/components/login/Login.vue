@@ -52,7 +52,7 @@
           sessionStorage.setItem("signature", signature);
         },
         checkUserState() {
-          let token = sessionStorage.getItem("access_token");
+          let token = localStorage.getItem("access_token");
           if (token) {
             this.$router.push({path: "/"});
           }
@@ -91,7 +91,7 @@
             }
 
             let token = res.data.access_token;
-            sessionStorage.setItem("access_token", token);
+            localStorage.setItem("access_token", token);
             Bus.$emit('login-status', token);
             let referer = this.$route.query.referer;
             if (referer) {

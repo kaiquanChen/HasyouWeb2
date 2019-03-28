@@ -28,7 +28,7 @@
     const note_url = global_.URLS.NOTE_URL;
     const upload_url = global_.URLS.FILE_URL;
     const note_update_url = global_.URLS.NOTE_UPDATE_URL;
-    const token = sessionStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     export default {
       name: "note",
       data() {
@@ -47,16 +47,15 @@
             return "height: " + (h - 150) + "px";
           },
           checkUserState() {
-            let token = sessionStorage.getItem("access_token");
             if (!token) {
               this.$router.push({path: "/login"});
             } else {
-              let user_json = sessionStorage.getItem("user_info");
+              let user_json = localStorage.getItem("user_info");
               this.user = JSON.parse(user_json);
             }
           },
           getUserInfo() {
-            let user_info = sessionStorage.getItem("user_info");
+            let user_info = localStorage.getItem("user_info");
             if (user_info) {
               this.user = JSON.parse(user_info);
             } else {
@@ -69,7 +68,7 @@
               this.$http.get(note_url + "subject/" + this.note.id, {
                 headers: {
                   bid: global_.FUNC.getBid(),
-                  "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+                  "X-HASYOU-TOKEN": token
                 }
               }).then((data) => {
                 let res = data.body;
