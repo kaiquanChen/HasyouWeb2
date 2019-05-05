@@ -32,6 +32,7 @@
 import global_ from "../../config/Global";
 
 let list_item_url = global_.URLS.COMMON_URL;
+const token = localStorage.getItem("access_token")
 export default {
   data () {
     return {
@@ -81,7 +82,7 @@ export default {
         },
         headers:{
             "bid": global_.FUNC.getBid(),
-            "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
+            "X-HASYOU-TOKEN": token
         }
         }).then((data) => {
           this.items = data.body.data.body;

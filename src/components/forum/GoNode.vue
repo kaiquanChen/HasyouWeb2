@@ -2,7 +2,7 @@
   <div id="go-node">
     <div class="left">
       <h2 class="nav">
-        <a href="/forum/forums">论坛首页</a>&nbsp;>
+        <a href="/forum">论坛首页</a>&nbsp;>
         <b>{{node.title}}</b>
       </h2>
       <div class="post-items">

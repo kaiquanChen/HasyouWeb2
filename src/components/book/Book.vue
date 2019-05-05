@@ -4,7 +4,7 @@
         <div class="header-left"></div>
         <div class="header-center">
           <ul class="book-header-nav">
-          <li><a href="/book/books">图书</a></li>
+          <li><a href="/book">图书</a></li>
           <li><a href="/book/read">阅读</a></li>
           <li><a href="/book/annual/2018">2018年度榜单</a></li>
           <li><a href="/book/annual/2017">2017年度榜单</a></li>

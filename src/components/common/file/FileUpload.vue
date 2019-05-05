@@ -18,7 +18,7 @@ import global_ from "../../config/Global";
 
 let file_url = global_.URLS.FILE_URL;
 const file_upload_url = global_.URLS.FILE_URL;
-const token = sessionStorage.getItem("access_token");;
+const token = localStorage.getItem("access_token");;
 export default {
   data () {
     return {

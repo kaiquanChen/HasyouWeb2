@@ -415,8 +415,8 @@
                 const movie_detail_url = movie_url + "subject/" + movie_id;
                 this.$http.get(movie_detail_url, {
                 headers: {
-                    "bid": global_.FUNC.getBid()
-                    // "X-HASYOU-TOKEN":token
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN":token
                 }
                 }).then((data) => {
                 if (data.status !== 200) {
