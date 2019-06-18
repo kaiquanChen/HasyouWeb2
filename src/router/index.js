@@ -52,6 +52,9 @@ import ItemList from '@/components/common/user/ItemList'
 // test
 import Test from '@/components/Test'
 
+
+import QysLogin from '@/components/qiyuesuo/Login'
+
 export const routes = [
   {
     path: '/', 
@@ -130,4 +133,5 @@ export const routes = [
   {path: '/book/annual/:year', component: BookAnnual},
   {path: '/note/edit', component: EditNote},
   {path: '/test', component: Test},
+  {path: '/sso/login', component: QysLogin}
 ]
