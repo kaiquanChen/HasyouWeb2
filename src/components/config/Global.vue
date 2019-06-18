@@ -6,8 +6,7 @@
   const uuidV4 = require("uuid/v4");
 
   const TEST_URL = 'http://localhost:8028/'
-  // const FLY_URL = 'https://backend.hasyou.cn/'
-  const FLY_URL = 'http://118.25.37.27:8028/'
+  const FLY_URL = 'https://backend.hasyou.cn/'
 
   const COMMON_URL = FLY_URL
 
