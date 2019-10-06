@@ -83,7 +83,7 @@
             </div>
           </div>
         </div>
-        <div class="box-us">
+        <!-- <div class="box-us">
           <h3><b>北美票房榜</b><span class="label">美元</span></h3>
           <div class="box-us-body">
             <div class="box-us-item" v-for="(item, index) in movie_us_box">
@@ -103,7 +103,7 @@
             </span>
             <span class="stars">{{item.average}}</span>
           </div>
-        </div>
+        </div> -->
         <div class="top250">
           <h3><b>电影TOP250</b><span class="top250-more"><a href="/movie/top250">更多</a></span></h3>
           <div class="top250-item" v-for="(item, index) in movie_top250">
@@ -397,8 +397,8 @@
         this.getMovieList("IN_THEATERS", 1, count);
         this.getMovieList("COMING_SOON", 1, count);
         this.getMovieList("NEW_MOVIES", 1, count);
-        this.getMovieList("WEEKLY", 1, 12);
-        this.getMovieList("US_BOX", 1, 12);
+        // this.getMovieList("WEEKLY", 1, 12);
+        // this.getMovieList("US_BOX", 1, 12);
         this.getMovieBox();
         this.getMovieTop250();
       }
