@@ -296,27 +296,28 @@
               return;
             }
 
-            this.movie_data[type] = data.body.data;
+            let movies = data.body.data;
+            this.movie_data[type] = movies;
             for (let i = 0; i < count; i++) {
               if (type === "IN_THEATERS") {
-                this.movie_in_theaters.push(data.body.data[i]);
+                this.movie_in_theaters.push(movies[i]);
                 this.in_theaters_page.page = 1;
                 this.in_theaters_page.count = count;
-                this.in_theaters_page.total = data.body.data.length;
+                this.in_theaters_page.total = movies.length;
               } else if (type === "COMING_SOON") {
-                this.movie_coming_soon[i] = data.body.data[i];
+                this.movie_coming_soon[i] = movies[i];
                 this.coming_soon_page.page = 1;
                 this.coming_soon_page.count = count;
-                this.coming_soon_page.total = data.body.data.length;
+                this.coming_soon_page.total = movies.length;
               } else if (type === "NEW_MOVIES") {
-                this.movie_new[i] = data.body.data[i];
+                this.movie_new[i] = movies[i];
                 this.new_page.page = 1;
                 this.new_page.count = count;
-                this.new_page.total = data.body.data.length;
-              } else if (type === "WEEKLY" && i < data.body.data.length) {
-                this.movie_weekly[i] = data.body.data[i];
-              } else if (type === "US_BOX" && i < data.body.data.length) {
-                this.movie_us_box[i] = data.body.data[i];
+                this.new_page.total = movies.length;
+              } else if (type === "WEEKLY" && i < movies.length) {
+                this.movie_weekly[i] = movies[i];
+              } else if (type === "US_BOX" && i < movies.length) {
+                this.movie_us_box[i] = movies[i];
               }
             }
           });
