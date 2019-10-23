@@ -62,31 +62,31 @@
                 <span class="movie-genre" v-else>{{genre.name}}</span>
               </span>
             </div>
-            <div v-if="data.countries && data.countries.length > 0">
+            <div v-if="data.country && data.country.length > 0">
               <label>制片国家/地区:</label>
-              <span v-for="(country, index) in data.countries" v-if="index < 3">
-                <span class="movie-country" v-if="index < data.countries.length - 1">{{country}} <i>/ </i></span>
+              <span v-for="(country, index) in data.country" v-if="index < 3">
+                <span class="movie-country" v-if="index < data.country.length - 1">{{country}} <i>/ </i></span>
                 <span class="movie-country" v-else>{{country}}</span>
               </span>
             </div>
-            <div v-if="data.pubdate && data.pubdate.length > 0">
+            <div v-if="data.pubdates && data.pubdates.length > 0">
               <label>上映时间:</label>
-              <span v-for="(date, index) in data.pubdate">
-                <span class="movie-pubdate" v-if="index < data.pubdate.length - 1">{{date}} <i>/ </i></span>
+              <span v-for="(date, index) in data.pubdates">
+                <span class="movie-pubdate" v-if="index < data.pubdates.length - 1">{{date}} <i>/ </i></span>
                 <span class="movie-pubdate" v-else>{{date}}</span>
               </span>
             </div>
-            <div v-if="data.durations && data.durations.length > 0">
+            <div v-if="data.duration && data.duration.length > 0">
               <label>片长:</label>
-              <span v-for="(duration, index) in data.durations">
-                <span class="movie-duration" v-if="index < data.durations.length - 1">{{duration}} <i>/ </i></span>
+              <span v-for="(duration, index) in data.duration">
+                <span class="movie-duration" v-if="index < data.duration.length - 1">{{duration}} <i>/ </i></span>
                 <span class="movie-duration" v-else>{{duration}}</span>
               </span>
             </div>
-            <div v-if="data.aka && data.aka.length > 0">
+            <div v-if="data.akas && data.akas.length > 0">
               <label>又名:</label>
-              <span v-for="(name, index) in data.aka">
-                <span class="movie-name" v-if="index < data.aka.length - 1">{{name}} <i>/ </i></span>
+              <span v-for="(name, index) in data.akas">
+                <span class="movie-name" v-if="index < data.akas.length - 1">{{name}} <i>/ </i></span>
                 <span class="movie-name" v-else>{{name}}</span>
               </span>
             </div>
@@ -119,7 +119,7 @@
             <a>(全部展开)</a>
           </span>
           <span class="summary-show"
-            @click="toggleSummaryShow()" 
+            @click="toggleSummaryShow()"
             v-show="summary_show">
             <a>(收起)</a>
           </span>
@@ -131,9 +131,9 @@
             </a>
           </h3>
           <div class="celebrity-item" v-for="(celebrity, index) in data.celebrities"
-              v-if="(index < 6) && (celebrity.image)" :key="celebrity.id">
-            <a :href="celebrity.image.small" target="_blank">
-              <img :src="celebrity.image.small"/>
+              v-if="(index < 6) && (celebrity.avatar)" :key="celebrity.id">
+            <a :href="celebrity.avatar" target="_blank">
+              <img :src="celebrity.avatar"/>
             </a>
             <span class="celebrity-name">{{celebrity.name}}</span>
             <span class="celebrity-roles">
@@ -156,15 +156,15 @@
           <div class="movie-comment-body">
             <div class="movie-comment-item" v-for="(item, index) in comments.body">
               <div class="comment-info">
-                <a target="_blank" :href="gotoAuthor(item.author.id)" class="creator-avatar" v-if="item.author && item.author.avatar">
-                  <img :src="item.author.avatar" :alt="item.author.name">
+                <a target="_blank" :href="gotoAuthor(item.user.id)" class="creator-avatar" v-if="item.user && item.user.avatar">
+                  <img :src="item.user.avatar" :alt="item.user.name">
                 </a>
                 <a href="javascript:void(0);" class="creator-avatar" v-else>
                   <img src="/static/image/user_anon.jpeg" alt="匿名">
                 </a>
                 &nbsp;
-                <span class="creator-name" v-if="item.author">
-                  <a target="_blank" :href="gotoAuthor(item.author.id)">{{item.author.name}}</a>
+                <span class="creator-name" v-if="item.user">
+                  <a target="_blank" :href="gotoAuthor(item.user.id)">{{item.user.name}}</a>
                 </span>
                 <span style="color: gray" v-else>[已注销]</span>&emsp;
                 <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
@@ -204,15 +204,15 @@
             <div class="movie-review-body">
               <div class="movie-review-item" v-for="(item, index) in reviews.body">
                 <div class="review-info">
-                  <a target="_blank" :href="gotoAuthor(item.author.id)" class="creator-avatar" v-if="item.author && item.author.avatar">
-                    <img :src="item.author.avatar" :alt="item.author.name">
+                  <a target="_blank" :href="gotoAuthor(item.user.id)" class="creator-avatar" v-if="item.user && item.user.avatar">
+                    <img :src="item.user.avatar" :alt="item.user.name">
                   </a>
                   <a href="javascript:void(0);" class="creator-avatar" v-else>
                     <img src="/static/image/user_anon.jpeg" alt="匿名">
                   </a>
                   &nbsp;
-                  <span class="creator-name" v-if="item.author">
-                    <a target="_blank" :href="gotoAuthor(item.author.id)">{{item.author.name}}</a>
+                  <span class="creator-name" v-if="item.user">
+                    <a target="_blank" :href="gotoAuthor(item.user.id)">{{item.user.name}}</a>
                   </span>
                   <span style="color: gray" v-else>[已注销]</span>&emsp;
                   <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
@@ -519,7 +519,7 @@
               this.getMovie();
               this.getMovieComment();
               this.getMovieReview();
-              this.getUserInfo();
+              // this.getUserInfo();
           }
         }
     </script>

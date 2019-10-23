@@ -231,9 +231,9 @@
           }
         },
         created() {
-          this.initKeywords();
-          this.getMessage();
-          this.getUserInfo();
+          // this.initKeywords();
+          // this.getMessage();
+          // this.getUserInfo();
         }
       }
 </script>

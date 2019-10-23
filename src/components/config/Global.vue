@@ -8,7 +8,7 @@
   const TEST_URL = 'http://localhost:8018/'
   const FLY_URL = 'http://114.67.104.36:8018/'
 
-  const COMMON_URL = FLY_URL
+  const COMMON_URL = TEST_URL
 
   // short book
   const SHORT_BOOK_PREFIX = 'shortbook/'

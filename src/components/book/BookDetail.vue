@@ -84,10 +84,10 @@
               </div>
               <div class="book-summary">
                 <h3>内容简介  · · · · · ·</h3>
-                <p v-for="(intro, index) in data.intro" v-show="!summary_show" v-if="index !== undefied && index < 3">{{intro}}</p>
-                <p v-for="(intro, index) in data.intro" v-show="summary_show">{{intro}}</p>
+                <p v-for="(summary, index) in data.summaries" v-show="!summary_show" v-if="index !== undefied && index < 2">{{summary}}</p>
+                <p v-for="(summary, index) in data.summaries" v-show="summary_show">{{summary}}</p>
                 <span class="summary-show" 
-                  v-if="data.intro && data.intro.length > 3"
+                  v-if="data.intro && data.intro.length >= 2"
                   @click="toggleSummaryShow()" 
                   v-show="!summary_show">
                   <a>(全部展开)</a>
@@ -100,13 +100,13 @@
               </div>
               <div class="book-catalog">
                 <h3>目录  · · · · · ·</h3>
-                <span v-for="(catalog, index) in data.category"
+                <span v-for="(catalog, index) in data.catalogs"
                   v-show="!catalog_show" v-if="index < 4">{{catalog}}</span>
-                <span v-for="(catalog, index) in data.category"
+                <span v-for="(catalog, index) in data.catalogs"
                   v-show="catalog_show">{{catalog}}</span>
                 <span class="catalog-show" 
                   @click="toggleCatalogShow()"
-                  v-if="data.category && data.category.length > 4"
+                  v-if="data.catalogs && data.catalogs.length > 4"
                   v-show="!catalog_show">
                   <a>(全部展开)</a>
                 </span>
@@ -128,9 +128,9 @@
                 </span>
                 <div class="book-comment-body">
                   <div class="book-comment-item" v-for="(comment, index) in comments.body">
-                    <a class="commenter-avatar" href="#" v-if="comment.user"><img :src="comment.user.avatar" /></a>
+                    <a class="commenter-avatar" target="_blank" :href="comment.avatar" v-if="comment.avatar"><img :src="comment.avatar" /></a>
                     <a class="commenter-avatar" href="#" v-else><img src="/static/image/user_anon.jpeg" /></a>
-                    <span class="creator-name" v-if="comment.user">{{comment.user.name}}</span>
+                    <span class="creator-name" v-if="comment.creator_name">{{comment.creator_name}}</span>
                     <span class="creator-name" v-else>【已注销】</span>
                     <span class="creator-rate">
                       <el-rate 
@@ -168,7 +168,7 @@
                 </span>
                 <div class="book-review-body">
                     <div class="book-review-item" v-for="(review, index) in reviews.body">
-                      <a class="review-avatar" href="#" v-if="review.user"><img :src="review.user.avatar" /></a>
+                      <a class="review-avatar" :href="review.user.avatar" v-if="review.user"><img :src="review.user.avatar" /></a>
                       <a class="review-avatar" href="#" v-else><img src="/static/image/user_anon.jpeg" /></a>
                       <span class="creator-name" v-if="review.user">{{review.user.name}}</span>
                       <span class="creator-name" v-else>【已注销】</span>
@@ -204,11 +204,11 @@
                 <div class="book-annotation-body">
                   <div class="book-annotation-item" v-for="annotation in annotations.body">
                     <div class="book-annotation-left">
-                      <a href="#"><img :src="annotation.author_user.avatar" /></a>
+                      <a href="#"><img :src="annotation.author.avatar" /></a>
                     </div>
                     <div class="book-annotation-right">
                       <span class="book-annotation-title">第{{annotation.page_no}}页</span>
-                      <span class="creator-name">{{annotation.author_user.name}}</span>
+                      <span class="creator-name">{{annotation.author.name}}</span>
                       <span class="creator-time">{{annotation.time}}</span>
                       <a class="abstract-photo" target="_blank" 
                         v-if="annotation.abstract_photo"
@@ -349,8 +349,8 @@
         this.getBookComment();
       },
       handleReviewPageChange(val) {
-        this.comments.page.page = val;
-        this.getBookComment();
+        this.reviews.page.page = val;
+        this.getBookReview();
       },
       handleAnnotationPageChange(val) {
         this.annotations.page.page = val;
@@ -600,7 +600,7 @@
       this.getBookComment();
       this.getBookReview();
       this.getBookAnnotation();
-      this.getUserInfo();
+      // this.getUserInfo();
     }
   }
 </script>
