@@ -90,9 +90,20 @@
             if (this.activeName === this.label) {
                 return;
             }
-            this.posts.page.page = 1;
-            this.label = this.activeName;
-            this.getPostList(this.label);
+            if (this.activeName === 'HOT' || this.activeName === 'LATEST') {
+                this.posts.page.page = 1;
+                this.label = this.activeName;
+                this.getPostList(this.label);
+                return;
+            }
+            for (let node of this.home_nodes) {
+                if (node.name === this.activeName) {
+                    this.posts.page.page = 1;
+                    this.label = this.activeName;
+                    this.getPostList(node.id);
+                    return;
+                }
+            }
         },
         checkMedia() {
             return window.matchMedia('(max-width:600px)').matches;
@@ -125,12 +136,16 @@
         },
         getPostList(type) {
             let url = post_url + "subjects";
+            let param = {
+                type: type,
+                p: this.posts.page.page,
+                count: this.posts.page.count
+            };
+            if (type !== 'HOT' && type !== 'LATEST') {
+                url = post_url + "subjects/" + type;
+            }
             this.$http.get(url, {
-            params:{
-                type:type,
-                p:this.posts.page.page,
-                count:this.posts.page.count
-            },
+            params:param,
             headers: {
                 "bid": global_.FUNC.getBid(),
                 "X-HASYOU-TOKEN": sessionStorage.getItem("access_token")
