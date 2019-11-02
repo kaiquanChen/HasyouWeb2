@@ -51,7 +51,7 @@
             </h2>
         <div class="movie-want-read item">
             <div class="item-left movie-want-watch-left">想看</div>
-            <ul class="movie-want-read-right record-items" v-if="want_movies && want_movies.body.length > 0">
+            <ul class="movie-want-read-right record-items" v-if="want_movies && want_movies.body && want_movies.body.length > 0">
                 <li class="want-movie-item" v-for="want_movie in want_movies.body" :key="want_movie.id">
                     <a target="_blank" :href="gotoMovieDetail(want_movie.id)"><img :src="want_movie.image_url" :alt="want_movie.name"></a>
                 </li>
@@ -59,7 +59,7 @@
         </div>
         <div class="movie-watched item">
             <div class="item-left movie-watched-left">看过</div>
-            <ul class="movie-watched-right record-items" v-if="watched_movies && watched_movies.body.length > 0">
+            <ul class="movie-watched-right record-items" v-if="watched_movies && watched_movies.body && watched_movies.body.length > 0">
                 <li class="watched-item" v-for="watched_movie in watched_movies.body" :key="watched_movie.id">
                     <a target="_blank" :href="gotoMovieDetail(watched_movie.id)"><img :src="watched_movie.image_url" :alt="watched_movie.title"></a>
                 </li>

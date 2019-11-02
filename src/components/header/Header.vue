@@ -157,6 +157,7 @@
           },
           getUserInfo() {
             this.user = global_.FUNC.getUserInfo();
+            console.log(this.user);
           },
           globalSearch() {
             if (!this.keywords) {
@@ -232,8 +233,8 @@
         },
         created() {
           // this.initKeywords();
-          // this.getMessage();
-          // this.getUserInfo();
+          this.getMessage();
+          this.getUserInfo();
         }
       }
 </script>
