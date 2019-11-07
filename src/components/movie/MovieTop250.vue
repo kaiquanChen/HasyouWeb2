@@ -36,10 +36,10 @@
                    / {{movie.countries[0]}}
                 </span>
               </span>
-              <span class="info-item movie-summary" v-if="movie.movie_tag.vars.intro">
+              <span class="info-item movie-summary" v-if="movie.movie_tag && movie.movie_tag.var && movie.movie_tag.var.intro">
                 <p class="quote summary">
                   <img src="/static/image/quotel.png"/>
-                  {{movie.movie_tag.vars.intro}}
+                  {{movie.movie_tag.var.intro}}
                   <img src="/static/image/quoter.png"/>
                 </p>
               </span>
