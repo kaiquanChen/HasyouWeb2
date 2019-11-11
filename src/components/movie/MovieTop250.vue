@@ -14,8 +14,8 @@
                 <em>{{(page.page - 1) * page.count + index + 1}}</em>.
                 <a target="_blank" :href="getMovieDetail(movie.id)">{{movie.title}}</a>
                 <a target="_blank" :href="getMovieDetail(movie.id)" 
-                  v-if="movie.aka && movie.aka.length > 0 && index < 3"
-                  v-for="(aka, index) in movie.aka"> 
+                  v-if="movie.akas && movie.akas.length > 0 && index < 3"
+                  v-for="(aka, index) in movie.akas"> 
                   / {{aka}}
                 </a>
               </span>
@@ -29,11 +29,11 @@
               </el-rate>
               <span class="info-item">
                 <span class="movie-year" v-if="movie.year">{{movie.year}}</span>
-                <span class="movie-duration" v-if="movie.durations && movie.durations.length > 0">
-                   / {{movie.durations[0]}}
+                <span class="movie-duration" v-if="movie.duration && movie.duration.length > 0">
+                   / {{movie.duration[0]}}
                 </span>
-                <span class="movie-country" v-if="movie.countries && movie.countries.length > 0">
-                   / {{movie.countries[0]}}
+                <span class="movie-country" v-if="movie.country && movie.country.length > 0">
+                   / {{movie.country[0]}}
                 </span>
               </span>
               <span class="info-item movie-summary" v-if="movie.movie_tag && movie.movie_tag.var && movie.movie_tag.var.intro">

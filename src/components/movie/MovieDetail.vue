@@ -519,7 +519,7 @@
               this.getMovie();
               this.getMovieComment();
               this.getMovieReview();
-              // this.getUserInfo();
+              this.getUserInfo();
           }
         }
     </script>
