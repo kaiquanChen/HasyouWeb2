@@ -12,7 +12,7 @@
                 {{post.title}}
               </span>
               <span class="header info">
-                <span class="creator-name">{{member.username}}</span> · 
+                <span class="creator-name" v-if="post.author">{{post.author}}</span> · 
                 <span class="create-time">{{post.create_time}}</span> · 
                 <a target="_blank" :href="'https://www.v2ex.com/t/' + post.id" class="v2ex">原网页</a>
               </span>
