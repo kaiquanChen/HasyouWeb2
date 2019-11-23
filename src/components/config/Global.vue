@@ -43,6 +43,8 @@
   const MOVIE_WATCH_URL = DOUBAN_MOVIE + "watched";
   const MOVIE_RECORD_URL = DOUBAN_MOVIE + "record";
   const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
+  const MOVIE_BLOOPER_URL = DOUBAN_MOVIE + "blooper/";
+  const MOVIE_TRAILER_URL = DOUBAN_MOVIE + "trailer/";
 
   // v2 post
   const POST_URL = COMMON_URL + 'v2/'
@@ -227,7 +229,8 @@
     BOOK_WANT_URL,
     BOOK_RECORD_URL,
     BOOK_ANNOTATION_URL,
-
+    MOVIE_BLOOPER_URL,
+    MOVIE_TRAILER_URL,
 
     /* v2 */
     COMMENT_URL,

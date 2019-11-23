@@ -86,8 +86,14 @@
 
             .movie-box {
 
-                span {
-                    color: #000000;
+                span {.all-casts:hover {
+                background-color: #3377aa;
+                color: #ffffff;
+            }
+                    co.all-casts:hover {
+                background-color: #3377aa;
+                color: #ffffff;
+            }
                 }
             }
         }
@@ -203,6 +209,25 @@
     .pagination {
         text-align: center;
         margin-top: 10px;
+    }
+
+    .movie-blooper {
+        margin-top: 15px;
+
+        h3 {
+            color: #007722;
+            margin-top: 30px;
+        }
+
+        .all-bloopers {
+            color: #3377aa;
+            font-size: 12px;
+        }
+
+        .all-bloopers:hover {
+            background-color: #3377aa;
+            color: #ffffff;
+        }
     }
 
     .movie-comment {
@@ -433,6 +458,7 @@
 }
 
 @media screen and (max-width: 400px) {
+
     #movie-detail {
         margin-top: 20px;
         padding: 5px;

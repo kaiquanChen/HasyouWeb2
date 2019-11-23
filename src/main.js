@@ -14,9 +14,12 @@ import {VueMasonryPlugin} from 'vue-masonry'
 import gallery from 'img-vuer'
 import 'mavon-editor/dist/css/index.css'
 import mavonEditor from 'mavon-editor'
+import VuevideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
 
 Vue.config.productionTip = false
 
+Vue.use(VuevideoPlayer)
 Vue.use(VueMasonryPlugin)
 Vue.use(gallery)
 Vue.use(Antd)

@@ -141,6 +141,19 @@
             </span>
           </div>
         </div>
+        <div class="movie-blooper">
+          <h3>{{data.title}}的主题曲  · · · · · ·
+            <a class="all-bloopers" href="#" v-if="data.celebrities && data.celebrities.length > 6">
+              (全部 {{bloopers.page.total}})
+            </a>
+            <video-player
+              class="video-player vjs-custom-skin"
+              ref="videoPlayer"
+              :playsinline="true"
+              :options="playerOptions">
+            </video-player>
+          </h3>
+        </div>
         <div class="movie-comment">
           <h3>{{data.title}}的短评  · · · · · ·</h3>
           <span id="comment-nav-root">
@@ -253,7 +266,10 @@
       const comment_url = global_.URLS.MOVIE_SHORT_COMMENT_URL;
       const review_url = global_.URLS.MOVIE_REVIEW_URL;
       const watch_url = global_.URLS.MOVIE_WATCH_URL;
+      const blooper_url = global_.URLS.MOVIE_BLOOPER_URL;
+      const trailer_url = global_.URLS.MOVIE_TRAILER_URL;
       const want_url = global_.FUNC.MOVIE_WANT_URL;
+
       const token = localStorage.getItem("access_token");
         export default {
           name: "book",
@@ -286,7 +302,50 @@
                   count: 10
                 }
               },
-              pager_count: 7
+              bloopers: {
+                body:[],
+                page:{
+                  total: 0,
+                  page: 1,
+                  count: 10
+                }
+              },
+              trailer: {
+                body:[],
+                page:{
+                  total: 0,
+                  page: 1,
+                  count: 5
+                }
+              },
+              pager_count: 7,
+              playerOptions: {
+                playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+                autoplay: false, //如果true,浏览器准备好时开始回放。
+                muted: false, // 默认情况下将会消除任何音频。
+                loop: false, // 导致视频一结束就重新开始。
+                preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+                language: "zh-CN",
+                aspectRatio: "16:9", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+                fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+                sources: [
+                  {
+                    // src: "//path/to/video.mp4", // 路径
+                    src: "src/images/VID1121.mp4", // 路径
+                    type: "video/mp4" // 类型
+                  }
+                ],
+                // poster: "../../static/images/test.jpg", //你的封面地址
+                poster: "src/images/logo.png", //你的封面地址
+                // width: document.documentElement.clientWidth,
+                notSupportedMessage: "此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+                controlBar: {
+                  timeDivider: true,
+                  durationDisplay: true,
+                  remainingTimeDisplay: false,
+                  fullscreenToggle: true //全屏按钮
+                }
+              }
             }
           },
           methods: {
@@ -479,6 +538,65 @@
                 this.reviews.page.count = data.body.data.count;
               });
             },
+            getMovieBlooper() {
+              let movie_id = this.$route.params.id;
+              this.$http.get(blooper_url + movie_id, {
+                params:{
+                  p:1,
+                  count:5
+                },
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  alert("数据获取失败!");
+                  return;
+                }
+
+                this.bloopers.body = data.body.data.body;
+                this.bloopers.page.total = data.body.data.total;
+                this.bloopers.page.page = data.body.data.page;
+                this.bloopers.page.count = data.body.data.count;
+
+                let bloopers = [];
+                for(let blooper of data.body.data.body) {
+                  let resource = {
+                    src: blooper.resource_url, // 路径
+                    type: "video/mp4" // 类型
+                  };
+                  bloopers.push(resource);
+                }
+                this.playerOptions.sources = bloopers;
+                this.playerOptions.poster = this.bloopers.body[0].small;
+              });
+            },
+            getMovieTrailer() {
+              let movie_id = this.$route.params.id;
+              this.$http.get(trailer_url + movie_id, {
+                params:{
+                  p:1,
+                  count:5
+                },
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  alert("数据获取失败!");
+                  return;
+                }
+
+                this.trailers.body = data.body.data.body;
+                this.trailers.page.total = data.body.data.total;
+                this.trailers.page.page = data.body.data.page;
+                this.trailers.page.count = data.body.data.count;
+              });
+            },
             handleCelebrityRoles() {
               let celebrities = this.data.celebrities;
               celebrities.map((item, key) => {
@@ -519,6 +637,8 @@
               this.getMovie();
               this.getMovieComment();
               this.getMovieReview();
+              this.getMovieBlooper();
+              this.getMovieTrailer();
               this.getUserInfo();
           }
         }
