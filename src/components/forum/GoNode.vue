@@ -109,7 +109,7 @@
           this.posts.page.total = data.body.data.total;
           this.posts.page.page = data.body.data.page;
           this.posts.page.count = data.body.data.count;
-          this.node = data.body.data.extra.node;
+          this.node = data.body.data.body[0].node;
         });
       },
       getPostRoutes(id) {
