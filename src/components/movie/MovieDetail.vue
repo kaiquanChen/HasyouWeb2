@@ -636,7 +636,7 @@
           created() {
               this.getMovie();
               this.getMovieComment();
-              this.getMovieReview();
+              // this.getMovieReview();
               this.getMovieBlooper();
               this.getMovieTrailer();
               this.getUserInfo();
