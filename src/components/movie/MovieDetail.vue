@@ -181,7 +181,7 @@
                 </span>
                 <span style="color: gray" v-else>[已注销]</span>&emsp;
                 <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
-                <span class="create-time">{{getDate(item.created_at)}}</span>
+                <span class="create-time">{{item.created_at}}</span>
                 <span class="votes">{{item.useful_count}}赞</span>
               </div>
               <div class="comment-content">
