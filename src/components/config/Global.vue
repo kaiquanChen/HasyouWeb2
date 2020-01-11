@@ -45,6 +45,10 @@
   const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
   const MOVIE_BLOOPER_URL = DOUBAN_MOVIE + "blooper/";
   const MOVIE_TRAILER_URL = DOUBAN_MOVIE + "trailer/";
+  
+  // question
+  const QUESTION_URL = DOUBAN_MOVIE + "question/";
+  const ANSWER_URL = DOUBAN_MOVIE + "answer/";
 
   // v2 post
   const POST_URL = COMMON_URL + 'v2/'
@@ -231,6 +235,8 @@
     BOOK_ANNOTATION_URL,
     MOVIE_BLOOPER_URL,
     MOVIE_TRAILER_URL,
+    QUESTION_URL,
+    ANSWER_URL,
 
     /* v2 */
     COMMENT_URL,

@@ -255,6 +255,18 @@
             </div>
           </span>
         </div>
+        <div class="movie-discussion">
+          <h3>{{data.title}}的讨论  · · · · · ·</h3>
+          <a-collapse @change="changeActivekey">
+            <a-collapse-panel :header="question.title" :key="question.id" v-for="question in questions.body">
+              <!-- <a-collapse :defaultActiveKey="question.id">
+                <a-collapse-panel :header="answer" :key="answer.id" v-for="answer in answers.body">
+                  <p>{{text}}</p>
+                </a-collapse-panel>
+              </a-collapse> -->
+            </a-collapse-panel>
+          </a-collapse>
+        </div>
     </div>
     <div class="right"></div>
   </div>
@@ -269,12 +281,31 @@
       const blooper_url = global_.URLS.MOVIE_BLOOPER_URL;
       const trailer_url = global_.URLS.MOVIE_TRAILER_URL;
       const want_url = global_.FUNC.MOVIE_WANT_URL;
+      const question_url = global_.URLS.QUESTION_URL;
+      const answer_url = global_.URLS.ANSWER_URL;
 
       const token = localStorage.getItem("access_token");
         export default {
           name: "book",
           data() {
             return {
+              text: `A dog is `,
+              answers:{
+                body:[],
+                page:{
+                  total: 0,
+                  page: 1,
+                  count: 5
+                }
+              },
+              questions:{
+                body:[],
+                page:{
+                  total: 0,
+                  page: 1,
+                  count: 5
+                }
+              },
               user:{},
               data:{},
               directors:[],
@@ -632,6 +663,56 @@
                 });
               }
             },
+            getQuestions() {
+              let movie_id = this.$route.params.id;
+              this.$http.get(question_url + movie_id, {
+                params:{
+                  p:this.questions.page.page,
+                  count:this.questions.page.count
+                },
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  alert("数据获取失败!");
+                  return;
+                }
+
+                this.questions.body = data.body.data.body;
+                this.questions.page.total = data.body.data.total;
+                this.questions.page.page = data.body.data.page;
+                this.questions.page.count = data.body.data.count;
+              });
+            },
+            getAnswers(question_id) {
+              this.$http.get(answer_url + question_id, {
+                params:{
+                  p:this.answers.page.page,
+                  count:this.answers.page.count
+                },
+                headers: {
+                  "bid": global_.FUNC.getBid(),
+                  "X-HASYOU-TOKEN":token
+                }
+              }).then((data) => {
+                if (data.status !== 200) {
+                  console.log(data);
+                  alert("数据获取失败!");
+                  return;
+                }
+
+                this.answers.body = data.body.data.body;
+                this.answers.page.total = data.body.data.total;
+                this.answers.page.page = data.body.data.page;
+                this.answers.page.count = data.body.data.count;
+              });
+            },
+            changeActivekey (question_id) {
+              getAnswers(question_id);
+            }
           },
           created() {
               this.getMovie();
@@ -640,6 +721,7 @@
               this.getMovieBlooper();
               this.getMovieTrailer();
               this.getUserInfo();
+              this.getQuestions();
           }
         }
     </script>
