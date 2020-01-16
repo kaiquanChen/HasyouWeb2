@@ -256,16 +256,23 @@
           </span>
         </div>
         <div class="movie-discussion">
-          <h3>{{data.title}}的讨论  · · · · · ·</h3>
-          <a-collapse @change="changeActivekey">
-            <a-collapse-panel :header="question.title" :key="question.id" v-for="question in questions.body">
-              <!-- <a-collapse :defaultActiveKey="question.id">
-                <a-collapse-panel :header="answer" :key="answer.id" v-for="answer in answers.body">
-                  <p>{{text}}</p>
-                </a-collapse-panel>
-              </a-collapse> -->
-            </a-collapse-panel>
-          </a-collapse>
+          <h3>{{data.title}}的讨论区  · · · · · ·</h3>
+          <div class="movie-question-body">
+              <div class="movie-question-item" v-for="(item, index) in questions.body">
+                <h4>{{item.title}}</h4>
+              </div>
+          </div>
+          <div class="pagination">
+              <el-pagination
+                class="post-pagination"
+                @current-change="handleQuestionCurrentChange"
+                :page-size="questions.page.count"
+                :pager-count="pager_count"
+                :small="checkMedia()"
+                layout="prev, pager, next"
+                :total="questions.page.total">
+              </el-pagination>
+            </div>
         </div>
     </div>
     <div class="right"></div>
@@ -303,7 +310,7 @@
                 page:{
                   total: 0,
                   page: 1,
-                  count: 5
+                  count: 10
                 }
               },
               user:{},
@@ -711,7 +718,11 @@
               });
             },
             changeActivekey (question_id) {
-              getAnswers(question_id);
+              this.getAnswers(question_id);
+            },
+            handleQuestionCurrentChange(val) {
+              this.questions.page.page = val;
+              this.getQuestions();
             }
           },
           created() {
