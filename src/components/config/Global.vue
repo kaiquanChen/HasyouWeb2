@@ -5,7 +5,7 @@
 <script>
   const uuidV4 = require("uuid/v4");
 
-  const TEST_URL = 'http://localhost:8018/'
+  const TEST_URL = 'http://192.168.50.234:8018/'
   const FLY_URL = 'http://114.67.104.36:8018/'
 
   const COMMON_URL = FLY_URL
