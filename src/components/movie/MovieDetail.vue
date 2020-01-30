@@ -11,7 +11,7 @@
             <a target="_blank" v-if="data.image_url" :href="data.image_url">
               <img :src="data.image_url" :alt="data.title">
             </a>
-            <div class="user-operation" v-if="data.operations && data.operations.length === 0">
+            <div class="user-operation" v-if="!data.operations || data.operations.length === 0">
               <span class="read" @click="watchMovie()">看过</span>
               <span class="want-read" @click="wantMovie()">想看</span>
             </div>
