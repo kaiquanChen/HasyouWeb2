@@ -299,6 +299,9 @@
             let movies = data.body.data;
             this.movie_data[type] = movies;
             for (let i = 0; i < count; i++) {
+              if (i === movies.length) {
+                return;
+              }
               if (type === "IN_THEATERS") {
                 this.movie_in_theaters.push(movies[i]);
                 this.in_theaters_page.page = 1;
