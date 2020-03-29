@@ -23,7 +23,7 @@
                     v-for="operate in data.operations"
                     v-if="operate.operation === 'WANT_BOOK'">已加入要看计划</span>
             </div>
-            <span class="update" @click="updateMovie()" v-if="user && user.id === 1">更新</span>
+            <span class="update" @click="updateMovie()" v-if="user !== undefied && user.id == 1">更新</span>
           </div>
           <div class="info">
             <div v-if="directors && directors.length > 0">
@@ -112,9 +112,9 @@
           <h3>{{data.title}}的剧情介绍  · · · · · ·</h3>
           <p v-for="(summary, index) in data.summaries" v-show="!summary_show" v-if="index !== undefied && index < 1">{{summary}}</p>
           <p v-for="(summary, index) in data.summaries" v-show="summary_show">{{summary}}</p>
-          <span class="summary-show" 
+          <span class="summary-show"
             v-if="data.summaries && data.summaries.length > 1"
-            @click="toggleSummaryShow()" 
+            @click="toggleSummaryShow()"
             v-show="!summary_show">
             <a>(全部展开)</a>
           </span>
@@ -167,7 +167,7 @@
             </span>
           </span>
           <div class="movie-comment-body">
-            <div class="movie-comment-item" v-for="(item, index) in comments.body">
+            <div class="movie-comment-item" v-for="item in comments.body" :key="item.id">
               <div class="comment-info">
                 <a target="_blank" :href="gotoAuthor(item.user.id)" class="creator-avatar" v-if="item.user && item.user.avatar">
                   <img :src="item.user.avatar" :alt="item.user.name">
@@ -278,7 +278,7 @@
     <div class="right"></div>
   </div>
 </template>
-    
+
     <script>
       import global_ from "../config/Global"
       const movie_url = global_.URLS.DOUBAN_MOVIE;
@@ -521,7 +521,6 @@
                     alert("数据获取失败!");
                     return;
                 }
-
                   this.data = data.body.data;
                   this.handleCelebrityRoles();
                 });
@@ -736,8 +735,7 @@
           }
         }
     </script>
-    
+
     <style lang="scss" scoped>
       @import './css/movieDetail'
     </style>
-    
