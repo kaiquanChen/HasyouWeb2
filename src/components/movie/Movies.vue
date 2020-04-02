@@ -2,7 +2,26 @@
     <div id="movies">
       <div class="left">
         <div class="in-theaters">
-          <h2><b>正在热映</b></h2>
+          <h2><b>最新热门电影</b></h2>
+          <div class="movie-tag">
+              <label 
+                v-bind:style="active==='热门' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('热门')">热门</label>
+              <label v-bind:style="active==='最新' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('最新')">最新</label>
+              <label v-bind:style="active==='豆瓣高分' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('豆瓣高分')">豆瓣高分</label>
+              <label v-bind:style="active==='冷门佳片' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('冷门佳片')">冷门佳片</label>
+              <label v-bind:style="active==='华语' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('华语')">华语</label>
+              <label v-bind:style="active==='欧美' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('欧美')">欧美</label>
+              <label v-bind:style="active==='韩国' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('韩国')">韩国</label>
+              <label v-bind:style="active==='日本' ? 'color:#111' : 'color:#9B9B9B'" 
+                class="movie-tag-label" @click="getByTagName('日本')">日本</label>
+          </div>
           <div class="page-btn-dot" v-if="!checkMedia()">
             <div class="item" :style="getStyle('IN_THEATERS', index)" @click="handleInTheaters(index)" v-for="index in Math.ceil(in_theaters_page.total / in_theaters_page.count)"></div>
           </div>
@@ -126,6 +145,8 @@
       name: "book",
       data() {
         return {
+        active: "热门",
+        count: 10,
         movie_in_theaters:[],
         movie_coming_soon:[],
         movie_new:[],
@@ -391,16 +412,46 @@
         },
         checkMedia() {
           return window.matchMedia('(max-width:600px)').matches;
+        },
+        getByTagName(tagName) {
+          this.active = tagName;
+          this.$http.get(MOVIE_URL + "tag/" + tagName, {
+            headers: {
+              "bid": global_.FUNC.getBid()
+            }
+          }).then( (data) => {
+            if (data.status !== 200) {
+              console.log(data);
+              alert("数据获取失败!");
+              return;
+            }
+            if (this.movie_data["IN_THEATERS"]) {
+              this.movie_data["IN_THEATERS"].splice(0);
+            }
+            this.movie_in_theaters.splice(0);
+            let count = this.count;
+            let movies = data.body.data;
+            this.movie_data["IN_THEATERS"] = movies;
+            for (let i = 0; i < count; i++) {
+              if (i === movies.length) {
+                return;
+              }
+              this.movie_in_theaters.push(movies[i]);
+              this.in_theaters_page.page = 1;
+              this.in_theaters_page.count = count;
+              this.in_theaters_page.total = movies.length;
+            }
+          });
         }
       },
       created() {
-        let count = 10;
         if (this.checkMedia()) {
-          count = 6;
+          this.count = 6;
         }
-        this.getMovieList("IN_THEATERS", 1, count);
-        this.getMovieList("COMING_SOON", 1, count);
-        this.getMovieList("NEW_MOVIES", 1, count);
+        // this.getMovieList("IN_THEATERS", 1, count);
+        this.getByTagName("热门", this.count);
+        this.getMovieList("COMING_SOON", 1, this.count);
+        this.getMovieList("NEW_MOVIES", 1, this.count);
         // this.getMovieList("WEEKLY", 1, 12);
         // this.getMovieList("US_BOX", 1, 12);
         this.getMovieBox();

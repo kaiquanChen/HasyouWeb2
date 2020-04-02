@@ -17,6 +17,16 @@
         .in-theaters {
             position: relative;
 
+            .movie-tag {
+                margin-left: 5px;
+
+                .movie-tag-label {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                    color: #9B9B9B;
+                }
+            }
+
             .page-btn-dot {
                 display: inline-block;
                 position: absolute;
