@@ -55,7 +55,9 @@ export default {
         return window.matchMedia('(max-width:600px)').matches;
     },
     getDate(time) {
-      return time.split(" ")[0];
+      if (time) {
+        return time.split(" ")[0];
+      }
     },
     gotoItemDetail(id) {
       if (this.type === "WATCHED_MOVIE") {

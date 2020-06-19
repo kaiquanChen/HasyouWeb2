@@ -30,7 +30,7 @@
             </h2>
             <div class="book-want-read item">
                 <div class="item-left book-want-read-left">想读</div>
-                <ul class="book-want-read-right record-items" v-if="want_books && want_books.body.length > 0">
+                <ul class="book-want-read-right record-items" v-if="want_books.body && want_books.body.length > 0">
                     <li class="want-read-item" v-for="want_book in want_books.body" :key="want_book.id">
                         <a target="_blank" :href="gotoBookDetail(want_book.id)"><img :src="want_book.image_url" :alt="want_book.name"></a>
                     </li>
@@ -38,7 +38,7 @@
             </div>
             <div class="book-read item">
                 <div class="item-left book-read-left">读过</div>
-                <ul class="book-read-right record-items" v-if="read_books && read_books.body.length > 0">
+                <ul class="book-read-right record-items" v-if="read_books.body && read_books.body.length > 0">
                     <li class="read-item" v-for="read_book in read_books.body" :key="read_book.id">
                         <a target="_blank" :href="gotoBookDetail(read_book.id)"><img :src="read_book.image_url" :alt="read_book.name"></a>
                     </li>
@@ -75,7 +75,7 @@
                     <a target="_blank" class="lnk-create" href="/note/edit"><i>+</i>写笔记</a>
                 </span>
             </div>
-            <ul class="record-items" v-if="notes && notes.body.length > 0">
+            <ul class="record-items" v-if="notes.body && notes.body.length > 0">
                 <li class="note-item" v-for="(note, index) in notes.body">
                 {{index + 1}} . <a target="_blank" class="note-title" :href="gotoNoteDetail(note.id)">{{note.title}}</a>
                 <span class="note-create-time">{{note.create_time}}</span>

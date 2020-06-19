@@ -61,11 +61,7 @@
               return "/user/" + this.user.id + "/albums";
           },
           gotoUserRecord(type) {
-              if (type === "READ_BOOK") {
-                  return "/user/" + this.user.id + "/subjects/" + type;
-              } else if (type === "WATCHED_MOVIE") {
-                  return "/user/" + this.user.id + "/subjects/" + type;
-              }
+              return "/user/" + this.user.id + "/subjects/" + type;
           },
           gotoAlbumUpload() {
               return "/user/" + this.user.id + "/album/upload";

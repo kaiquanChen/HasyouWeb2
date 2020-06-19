@@ -492,6 +492,7 @@
         }
         // this.getMovieList("IN_THEATERS", 1, count);
         this.getByTagName("热门", "MOVIE");
+        this.getByTagName("热门", "TV");
         this.getMovieList("COMING_SOON", 1, this.count);
         this.getMovieList("NEW_MOVIES", 1, this.count);
         // this.getMovieList("WEEKLY", 1, 12);
