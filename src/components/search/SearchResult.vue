@@ -5,7 +5,7 @@
             <div class="center-left">
                 <h1>搜索<span class="high-light">{{keywords}}</span>共<span class="high-light">{{page.total}}</span>个结果</h1>
                 <div class="results">
-                    <div class="result-item" v-for="item in items" :key="item.id">
+                    <div class="result-item" v-for="item in items" :key="item.subject_id">
                         <div class="result-item-info">
                             <div class="item-info1">
                                 <!-- <span class="title" v-if="item.type === 'book'">
@@ -17,22 +17,21 @@
                                     <a target="_blank" :href="getDetail(item)">{{item.title}}</a>
                                 </span>
                                 <el-rate
-                                    class="book-list-rate"
-                                    v-model="item.stars / 2"
-                                    disabled
-                                    show-score
-                                    text-color="#ff9900"
-                                    :score-template="item.stars">
+                                  class="primary-rate"
+                                  :value="getStars(item.average)"
+                                  disabled
+                                  text-color="#ff9900"
+                                  :score-template="item.average + ''"
+                                  >
                                 </el-rate>
                             </div>
                             <div class="item-info2">
-                                <span class="it" v-if="item.title">
-                                    {{item.title}}
-                                </span>
-                                <!-- <span class="item-info" v-if="item.type === 'book' && item.vars.authors && index < 1" v-for="(author, index) in item.vars.authors"> / {{author}}</span>
-                                <span class="item-info" v-if="item.type === 'book' && item.vars.translators && index < 1" v-for="(translator, index) in item.vars.translators"> / {{translator}}</span> -->
-                                <!-- <span class="item-info" v-if="item.type === 'movie' && item.vars.year"> / {{item.vars.year}}</span>
-                                <span class="item-info" v-if="item.type === 'movie' && item.vars.countries"> / {{item.vars.countries[0]}}</span> -->
+                                <span class="it" v-if="item.content">
+                                    {{item.content}}
+                                </span><br />
+                                <span class="it" v-if="item.stars">
+                                    {{item.stars}}
+                                </span><br />
                             </div>
                             <span class="intro text-info">{{item.summary}}</span>
                         </div>
@@ -72,6 +71,12 @@
         };
       },
       methods: {
+        getStars(stars) {
+          return stars / 2;
+        },
+        getAverage(average) {
+          return average.toString();
+        },
         checkMedia() {
           return window.matchMedia('(max-width:600px)').matches;
         },
@@ -85,7 +90,7 @@
           });
         },
         getDetail(item) {
-          return "/movie/subject/" + item.id;
+          return "/movie/subject/" + item.subject_id;
           // if (item.type === "book") {
           //   return "/book/subject/" + item.id;
           // } else if (item.type === "movie") {
