@@ -117,7 +117,10 @@
           <h3><b>国内票房榜</b><span class="label"><b>{{getCurrDate()}}</b>更新 / 元</span></h3>
           <div class="box-cn-body">
             <div class="box-cn-item" v-for="(item, index) in movie_cn_box">
-              <span class="title">{{index + 1}}.&nbsp;&nbsp;{{item.movie_name}}</span>
+              <span class="title">
+                <a class="title" target="_blank" :href="gotoMovieDetail(item.movie_id)" v-if="item.movie_id">{{index + 1}}.&nbsp;&nbsp;{{item.movie_name}}</a>
+                <a class="title" v-else>{{index + 1}}.&nbsp;&nbsp;{{item.movie_name}}</a>
+              </span>
               <span class="movie-box">{{item.sum_box_info}}</span>
             </div>
           </div>

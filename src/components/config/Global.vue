@@ -45,6 +45,10 @@
   const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
   const MOVIE_BLOOPER_URL = DOUBAN_MOVIE + "blooper/";
   const MOVIE_TRAILER_URL = DOUBAN_MOVIE + "trailer/";
+  const MOVIE_ALBUM_URL = DOUBAN_MOVIE + "album";
+  const MOVIE_ALBUM_ITEM_URL = DOUBAN_MOVIE + "album/item";
+  const MOVIE_ALBUM_ITEM_DELETE_URL = DOUBAN_MOVIE + "album/item/delete";
+
 
   // question
   const QUESTION_URL = DOUBAN_MOVIE + "question/";
@@ -237,6 +241,9 @@
     MOVIE_TRAILER_URL,
     QUESTION_URL,
     ANSWER_URL,
+    MOVIE_ALBUM_URL,
+    MOVIE_ALBUM_ITEM_URL,
+    MOVIE_ALBUM_ITEM_DELETE_URL,
 
     /* v2 */
     COMMENT_URL,
