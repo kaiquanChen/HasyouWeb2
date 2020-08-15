@@ -123,7 +123,7 @@
 
 <script>
     import global_ from "../config/Global";
-    import Bus from "../../js/bus"
+    import Bus from "../../js/bus";
 
     export default {
         name: "",

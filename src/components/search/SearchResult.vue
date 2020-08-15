@@ -1,5 +1,5 @@
 <template>
-    <div id="search-result">
+    <div id="search-result" v-title data-title="测试title">
         <div class="left"></div>
         <div class="center">
             <div class="center-left">

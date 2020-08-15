@@ -1,5 +1,5 @@
 <template>
-  <div id="movie-detail">
+  <div id="movie-detail" v-title data-title="测试title">
     <div class="left">
         <h1 class="movie-title">{{data.title}}
           <span class="movie-year" v-if="data.year && data.year.length > 0">
@@ -90,10 +90,13 @@
                 <span class="movie-name" v-else>{{name}}</span>
               </span>
             </div>
+            <div class="movie-box">
+              <a target="_blank" style="color:#aaa" :href="gotoDouban(data)">去豆瓣看看</a>
+            </div>
             <div class="movie-box" v-if="data.box">
-                <label>实时票房:</label>
-                <span>{{data.box}}</span>
-              </div>
+              <label>实时票房:</label>
+              <span>{{data.box}}</span>
+            </div>
           </div>
           <div class="rate">
             <div class="rate-body">
@@ -280,7 +283,9 @@
 </template>
 
     <script>
-      import global_ from "../config/Global"
+      import global_ from "../config/Global";
+      import Bus from "../../js/bus";
+
       const movie_url = global_.URLS.DOUBAN_MOVIE;
       const comment_url = global_.URLS.MOVIE_SHORT_COMMENT_URL;
       const review_url = global_.URLS.MOVIE_REVIEW_URL;
@@ -523,6 +528,7 @@
                 }
                   this.data = data.body.data;
                   this.handleCelebrityRoles();
+                  document.title = this.data.title + "(Withyou)";
                 });
             },
             getMovieComment() {
@@ -722,7 +728,10 @@
             handleQuestionCurrentChange(val) {
               this.questions.page.page = val;
               this.getQuestions();
-            }
+            },
+            gotoDouban(item) {
+              return "https://movie.douban.com/subject/" + item.id + "/?from=showing";
+            },
           },
           created() {
               this.getMovie();
