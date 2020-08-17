@@ -326,9 +326,9 @@
               show_full_casts: false,
               summary_show: false,
               review_selected: false,
-              review_sort: 'hot',
+              review_sort: 'latest',
               comment_selected: false,
-              comment_sort: 'hot',
+              comment_sort: 'latest',
               comments: {
                 body:[],
                 page:{
