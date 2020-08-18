@@ -158,7 +158,7 @@
           </h3>
         </div>
         <div class="movie-comment">
-          <h3>{{data.title}}的短评  · · · · · ·</h3>
+          <h3>{{data.title}}的短评 · · · · · · <span style="color:rgb(51, 119, 170);">  (全部{{comments.page.total}}条)</span></h3>
           <span id="comment-nav-root">
             <span @click="toggleCommentNav('hot')"
                   v-bind:style="comment_selected ? 'color:black' : 'color:#3377aa'"
@@ -207,7 +207,7 @@
           </div>
         </div>
         <div class="movie-review">
-          <h3>{{data.title}}的影评  · · · · · ·</h3>
+          <h3>{{data.title}}的影评  · · · · · ·<span style="color:rgb(51, 119, 170);">  (全部{{reviews.page.total}}条)</span></h3>
           <span id="review-nav-root">
             <span @click="toggleReviewNav('hot')"
                   v-bind:style="review_selected ? 'color:black' : 'color:#3377aa'"
