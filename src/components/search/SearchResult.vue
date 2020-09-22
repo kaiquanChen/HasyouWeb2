@@ -7,7 +7,7 @@
                 <div class="results">
                     <div class="result-item" v-for="item in items" :key="item.subject_id">
                         <div class="result-item-info">
-                            <div class="item-info1">
+                            <div class="item-info">
                                 <!-- <span class="title" v-if="item.type === 'book'">
                                     [图书]&nbsp;
                                     <a target="_blank" :href="getDetail(item)">{{item.name}}</a>
@@ -19,10 +19,10 @@
                                 <el-rate
                                   class="primary-rate"
                                   :value="getStars(item.average)"
-                                  disabled
-                                  text-color="#ff9900"
                                   :score-template="item.average + ''"
-                                  >
+                                  show-score
+                                  disabled
+                                  text-color="#ff9900">
                                 </el-rate>
                             </div>
                             <div class="item-info2">
