@@ -2,6 +2,30 @@
     <div id="movies">
       <div class="left">
         <div class="in-theaters">
+          <h2><b>即将上映</b></h2>
+          <div class="page-btn-dot" v-if="!checkMedia()">
+            <div class="item" :style="getStyle('COMING_SOON', index)" @click="handleComingSoon(index)" v-for="index in Math.ceil(coming_soon_page.total / coming_soon_page.count)"></div>
+          </div>
+          <div class="page-btn">
+            <a href="javascript:void(0);" @click="handleComingSoon('prev')" class="prev">‹</a>
+            <a href="javascript:void(0);" @click="handleComingSoon('next')" class="next">›</a>
+          </div>
+          <ul class="in-theaters-body">
+            <li :class="getClass(index)" v-for="(item, index) in movie_coming_soon" :key="item.movie_id">
+              <div class="cover">
+                <a target="_blank" :href="gotoMovieDetail(item.movie_id)">
+                  <img :src="item.image_url" />
+                </a>
+              </div>
+              <div class="info">
+                <div class="movie-title"><a :href="gotoMovieDetail(item.movie_id)">{{item.title}}</a></div>
+                <div class="movie-rate"><span><b>{{item.release_date}}</b></span></div>
+                <div class="movie-rate"><span>想看:<b>{{item.wanted_count}}</b></span></div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="in-theaters">
           <h2><b>最新热门电影</b></h2>
           <div class="movie-tag">
               <label 
@@ -172,6 +196,7 @@
         count: 10,
         movie_in_theaters:[],
         movie_coming_soon:[],
+        movie_coming:[],
         movie_new:[],
         movie_weekly:[],
         movie_top250:[],
@@ -351,11 +376,6 @@
                 this.in_theaters_page.page = 1;
                 this.in_theaters_page.count = count;
                 this.in_theaters_page.total = movies.length;
-              } else if (type === "COMING_SOON") {
-                this.movie_coming_soon[i] = movies[i];
-                this.coming_soon_page.page = 1;
-                this.coming_soon_page.count = count;
-                this.coming_soon_page.total = movies.length;
               } else if (type === "NEW_MOVIES") {
                 this.movie_new[i] = movies[i];
                 this.new_page.page = 1;
@@ -468,25 +488,42 @@
                 this.in_theaters_page.count = count;
                 this.in_theaters_page.total = movies.length;
               }
-            } else {
-              if (this.movie_data["COMING_SOON"]) {
-                this.movie_data["COMING_SOON"].splice(0);
-              }
-              this.movie_coming_soon.splice(0);
-              let count = this.count;
-              let movies = data.body.data;
-              this.movie_data["COMING_SOON"] = movies;
-              for (let i = 0; i < count; i++) {
-                if (i === movies.length) {
-                  return;
-                }
-                this.movie_coming_soon.push(movies[i]);
-                this.coming_soon_page.page = 1;
-                this.coming_soon_page.count = count;
-                this.coming_soon_page.total = movies.length;
-              }
-            }
+            } 
+            // else {
+            //   if (this.movie_data["COMING_SOON"]) {
+            //     this.movie_data["COMING_SOON"].splice(0);
+            //   }
+            //   this.movie_coming_soon.splice(0);
+            //   let count = this.count;
+            //   let movies = data.body.data;
+            //   this.movie_data["COMING_SOON"] = movies;
+            //   for (let i = 0; i < count; i++) {
+            //     if (i === movies.length) {
+            //       return;
+            //     }
+            //     this.movie_coming_soon.push(movies[i]);
+            //     this.coming_soon_page.page = 1;
+            //     this.coming_soon_page.count = count;
+            //     this.coming_soon_page.total = movies.length;
+            //   }
+            // }
           });
+        },
+        getMovieComing(count) {
+          this.$http.get(MOVIE_URL + "coming", {
+            headers: {
+              "bid": global_.FUNC.getBid()
+            }
+          }).then( (data) => {
+            let movies = data.body.data;
+            this.movie_data["COMING_SOON"] = movies;
+            for (let i = 0; i < count; i++) {
+              this.movie_coming_soon[i] = movies[i];
+              this.coming_soon_page.page = 1;
+              this.coming_soon_page.count = count;
+              this.coming_soon_page.total = movies.length;
+            }
+          })
         }
       },
       created() {
@@ -496,12 +533,13 @@
         // this.getMovieList("IN_THEATERS", 1, count);
         this.getByTagName("热门", "MOVIE");
         this.getByTagName("热门", "TV");
-        this.getMovieList("COMING_SOON", 1, this.count);
+        // this.getMovieList("COMING_SOON", 1, this.count);
         this.getMovieList("NEW_MOVIES", 1, this.count);
         // this.getMovieList("WEEKLY", 1, 12);
         // this.getMovieList("US_BOX", 1, 12);
         this.getMovieBox();
         this.getMovieTop250();
+        this.getMovieComing(this.count);
       }
     }
 </script>
