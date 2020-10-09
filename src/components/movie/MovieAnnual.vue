@@ -16,7 +16,7 @@
         <div class="header-annual-menu" v-show="show_nav">
           <div :class="getMenuClass(index)" v-for="(item, index) in body" :key="item.id">
             <a @click="gotoAnchor(index + 1)" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
-              <b v-if="cursor === (index + 1)">> </b>{{item.payload.title}}
+              <b v-if="cursor === (index + 1)">> </b>{{item.payloads.title}}
             </a>
             <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'dialogue'">
               <b v-if="cursor === (index + 1)">> </b>台词 - 《{{item.subject.title}}》
@@ -34,7 +34,7 @@
             <div class="annual-preview" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
               <div :style="getPreviewStyle(item)" class="annual-preview-body">
                 <div class="annual-name">
-                  {{item.payload.title}}
+                  {{item.payloads.title}}
                 </div>
                 <div class="movie-info">
                   <div class="movie-info-top">
@@ -64,7 +64,7 @@
                     </div>
                   </div>
                   <div class="movie-info-bottom">
-                      {{item.payload.description}}
+                      {{item.payloads.description}}
                   </div>
                 </div>
               </div>
@@ -84,7 +84,7 @@
             </ul>
             <div class="annual-dialogue" v-if="item.kind_str === 'dialogue'">
               <p class="text">
-                {{item.payload.text}}
+                {{item.payloads.text}}
                 <a :href="getMovieDetail(item.subject.id)">--《{{item.subject.title}}》</a>
               </p>
             </div>
@@ -134,8 +134,8 @@
           alert("Hello David!");
         },
         getPreviewStyle(annual) {
-          if (annual.payload.background_color) {
-            return "background-color: " + annual.payload.background_color + ";";
+          if (annual.payloads.background_color) {
+            return "background-color: " + annual.payloads.background_color + ";";
           } else {
             return "background-color: rgba(114, 63, 50, 0.85);";
           }
@@ -245,9 +245,9 @@
           this.calcArrows();
         },
         getAnnualStyle(item) {
-          let background_img = item.payload.background_img;
+          let background_img = item.payloads.background_img;
           if (this.checkMedia()) {
-            background_img = item.payload.mobile_background_img;
+            background_img = item.payloads.mobile_background_img;
           }
           if (background_img) {
             return "height:" + this.browserHeight + "px ; background: #FFF url('" + background_img + "') no-repeat; background-size: 100% " + this.browserHeight + "px";

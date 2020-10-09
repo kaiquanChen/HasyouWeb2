@@ -3,15 +3,15 @@
       <div class="left">
         <div class="in-theaters">
           <h2><b>即将上映</b></h2>
-          <div class="page-btn-dot" v-if="!checkMedia()">
+          <div class="page-btn-dot" v-if="movie_coming_soon && movie_coming_soon.length > 0 && !checkMedia()">
             <div class="item" :style="getStyle('COMING_SOON', index)" @click="handleComingSoon(index)" v-for="index in Math.ceil(coming_soon_page.total / coming_soon_page.count)"></div>
           </div>
-          <div class="page-btn">
+          <div class="page-btn" v-if="movie_coming_soon && movie_coming_soon.length > 0">
             <a href="javascript:void(0);" @click="handleComingSoon('prev')" class="prev">‹</a>
             <a href="javascript:void(0);" @click="handleComingSoon('next')" class="next">›</a>
           </div>
-          <ul class="in-theaters-body">
-            <li :class="getClass(index)" v-for="(item, index) in movie_coming_soon" :key="item.movie_id">
+          <ul class="in-theaters-body" v-if="movie_coming_soon && movie_coming_soon.length > 0">
+            <li :class="getClass(index)" v-for="(item, index) in movie_coming_soon" :key="item.movie_id" v-if="item">
               <div class="cover">
                 <a target="_blank" :href="gotoMovieDetail(item.movie_id)">
                   <img :src="item.image_url" />
@@ -90,14 +90,14 @@
               class="movie-tag-label" @click="getByTagName('纪录片', 'TV')">纪录片</label>
           </div>
           <div class="page-btn-dot" v-if="!checkMedia()">
-            <div class="item" :style="getStyle('COMING_SOON', index)" @click="handleComingSoon(index)" v-for="index in Math.ceil(coming_soon_page.total / coming_soon_page.count)"></div>
+            <div class="item" :style="getStyle('LATEST_TV', index)" @click="handleTv(index)" v-for="index in Math.ceil(tv_page.total / tv_page.count)"></div>
           </div>
           <div class="page-btn">
-            <a href="javascript:void(0);" @click="handleComingSoon('prev')" class="prev">‹</a>
-            <a href="javascript:void(0);" @click="handleComingSoon('next')" class="next">›</a>
+            <a href="javascript:void(0);" @click="handleTv('prev')" class="prev">‹</a>
+            <a href="javascript:void(0);" @click="handleTv('next')" class="next">›</a>
           </div>
           <ul class="in-theaters-body">
-            <li :class="getClass(index)" v-for="(item, index) in movie_coming_soon" :key="item.id">
+            <li :class="getClass(index)" v-for="(item, index) in tv" :key="item.id">
               <div class="cover">
                 <a target="_blank" :href="gotoMovieDetail(item.id)">
                   <img :src="item.image_url" />
@@ -202,6 +202,12 @@
         movie_top250:[],
         movie_us_box:[],
         movie_cn_box:[],
+        tv: [],
+        tv_page: {
+          total:0,
+          page:1,
+          count:10
+        },
         coming_soon_page:{
           total:0,
           page:1,
@@ -268,6 +274,8 @@
             page = this.coming_soon_page;
           } else if (domain === 'NEW_MOVIES') {
             page = this.new_page;
+          } else if (domain === 'LATEST_TV') {
+            page = this.tv_page;
           }
 
           if (page.page === num) {
@@ -326,6 +334,32 @@
             movie_coming_soon.push(this.movie_data["COMING_SOON"][start]);
           }
           this.movie_coming_soon = movie_coming_soon;
+        },
+        handleTv(type) {
+          if (type === 'prev') {
+            if (this.tv_page.page === 1) {
+              this.tv_page.page = Math.ceil(this.tv_page.total / this.tv_page.count);
+            } else {
+              this.tv_page.page = this.tv_page.page - 1;
+            }
+          } else if (type === 'next') {
+            if (this.tv_page.page === Math.ceil(this.tv_page.total / this.tv_page.count)) {
+              this.tv_page.page = 1;
+            } else {
+              this.tv_page.page = this.tv_page.page + 1;
+            }
+          } else if(!isNaN(type)) {
+            this.tv_page.page = type;
+          } else {
+            return;
+          }
+
+          let tv = [];
+          let start = (this.tv_page.page - 1) * this.tv_page.count;
+          for (let j = 0; j < this.tv_page.count && start < this.movie_data["LATEST_TV"].length; start++, j++) {
+            tv.push(this.movie_data["LATEST_TV"][start]);
+          }
+          this.tv = tv;
         },
         handleNewMovie(type) {
           if (type === 'prev') {
@@ -488,25 +522,24 @@
                 this.in_theaters_page.count = count;
                 this.in_theaters_page.total = movies.length;
               }
-            } 
-            // else {
-            //   if (this.movie_data["COMING_SOON"]) {
-            //     this.movie_data["COMING_SOON"].splice(0);
-            //   }
-            //   this.movie_coming_soon.splice(0);
-            //   let count = this.count;
-            //   let movies = data.body.data;
-            //   this.movie_data["COMING_SOON"] = movies;
-            //   for (let i = 0; i < count; i++) {
-            //     if (i === movies.length) {
-            //       return;
-            //     }
-            //     this.movie_coming_soon.push(movies[i]);
-            //     this.coming_soon_page.page = 1;
-            //     this.coming_soon_page.count = count;
-            //     this.coming_soon_page.total = movies.length;
-            //   }
-            // }
+            } else {
+              if (this.movie_data["LATEST_TV"]) {
+                this.movie_data["LATEST_TV"].splice(0);
+              }
+              this.tv.splice(0);
+              let count = this.count;
+              let movies = data.body.data;
+              this.movie_data["LATEST_TV"] = movies;
+              for (let i = 0; i < count; i++) {
+                if (i === movies.length) {
+                  return;
+                }
+                this.tv.push(movies[i]);
+                this.tv_page.page = 1;
+                this.tv_page.count = count;
+                this.tv_page.total = movies.length;
+              }
+            }
           });
         },
         getMovieComing(count) {
@@ -516,6 +549,9 @@
             }
           }).then( (data) => {
             let movies = data.body.data;
+            if (movies.length === 0) {
+              return;
+            }
             this.movie_data["COMING_SOON"] = movies;
             for (let i = 0; i < count; i++) {
               this.movie_coming_soon[i] = movies[i];
