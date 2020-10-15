@@ -75,7 +75,7 @@
                     <a target="_blank" class="lnk-create" href="/note/edit"><i>+</i>写笔记</a>
                 </span>
             </div>
-            <ul class="record-items" v-if="notes.body && notes.body.length > 0">
+            <ul class="record-items" v-if="notes && notes.body && notes.body.length > 0">
                 <li class="note-item" v-for="(note, index) in notes.body">
                 {{index + 1}} . <a target="_blank" class="note-title" :href="gotoNoteDetail(note.id)">{{note.title}}</a>
                 <span class="note-create-time">{{note.create_time}}</span>
