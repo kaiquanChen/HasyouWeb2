@@ -1,6 +1,6 @@
 <template>
   <div id="user-items">
-        <div class="record-items">
+        <div class="record-items" v-if="self">
             <h2 class="record album-record">我的相册 · · · · · ·
                 <span>(<a :href="gotoUserAlbums()" class="record-count">全部{{albums ? albums.length : 0}}</a>)</span>
             </h2>
@@ -66,7 +66,7 @@
             </ul>
         </div>
         </div>
-        <div class="record-items">
+        <div class="record-items" v-if="self">
             <h2 class="record note-record">我的笔记 · · · · · ·
             <span>(<a :href="gotoUserNotes()" class="record-count">共{{getRecordCount(notes)}}条</a>)</span>
             </h2>
@@ -81,7 +81,7 @@
                 <span class="note-create-time">{{note.create_time}}</span>
                 </li>
             </ul>
-            <ul class="records-items" v-else>写下笔记，记录的学习，生活，工作的脚步!</ul>
+            <ul class="records-items" v-else>写下笔记，记录学习，生活，工作的脚步!</ul>
         </div>
   </div> 
 </template>
@@ -93,7 +93,6 @@
     const movie_record_url = global_.URLS.MOVIE_RECORD_URL;
     const note_url = global_.URLS.NOTE_URL;
     const user_album_url = global_.URLS.USER_ALBUM_URL;
-    const token = localStorage.getItem("access_token");
     export default {
       name: "book",
       data() {
@@ -105,7 +104,9 @@
             want_movies: null,
             albums: null,
             notes: null,
-            blogs: null
+            blogs: null,
+            token: null,
+            self: null
         };
       },
       methods: {
@@ -116,7 +117,7 @@
             return "/user/" + this.user.id + "/notes";
         },
         gotoItemList(type) {
-            return "/user/" + this.user.id + "/subjects/" + type;
+            return "/user/" + this.user.uid + "/subjects/" + type;
         },
         flipToAlbumDetail(id) {
             this.$router.push({path: "/user/" + this.user.id + "/album/" + id});
@@ -146,21 +147,11 @@
                 return 0;
             }
         },
-        checkUserStatus() {
-            if (!token) {
-                this.$router.push({path: "/login"});
-            }
-        },
-        getUserInfo() {
-            let user_info = localStorage.getItem("user_info");
-            if (user_info) {
-                this.user = JSON.parse(user_info);
-                if (token) {
-                    this.user = global_.FUNC.getUserInfo();
-                } else {
-                    this.$router.push({path: "/login"});
-                }
-            }
+        initUserInfo() {
+            let uid = this.$route.params.id;
+            this.user = global_.FUNC.getUserInfoByUid(uid);
+            let user = global_.FUNC.getUserInfo();
+            this.self = user.uid === this.user.uid;
         },
         getBookRecords(type) {
             this.$http.get(book_record_url, {
@@ -170,7 +161,7 @@
                 },
                 headers:{
                     "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
+                    "X-HASYOU-TOKEN": this.token
                 }
             }).then((data) => {
                 if (type === "READ_BOOK") {
@@ -184,11 +175,12 @@
             this.$http.get(movie_record_url, {
                 params: {
                     type: type,
-                    page_size: 5
+                    page_size: 5,
+                    uid: this.user.uid
                 },
                 headers:{
                     "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
+                    "X-HASYOU-TOKEN": this.token
                 }
             }).then((data) => {
                 if (type === "WATCHED_MOVIE") {
@@ -206,7 +198,7 @@
                 },
                 headers:{
                     "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
+                    "X-HASYOU-TOKEN": this.token
                 }
             }).then((data) => {
                 this.notes = data.body.data;
@@ -216,16 +208,19 @@
             this.$http.get(user_album_url, {
                 headers: {
                     "bid":global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
+                    "X-HASYOU-TOKEN": this.token
                 }
             }).then(data => {
                 this.albums = data.body.data;
             });
+        },
+        initToken() {
+            this.token = localStorage.getItem("access_token");
         }
       },
       created() {
-          this.checkUserStatus();
-          this.getUserInfo();
+          this.initToken();
+          this.initUserInfo();
           this.getAlbums();
         //   this.getBookRecords("READ_BOOK");
         //   this.getBookRecords("WANT_READ");

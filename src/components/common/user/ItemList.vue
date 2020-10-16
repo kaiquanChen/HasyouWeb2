@@ -80,7 +80,8 @@ export default {
         params: {
             type: this.type,
             page_size: this.page.count,
-            page_no: this.page.page
+            page_no: this.page.page,
+            uid: this.$route.params.id
         },
         headers:{
             "bid": global_.FUNC.getBid(),

@@ -101,11 +101,11 @@ export const routes = [
         component: User,
         children: [
           {path: '', component: UserHome},
-          {path: 'subjects/:type', component: ItemList},
-          {path: 'album/upload', component: AlbumUpload},
-          {path: 'albums', component: UserAlbums},
-          {path: 'album/:album_id', component: Photo},
-          {path: 'notes', component: UserNotes},
+          {path: '/subjects/:type', component: ItemList},
+          {path: '/album/upload', component: AlbumUpload},
+          {path: '/albums', component: UserAlbums},
+          {path: '/album/:album_id', component: Photo},
+          {path: '/notes', component: UserNotes},
         ]
       },
       {
