@@ -23,7 +23,7 @@
                     v-for="operate in data.operations"
                     v-if="operate.operation === 'WANT_BOOK'">已加入要看计划</span>
             </div>
-            <span class="update" @click="updateMovie()" v-if="user !== undefied && user.id == 1">更新</span>
+            <span class="update" @click="updateMovie()" v-if="user && user.id == 1">更新</span>
           </div>
           <div class="info">
             <div v-if="directors && directors.length > 0">
@@ -180,7 +180,7 @@
                 </a>
                 &nbsp;
                 <span class="creator-name" v-if="item.user">
-                  <a target="_blank" :href="'/user/' + item.user.uid">{{item.user.name}}</a>
+                  <a target="_blank" :href="gotoAuthor(item.user.uid)">{{item.user.name}}</a>
                 </span>
                 <span style="color: gray" v-else>[已注销]</span>&emsp;
                 <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
@@ -220,7 +220,7 @@
             <div class="movie-review-body">
               <div class="movie-review-item" v-for="(item, index) in reviews.body">
                 <div class="review-info">
-                  <a target="_blank" @click="gotoAuthor(item.user.id)" class="creator-avatar" v-if="item.user && item.user.avatar">
+                  <a target="_blank" :href="gotoAuthor(item.user.uid)" class="creator-avatar" v-if="item.user && item.user.avatar">
                     <img :src="item.user.avatar" :alt="item.user.name">
                   </a>
                   <a href="javascript:void(0);" class="creator-avatar" v-else>
@@ -228,7 +228,7 @@
                   </a>
                   &nbsp;
                   <span class="creator-name" v-if="item.user">
-                    <a target="_blank" @click="gotoAuthor(item.user.id)">{{item.user.name}}</a>
+                    <a target="_blank" :href="gotoAuthor(item.user.uid)">{{item.user.name}}</a>
                   </span>
                   <span style="color: gray" v-else>[已注销]</span>&emsp;
                   <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
@@ -416,8 +416,7 @@
               });
             },
             gotoAuthor(id) {
-              let path = "/user/" + id;
-              this.$router.replace({path: path});
+              return "/user/" + id;
             },
             gotoReview(id) {
               return "https://movie.douban.com/review/" + id;
@@ -725,8 +724,8 @@
               this.getMovie();
               this.getMovieComment();
               this.getMovieReview();
-              this.getMovieBlooper();
-              this.getMovieTrailer();
+              // this.getMovieBlooper();
+              // this.getMovieTrailer();
               this.getUserInfo();
               this.getQuestions();
           }

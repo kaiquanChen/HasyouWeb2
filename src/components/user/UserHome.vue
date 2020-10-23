@@ -95,9 +95,9 @@
     const user_album_url = global_.URLS.USER_ALBUM_URL;
     export default {
       name: "book",
+      props: ["user"],
       data() {
         return {
-            user: null,
             read_books: null,
             want_books: null,
             watched_movies: null,
@@ -146,12 +146,6 @@
             } else {
                 return 0;
             }
-        },
-        initUserInfo() {
-            let uid = this.$route.params.id;
-            this.user = global_.FUNC.getUserInfoByUid(uid);
-            let user = global_.FUNC.getUserInfo();
-            this.self = user.uid === this.user.uid;
         },
         getBookRecords(type) {
             this.$http.get(book_record_url, {
@@ -220,7 +214,6 @@
       },
       created() {
           this.initToken();
-          this.initUserInfo();
           this.getAlbums();
         //   this.getBookRecords("READ_BOOK");
         //   this.getBookRecords("WANT_READ");

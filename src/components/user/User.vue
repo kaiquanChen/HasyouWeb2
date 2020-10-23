@@ -23,7 +23,7 @@
                   <a :href="gotoUserNotes()">笔记</a>
               </li>
           </ul>
-          <router-view></router-view>
+          <router-view :user="user"></router-view>
       </div>
       <div class="user-center-right"></div>
   </div> 
@@ -63,7 +63,7 @@
               return "/user/" + this.user.uid + "/albums";
           },
           gotoUserRecord(type) {
-              return "/user/" + this.user.uid + "/subjects/" + type;
+              return "/user/" + this.user.uid + "/subjects";
           },
           gotoAlbumUpload() {
               return "/user/" + this.user.uid + "/album/upload";
@@ -75,15 +75,15 @@
                   return 0;
               }
           },
-          getUserInfo() {
+          async getUserInfo() {
               let uid = this.$route.params.id;
-              this.user = global_.FUNC.getUserInfoByUid(uid);
+              this.user = await global_.FUNC.getUserInfoByUid(uid);
               let user = global_.FUNC.getUserInfo();
-              this.self = user.uid === this.user.uid;
+              this.self = user && user.uid === this.user.uid;
           }
       },
-      created() {
-          this.getUserInfo();
+      async created() {
+          await this.getUserInfo();
       }
     }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div id="item-list">
-    <h1>{{title}}</h1>
+    <!-- <h1>{{title}}</h1>
     <div class="items">
       <div class="item" v-for="item in items" :key="item.id">
         <el-card class="item-card" :body-style="{ padding: '0px' }">
@@ -24,7 +24,7 @@
             :total="page.total">
         </el-pagination>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -96,8 +96,9 @@ export default {
     }
   },
   created() {
-    this.type = this.$route.params.type;
-    this.getItemList();
+    alert(111);
+    // this.type = this.$route.params.type;
+    // this.getItemList();
   }
 }
 </script>

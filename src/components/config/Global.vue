@@ -142,13 +142,18 @@
     return JSON.parse(user_json);
   }
 
-  let getUserInfoByUid = function (uid) {
-    let user_json = localStorage.getItem(uid);
+  let getUserInfoByUid = async function (uid) {
+    let user_json = sessionStorage.getItem(uid);
     if (!user_json) {
-      loadUserInfo(uid);
-      user_json = localStorage.getItem(uid);
+      await loadUserInfo(uid);
+      user_json = sessionStorage.getItem(uid);
     }
-    return JSON.parse(user_json);
+    try {
+      return JSON.parse(user_json);
+    } catch(e) {
+      return user_json;
+    }
+    
   }
 
   let loadUserInfo = async function (uid) {
@@ -157,13 +162,13 @@
             uid: uid
         }
       }).then((data) => {
-          localStorage.setItem(uid, JSON.stringify(data.data.data));
+          sessionStorage.setItem(uid, JSON.stringify(data.data.data));
       });
   }
 
   let setUserInfoByUid = function (uid, user_info) {
     let user_json = JSON.stringify(user_info);
-    localStorage.setItem(uid, user_info);
+    sessionStorage.setItem(uid, user_info);
   }
 
   let getValue = function (key) {
