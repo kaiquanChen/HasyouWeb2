@@ -26,7 +26,7 @@
           <router-view :user="user"></router-view>
       </div>
       <div class="user-center-right"></div>
-  </div> 
+  </div>
 </template>
 
 <script>
@@ -63,7 +63,7 @@
               return "/user/" + this.user.uid + "/albums";
           },
           gotoUserRecord(type) {
-              return "/user/" + this.user.uid + "/subjects";
+              return "/user/" + this.user.uid + "/subjects/" + type;
           },
           gotoAlbumUpload() {
               return "/user/" + this.user.uid + "/album/upload";
@@ -75,15 +75,16 @@
                   return 0;
               }
           },
-          async getUserInfo() {
+        getUserInfo() {
               let uid = this.$route.params.id;
-              this.user = await global_.FUNC.getUserInfoByUid(uid);
+            //   this.user = await global_.FUNC.getUserInfoByUid(uid);
               let user = global_.FUNC.getUserInfo();
+              this.user = user;
               this.self = user && user.uid === this.user.uid;
           }
       },
-      async created() {
-          await this.getUserInfo();
+      created() {
+          this.getUserInfo();
       }
     }
 </script>

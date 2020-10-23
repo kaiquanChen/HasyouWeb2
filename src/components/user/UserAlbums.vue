@@ -65,7 +65,11 @@
             }
         },
       },
+      beforeCreate() {
+          alert(33);
+      },
       created() {
+          alert(22);
         this.getAlbums();
         this.getUserInfo();
       }
