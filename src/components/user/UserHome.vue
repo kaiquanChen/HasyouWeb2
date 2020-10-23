@@ -24,7 +24,7 @@
             </ul>
             <ul class="record-items" v-else>你还没有相册，去创建自己的第一个相册吧!</ul>
         </div>
-        <div class="record-items">
+        <!-- <div class="record-items">
             <h2 class="record book-record">我读 · · · · · ·
                 <span>(<a :href="gotoItemList('READ_BOOK')" class="record-count">{{getRecordCount(read_books)}}本已读</a>)</span>
             </h2>
@@ -44,19 +44,19 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> -->
         <div class="record-items">
             <h2 class="record movie-record">我看 · · · · · ·
             <span>(<a :href="gotoItemList('WATCHED_MOVIE')" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
             </h2>
-        <div class="movie-want-read item">
+        <!-- <div class="movie-want-read item">
             <div class="item-left movie-want-watch-left">想看</div>
             <ul class="movie-want-read-right record-items" v-if="want_movies && want_movies.body && want_movies.body.length > 0">
                 <li class="want-movie-item" v-for="want_movie in want_movies.body" :key="want_movie.id">
                     <a target="_blank" :href="gotoMovieDetail(want_movie.id)"><img :src="want_movie.image_url" :alt="want_movie.name"></a>
                 </li>
             </ul>
-        </div>
+        </div> -->
         <div class="movie-watched item">
             <div class="item-left movie-watched-left">看过</div>
             <ul class="movie-watched-right record-items" v-if="watched_movies && watched_movies.body && watched_movies.body.length > 0">
