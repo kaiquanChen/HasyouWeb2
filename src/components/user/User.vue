@@ -75,15 +75,14 @@
                   return 0;
               }
           },
-        getUserInfo() {
+        async getUserInfo() {
               let uid = this.$route.params.id;
-            //   this.user = await global_.FUNC.getUserInfoByUid(uid);
+              this.user = await global_.FUNC.getUserInfoByUid(uid);
               let user = global_.FUNC.getUserInfo();
-              this.user = user;
               this.self = user && user.uid === this.user.uid;
           }
       },
-      created() {
+      async created() {
           this.getUserInfo();
       }
     }

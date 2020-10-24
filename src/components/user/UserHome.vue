@@ -83,7 +83,7 @@
             </ul>
             <ul class="records-items" v-else>写下笔记，记录学习，生活，工作的脚步!</ul>
         </div>
-  </div> 
+  </div>
 </template>
 
 <script>
@@ -210,6 +210,8 @@
         },
         initToken() {
             this.token = localStorage.getItem("access_token");
+            let user = global_.FUNC.getUserInfo();
+            this.self = this.user && this.user.uid === user.uid
         }
       },
       created() {
