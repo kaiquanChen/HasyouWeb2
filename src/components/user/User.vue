@@ -16,17 +16,17 @@
               <li class="user-menu-item">
                   <a :href="gotoUserRecord('WATCHED_MOVIE')">观影</a>
               </li>
-              <li class="user-menu-item">
+              <li class="user-menu-item" v-if="self">
                   <a :href="gotoUserAlbums()">相册</a>
               </li>
-              <li class="user-menu-item">
+              <li class="user-menu-item" v-if="self">
                   <a :href="gotoUserNotes()">笔记</a>
               </li>
           </ul>
-          <router-view></router-view>
+          <router-view :user="user"></router-view>
       </div>
       <div class="user-center-right"></div>
-  </div> 
+  </div>
 </template>
 
 <script>
@@ -35,6 +35,7 @@
     const book_record_url = global_.URLS.BOOK_RECORD_URL;
     const movie_record_url = global_.URLS.MOVIE_RECORD_URL;
     const note_url = global_.URLS.NOTE_URL;
+    const user_info_url = global_.URLS.user_info_url;
     const token = localStorage.getItem("access_token");
     export default {
       name: "book",
@@ -47,24 +48,25 @@
             want_movies: null,
             albums: null,
             notes: null,
-            blogs: null
+            blogs: null,
+            self: null
         };
       },
       methods: {
           gotoUserNotes() {
-              return "/user/" + this.user.id + "/notes";
+              return "/user/" + this.user.uid + "/notes";
           },
           gotoUserHome() {
-              return "/user/" + this.user.id;
+              return "/user/" + this.user.uid;
           },
           gotoUserAlbums() {
-              return "/user/" + this.user.id + "/albums";
+              return "/user/" + this.user.uid + "/albums";
           },
           gotoUserRecord(type) {
-              return "/user/" + this.user.id + "/subjects/" + type;
+              return "/user/" + this.user.uid + "/subjects/" + type;
           },
           gotoAlbumUpload() {
-              return "/user/" + this.user.id + "/album/upload";
+              return "/user/" + this.user.uid + "/album/upload";
           },
           getRecordCount(list) {
               if (list) {
@@ -73,26 +75,15 @@
                   return 0;
               }
           },
-          checkUserStatus() {
-              if (!token) {
-                  this.$router.push({path: "/login"});
-              }
-          },
-          getUserInfo() {
-              let user_info = localStorage.getItem("user_info");
-              if (user_info) {
-                this.user = JSON.parse(user_info);
-              if (token) {
-                this.user = global_.FUNC.getUserInfo();
-              } else {
-                  this.$router.push({path: "/login"});
-              }
-            }
+        async getUserInfo() {
+              let uid = this.$route.params.id;
+              this.user = await global_.FUNC.getUserInfoByUid(uid);
+              let user = global_.FUNC.getUserInfo();
+              this.self = user && user.uid === this.user.uid;
           }
       },
-      created() {
-        this.checkUserStatus();
-        this.getUserInfo();
+      async created() {
+          this.getUserInfo();
       }
     }
 </script>

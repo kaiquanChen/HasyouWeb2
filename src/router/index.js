@@ -54,8 +54,8 @@ import Test from '@/components/Test'
 
 export const routes = [
   {
-    path: '/', 
-    component: Home, 
+    path: '/',
+    component: Home,
     children:[
       {path: '', component: Index},
       {path: 'about', component: About},
@@ -63,7 +63,7 @@ export const routes = [
       {path: 'register', component: Register},
       // book
       {
-        path: 'book', 
+        path: 'book',
         component: Book,
         children: [
           {path: '', component: Books},
@@ -77,7 +77,7 @@ export const routes = [
       },
       // movie
       {
-        path: 'movie', 
+        path: 'movie',
         component: Movie,
         children: [
           {path: '', component: Movies},
@@ -87,7 +87,7 @@ export const routes = [
       },
       // forum
       {
-        path: 'forum', 
+        path: 'forum',
         component: Forum,
         children: [
           {path: '', component: Forums},
@@ -97,7 +97,7 @@ export const routes = [
       },
       // user
       {
-        path: '/user/:id', 
+        path: '/user/:id',
         component: User,
         children: [
           {path: '', component: UserHome},
@@ -120,7 +120,7 @@ export const routes = [
       },
       // search
       {
-        path: 'search', 
+        path: 'search',
         component: SearchResult,
         children: []
       }

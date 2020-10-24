@@ -49,7 +49,7 @@
               <div class="user-menu" v-if="user_menu_show">
                 <ul class="user-menu-items">
                   <li class="user-menu-item">
-                    <a :href="gotoUserCenter(user.id)">个人主页</a>
+                    <a :href="gotoUserCenter(user.uid)">个人主页</a>
                   </li>
                   <li class="user-menu-item">
                     <a href="">账号管理</a>
@@ -157,7 +157,6 @@
           },
           getUserInfo() {
             this.user = global_.FUNC.getUserInfo();
-            console.log(this.user);
           },
           globalSearch() {
             if (!this.keywords) {

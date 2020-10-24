@@ -61,7 +61,7 @@ export default {
     },
     gotoItemDetail(id) {
       if (this.type === "WATCHED_MOVIE") {
-        return "/movie/subject/" + id; 
+        return "/movie/subject/" + id;
       } else if (this.type === "READ_BOOK") {
         return "/book/subject/" + id;
       }
@@ -79,8 +79,9 @@ export default {
       this.$http.get(url, {
         params: {
             type: this.type,
-            count: this.page.count,
-            p: this.page.page
+            page_size: this.page.count,
+            page_no: this.page.page,
+            uid: this.$route.params.id
         },
         headers:{
             "bid": global_.FUNC.getBid(),

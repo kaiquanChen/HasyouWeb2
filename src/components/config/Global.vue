@@ -142,6 +142,35 @@
     return JSON.parse(user_json);
   }
 
+  let getUserInfoByUid = async function (uid) {
+    let user_json = sessionStorage.getItem(uid);
+    if (!user_json) {
+      await loadUserInfo(uid);
+      user_json = sessionStorage.getItem(uid);
+    }
+    try {
+      return JSON.parse(user_json);
+    } catch(e) {
+      return user_json;
+    }
+    
+  }
+
+  let loadUserInfo = async function (uid) {
+    await axios.get(USER_INFO_URL, {
+        params: {
+            uid: uid
+        }
+      }).then((data) => {
+          sessionStorage.setItem(uid, JSON.stringify(data.data.data));
+      });
+  }
+
+  let setUserInfoByUid = function (uid, user_info) {
+    let user_json = JSON.stringify(user_info);
+    sessionStorage.setItem(uid, user_info);
+  }
+
   let getValue = function (key) {
     return localStorage.getItem(key);
   }
@@ -301,7 +330,9 @@
     getUserInfo,
     setUserInfo,
     getBrowserHeight,
-    getBrowserWidth
+    getBrowserWidth,
+    getUserInfoByUid,
+    setUserInfoByUid
   }
 
   export default {
