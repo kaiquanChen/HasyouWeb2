@@ -1,54 +1,72 @@
 <template>
-    <div id="movie-annual">
-      <header class="annual-header">
-        <div class="header-logo">
-          <a class="index" href="/"><p>W<em>ithyou</em></p></a>
-        </div>
-        <div class="header-title">
-          豆瓣{{year}}年度榜单电影
-        </div>
-        <div class="header-annual-menu-btn" @click="showNav()">
-          <span>
-            <img class="menu-img" src="/static/icon/annual_menu.png"/>
-            目录
-          </span>
-        </div>
-        <div class="header-annual-menu" v-show="show_nav">
-          <div :class="getMenuClass(index)" v-for="(item, index) in body" :key="item.id">
-            <a @click="gotoAnchor(index + 1)" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
-              <b v-if="cursor === (index + 1)">> </b>{{item.payloads.title}}
-            </a>
-            <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'dialogue'">
-              <b v-if="cursor === (index + 1)">> </b>台词 - 《{{item.subject.title}}》
-            </a>
+    <div :class="getAnnualBodyClass(item.kind_str)">
+      <div class="annual-preview" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
+        <div :style="getPreviewStyle(item)" class="annual-preview-body">
+          <div class="annual-name">
+            {{item.payloads.title}}
+          </div>
+          <div class="movie-info">
+            <div class="movie-info-top">
+              <div class="movie-image">
+                <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">
+                  <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
+                  <span class="preview-no">1</span>
+                  <img class="preview-image" :style="getStyle(item)" :src="item.subjects[0].image_url" alt="item.subjects[0].title">
+                </a>
+              </div>
+              <div class="movie-info-right">
+                <div class="movie-title">
+                  <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">{{item.subjects[0].title}}</a>
+                </div>
+                <div class="movie-rate">
+                  豆瓣评分<br>
+                  <span class="movie-stars">
+                    {{item.subjects[0].average}}
+                  </span>
+                  <el-rate
+                    class="primary-rate"
+                    :value="getStars(item.subjects[0].average)"
+                    disabled
+                    text-color="#ff9900">
+                  </el-rate>
+                </div>
+              </div>
+            </div>
+            <div class="movie-info-bottom">
+                {{item.payloads.description}}
+            </div>
           </div>
         </div>
-      </header>
-      <div class="annual-items">
-        <div :id="'anchor' + (index + 1)"
-          class="annual-item"
-          :style="getAnnualStyle(item)"
-          v-for="(item, index) in body"
-          :key="index + 1">
-          <MovieAnnualItem :item="item" />
-          <button v-show="show_previous" class="previous" @click="gotoPre((index))">
-            <div class="icon-down"></div>
-          </button>
-          <button v-show="show_next" class="next" @click="gotoNext((index + 2))">
-            <div class="icon-down"></div>
-          </button>
-        </div>
+      </div>
+      <ul class="annual-item-list" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
+        <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.subjects" v-if="index2 >= 1" :key="movie.id">
+          <div class="movie-item-image">
+            <img class="preview-image" :src="movie.image_url" :alt="movie.title">
+            <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
+            <span class="preview-no">{{index2 + 1}}</span>
+          </div>
+          <div class="movie-info">
+            {{getMovieTitle(movie.title)}}
+            <span class="movie-rate">{{movie.average}}</span>
+          </div>
+        </li>
+      </ul>
+      <div class="annual-dialogue" v-if="item.kind_str === 'dialogue'">
+        <p class="text">
+          {{item.payloads.text}}
+          <a :href="getMovieDetail(item.subject.id)">--《{{item.subject.title}}》</a>
+        </p>
       </div>
     </div>
 </template>
 
 <script>
   import global_ from "../config/Global"
-  import MovieAnnualItem from "./MovieAnnualItem"
 
   const MOVIE_ANNUAL_URL = global_.URLS.MOVIE_ANNUAL_URL;
     export default {
-      name: "book",
+      name: "MovieAnnualItem",
+      props: ["item"],
       data() {
         return {
           browserHeight: 0,
@@ -68,9 +86,6 @@
           offset_top: 0,
           show_nav: false
         };
-      },
-      components: {
-        MovieAnnualItem: MovieAnnualItem
       },
       mounted () {
           window.addEventListener('scroll', this.handleScroll, true);
@@ -231,10 +246,14 @@
             this.body = annuals;
           });
         },
+        getStyle(item) {
+          if (item || item.payloads) {
+            return "";
+          }
+          return item.payloads.left === 'on' ? "left: 0" : "right: 0";
+        }
       },
       created() {
-        this.getAnnualMovieList();
-        this.browserHeight = global_.FUNC.getBrowserHeight();
       }
     }
 </script>
