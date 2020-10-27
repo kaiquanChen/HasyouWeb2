@@ -19,6 +19,7 @@ import Movies from '@/components/movie/Movies'
 import MovieDetail from '@/components/movie/MovieDetail'
 import MovieTop250 from '@/components/movie/MovieTop250'
 import MovieAnnual from '@/components/movie/MovieAnnual'
+import MovieAnnualItem from '@/components/movie/MovieAnnualItem'
 
 // forum
 import Forum from '@/components/forum/Forum'
@@ -129,5 +130,6 @@ export const routes = [
     {path: '/movie/annual/:year', component: MovieAnnual},
     {path: '/book/annual/:year', component: BookAnnual},
     {path: '/note/edit', component: EditNote},
+    {path: '/movie/album/:id', component: MovieAnnualItem},
     {path: '/test', component: Test}
-]
+];

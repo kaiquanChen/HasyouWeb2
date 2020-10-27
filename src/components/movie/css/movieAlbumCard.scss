@@ -1,21 +1,27 @@
 .movie-album-card {
-    margin: 15px;
-    margin-bottom: 30px;
+    margin: 65px 15px 30px 15px;
     padding: 5px 10px;
-    border: #37a solid 1px;
-    border-radius: 10px;
-}
-
-.album-item {
-    //display: inline-block;
+    border: #37a solid 10px;
+    border-radius: 30px;
+    background-color: #82a3aa;
 }
 
 .album-cover {
     width: 90%;
+    z-index: 1000;
+}
+
+.card-left {
+    margin-top: 15px;
+}
+
+.card-title-a {
+    display: block;
 }
 
 .card-title {
-    color: #37a;
+    color: #000000;
+    font-size: 16px;
 }
 
 .card-description {
@@ -25,7 +31,9 @@
     text-overflow: ellipsis;
     word-wrap: break-word;
     -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical
+    -webkit-box-orient: vertical;
+    font-size: 16px;
+    color: #ffffff;
 }
 
 .album-single-item-list {
@@ -39,10 +47,59 @@
 }
 
 .album-item-single-img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.item-info {
-    margin-top: 10px;
-    border-top: #333 dashed 1px;
+.title-frame {
+    position: absolute;
+    display: inline;
+    left: 30px;
+    top: -45px;
+}
+
+.title-frame img {
+    width: 300%;
+    height: 100%;
+}
+
+.album-summary {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1000;
+}
+
+.album-summary:hover {
+    cursor: pointer;
+}
+
+.album-summary a {
+    color: #ffffff;
+    font-size: 18px;
+    display: block;
+    width: auto;
+}
+
+.album-summary-sum {
+    display: block;
+    position: absolute;
+    //color: #c7fdff;
+    color: #000000;
+    font-size: 18px;
+    width: 100%;
+    top: 5px;
+    text-align: right;
+}
+
+.preview-badge, .preview-no {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+}
+
+.preview-no {
+    color: #ffffff;
+    top: 1px;
+    left: 0;
 }

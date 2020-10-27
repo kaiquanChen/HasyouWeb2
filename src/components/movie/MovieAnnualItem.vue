@@ -1,69 +1,90 @@
 <template>
-    <div :class="getAnnualBodyClass(item.kind_str)">
-        <div class="annual-preview" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
-            <div :style="getPreviewStyle(item)" class="annual-preview-body">
-                <div class="annual-name">
-                    {{item.payloads.title}}
+    <div :style="getAnnualStyle(item)">
+        <header class="annual-header" v-if="album">
+            <div class="header-logo">
+                <a class="index" href="/"><p>W<em>ithyou</em></p></a>
+            </div>
+            <div class="header-title">
+                电影片单
+            </div>
+            <div class="header-annual-menu" v-show="show_nav">
+                <div :class="getMenuClass(index)" v-for="(item, index) in body" :key="item.id">
+                    <a @click="gotoAnchor(index + 1)" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
+                        <b v-if="cursor === (index + 1)">> </b>{{item.payloads.title}}
+                    </a>
+                    <a @click="gotoAnchor(index + 1)" v-else-if="item.kind_str === 'dialogue'">
+                        <b v-if="cursor === (index + 1)">> </b>台词 - 《{{item.subject.title}}》
+                    </a>
                 </div>
-                <div class="movie-info">
-                    <div class="movie-info-top">
-                        <div class="movie-image">
-                            <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">
-                                <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
-                                <span class="preview-no">1</span>
-                                <img class="preview-image" :src="item.subjects[0].image_url"
-                                     alt="item.subjects[0].title">
-                            </a>
-                        </div>
-                        <div class="movie-info-right">
-                            <div class="movie-title">
-                                <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">{{item.subjects[0].title}}</a>
+            </div>
+        </header>
+        <div :class="getAnnualBodyClass(item.kind_str)">
+            <div class="annual-preview" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
+                <div :style="getPreviewStyle(item)" class="annual-preview-body">
+                    <div class="annual-name">
+                        {{item.payloads.title}}
+                    </div>
+                    <div class="movie-info">
+                        <div class="movie-info-top">
+                            <div class="movie-image">
+                                <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">
+                                    <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
+                                    <span class="preview-no">1</span>
+                                    <img class="preview-image" :src="item.subjects[0].image_url"
+                                         alt="item.subjects[0].title">
+                                </a>
                             </div>
-                            <div class="movie-rate">
-                                豆瓣评分<br>
-                                <span class="movie-stars">
+                            <div class="movie-info-right">
+                                <div class="movie-title">
+                                    <a target="_blank" :href="getMovieDetail(item.subjects[0].id)">{{item.subjects[0].title}}</a>
+                                </div>
+                                <div class="movie-rate">
+                                    豆瓣评分<br>
+                                    <span class="movie-stars">
                     {{item.subjects[0].average}}
                   </span>
-                                <el-rate
-                                    class="primary-rate"
-                                    :value="getStars(item.subjects[0].average)"
-                                    disabled
-                                    text-color="#ff9900">
-                                </el-rate>
+                                    <el-rate
+                                        class="primary-rate"
+                                        :value="getStars(item.subjects[0].average)"
+                                        disabled
+                                        text-color="#ff9900">
+                                    </el-rate>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="movie-info-bottom">
-                        {{item.payloads.description}}
+                        <div class="movie-info-bottom">
+                            {{item.payloads.description}}
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <ul class="annual-item-list" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
-            <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.subjects"
-                v-if="index2 >= 1" :key="movie.id">
-                <div class="movie-item-image">
-                    <img class="preview-image" :src="movie.image_url" :alt="movie.title">
-                    <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
-                    <span class="preview-no">{{index2 + 1}}</span>
-                </div>
-                <div class="movie-info">
-                    {{getMovieTitle(movie.title)}}
-                    <span class="movie-rate">{{movie.average}}</span>
-                </div>
-            </li>
-        </ul>
-        <div class="annual-dialogue" v-if="item.kind_str === 'dialogue'">
-            <p class="text">
-                {{item.payloads.text}}
-                <a :href="getMovieDetail(item.subject.id)">--《{{item.subject.title}}》</a>
-            </p>
+            <ul class="annual-item-list" v-if="item.kind_str === 'top10' || item.kind_str === 'top5'">
+                <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.subjects"
+                    v-if="index2 >= 1" :key="movie.id">
+                    <div class="movie-item-image">
+                        <img class="preview-image" :src="movie.image_url" :alt="movie.title">
+                        <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
+                        <span class="preview-no">{{index2 + 1}}</span>
+                    </div>
+                    <div class="movie-info">
+                        {{getMovieTitle(movie.title)}}
+                        <span class="movie-rate">{{movie.average}}</span>
+                    </div>
+                </li>
+            </ul>
+            <div class="annual-dialogue" v-if="item.kind_str === 'dialogue'">
+                <p class="text">
+                    {{item.payloads.text}}
+                    <a :href="getMovieDetail(item.subject.id)">--《{{item.subject.title}}》</a>
+                </p>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-    import global_ from "../config/Global"
+    import global_ from "../config/Global";
+    import movie_bg from "../../../static/image/movie_bg.png";
 
     const MOVIE_ANNUAL_URL = global_.URLS.MOVIE_ANNUAL_URL;
     export default {
@@ -86,7 +107,9 @@
                 active_next_scroll: true,
                 active_pre_scroll: true,
                 offset_top: 0,
-                show_nav: false
+                show_nav: false,
+                album: false,
+                default_movie_bg: movie_bg
             };
         },
         mounted() {
@@ -133,28 +156,8 @@
                 this.show_nav = !this.show_nav;
             },
             handleScroll() {
-                let anchor = this.$el.querySelector('#anchor' + this.cursor)
+                let anchor = this.$el.querySelector('#anchor' + this.cursor);
                 document.documentElement.scrollTop = anchor.offsetTop;
-                // let selector = '#anchor' + this.cursor;
-                // let anchor = this.$el.querySelector(selector)
-                //   let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
-                //   let scroll = scrollTop - this.i;
-                //   this.i = scrollTop;
-                //   if (scroll < 0) {
-                //     if (this.active_pre_scroll) {
-                //       this.active_pre_scroll = false;
-                //       this.gotoPre(this.cursor - 1);
-                //     } else if (anchor.offsetTop === this.offset_top) {
-                //       this.active_pre_scroll = true;
-                //     }
-                //   } else {
-                //     if (this.active_next_scroll) {
-                //       this.active_next_scroll = false;
-                //       this.gotoNext(this.cursor + 1);
-                //     } else if (anchor.offsetTop === this.offset_top) {
-                //       this.active_next_scroll = true;
-                //     }
-                //   }
             },
             gotoMovieDetail(id) {
                 let router = this.$router.resolve({path: '/movie/subject/' + id});
@@ -193,23 +196,25 @@
             gotoPre(index) {
                 if (index !== 0) {
                     let selector = '#anchor' + index;
-                    let anchor = this.$el.querySelector(selector)
+                    let anchor = this.$el.querySelector(selector);
                     document.documentElement.scrollTop = anchor.offsetTop;
                     this.cursor = index;
                     this.offset_top = anchor.offsetTop;
                 }
-
                 this.calcArrows();
             },
             gotoNext(index) {
                 let selector = '#anchor' + index;
-                let anchor = this.$el.querySelector(selector)
+                let anchor = this.$el.querySelector(selector);
                 this.cursor = index;
                 this.offset_top = anchor.offsetTop;
                 document.documentElement.scrollTop = anchor.offsetTop;
                 this.calcArrows();
             },
             getAnnualStyle(item) {
+                if (!this.album) {
+                    return "";
+                }
                 let background_img = item.payloads.background_img;
                 if (this.checkMedia()) {
                     background_img = item.payloads.mobile_background_img;
@@ -217,7 +222,7 @@
                 if (background_img) {
                     return "height:" + this.browserHeight + "px ; background: #FFF url('" + background_img + "') no-repeat; background-size: 100% " + this.browserHeight + "px";
                 } else {
-                    return "";
+                    return "height:" + this.browserHeight + "px ; background: #FFF url('/static/image/default_movie_bg.jpeg') no-repeat; background-size: 100% " + this.browserHeight + "px";
                 }
             },
             checkMedia() {
@@ -250,8 +255,101 @@
                     this.body = annuals;
                 });
             },
+            initData() {
+                if (this.item) {
+                    return;
+                }
+                this.item = {
+                    "year": 2018,
+                    "kind": 1,
+                    "kind_cn": "Top 10",
+                    "kind_str": "top10",
+                    "create_time": 1545529237,
+                    "update_time": 1545529237,
+                    "subjects": [
+                        {
+                            "average": 7.9,
+                            "title": "伯德小姐",
+                            "image_url": "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2505925363.jpg",
+                            "id": "26588314"
+                        },
+                        {
+                            "average": 7.3,
+                            "title": "死侍2：我爱我家",
+                            "image_url": "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545479945.jpg",
+                            "id": "26588308"
+                        },
+                        {
+                            "average": 8.4,
+                            "title": "血观音",
+                            "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561016941.jpg",
+                            "id": "27113517"
+                        },
+                        {
+                            "average": 8.7,
+                            "title": "大佛普拉斯",
+                            "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2505928032.jpg",
+                            "id": "27059130"
+                        },
+                        {
+                            "average": 7.8,
+                            "title": "与神同行：罪与罚",
+                            "image_url": "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2500130777.jpg",
+                            "id": "11584016"
+                        },
+                        {
+                            "average": 8.0,
+                            "title": "燃烧",
+                            "image_url": "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2520095279.jpg",
+                            "id": "26842702"
+                        },
+                        {
+                            "average": 6.7,
+                            "title": "瞒天过海：美人计",
+                            "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2508259902.jpg",
+                            "id": "26654269"
+                        },
+                        {
+                            "average": 6.2,
+                            "title": "昆池岩",
+                            "image_url": "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2513360824.jpg",
+                            "id": "26945085"
+                        },
+                        {
+                            "average": 8.3,
+                            "title": "爱你，西蒙",
+                            "image_url": "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2523592367.jpg",
+                            "id": "26654498"
+                        },
+                        {
+                            "average": 7.9,
+                            "title": "解除好友2：暗网",
+                            "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2528012421.jpg",
+                            "id": "26725678"
+                        }
+                    ],
+                    "payloads": {
+                        // "background_color": "rgba(121, 92, 78, .8)",
+                        // "background_img": "https://img3.doubanio.com/view/activity_page/raw/public/p3715.jpg",
+                        "description": "也曾经想成为看起来很酷的人，最后还是想做回自己。",
+                        "title": "2018最受关注的非院线电影",
+                    },
+                    "id": "777"
+                };
+                this.album = true;
+                this.setBodyBackground(this.item);
+            },
+            setBodyBackground (item) {
+                if (item && item.payloads && item.payloads.background_img) {
+                    document.body.style.backgroundImage = "url(" + item.payloads.background_img + ")";
+                } else {
+                    document.body.style.background = "#ffffff url(" + this.default_movie_bg + ") no-repeat ";
+                }
+                document.body.style.backgroundSize = "cover";
+            }
         },
         created() {
+            this.initData();
         }
     }
 </script>

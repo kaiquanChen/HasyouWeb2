@@ -192,16 +192,14 @@
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 获取滚动条的高度
         const winHeight = document.documentElement.clientHeight || document.body.clientHeight; // 一屏的高度
         const scrollHeight = getScrollHeight(); // 获取文档总高度
-        let result = scrollTop >= parseInt(scrollHeight) - winHeight;
-        return result;
+        return scrollTop >= parseInt(scrollHeight) - winHeight;
     }
 
     let isReachHalfBottom = function () {
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop; // 获取滚动条的高度
         const winHeight = document.documentElement.clientHeight || document.body.clientHeight; // 一屏的高度
         const scrollHeight = getScrollHeight(); // 获取文档总高度
-        let result = scrollTop >= (parseInt(scrollHeight) - winHeight) / 2;
-        return result;
+        return scrollTop >= (parseInt(scrollHeight) - winHeight) / 2;
     }
 
     let getBrowserHeight = function () {
