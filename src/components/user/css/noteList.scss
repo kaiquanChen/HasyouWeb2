@@ -1,80 +1,80 @@
 .user-note-items {
-    
-  .user-note-item {
-    padding: 7px 10px;
-    position: relative;    
-    transition: background-color 0.3s ease;
-    background-color: #fff;
 
-    .popover {
-      position: absolute;
-      top: 0;
-      right: 18%;
+    .user-note-item {
+        padding: 7px 10px;
+        position: relative;
+        transition: background-color 0.3s ease;
+        background-color: #fff;
+
+        .popover {
+            position: absolute;
+            top: 0;
+            right: 18%;
+        }
+
+        button {
+            transition: background-color 0.3s ease;
+            background-color: #fff;
+        }
+
+        .item-title {
+            display: inline-block;
+            color: #3377aa;
+            width: 350px;
+        }
+
+        .item-title:hover {
+            color: #ffffff;
+        }
+
+        .item-tag, .item-time, .item-operate-icon {
+            position: absolute;
+        }
+
+        .item-time {
+            right: 20px;
+        }
+
+        .item-tag {
+            right: 30%;
+            width: 70px;
+            text-align: center;
+        }
     }
 
-    button {
-      transition: background-color 0.3s ease;
-      background-color: #fff;
-    }
-    
-    .item-title {
-      display: inline-block;
-      color: #3377aa;
-      width: 350px;
+    .user-note-item:hover {
+        background-color: gainsboro;
+
+        button {
+            background-color: gainsboro;
+        }
     }
 
-    .item-title:hover {
-      color: #ffffff;
+    button:hover {
+        color: #fff;
     }
-
-    .item-tag, .item-time, .item-operate-icon {
-      position: absolute;
-    }
-
-    .item-time {
-      right: 20px;
-    }
-
-    .item-tag {
-      right: 30%;
-      width: 70px;
-      text-align: center;
-    }
-  }
-
-  .user-note-item:hover {
-    background-color: gainsboro;
-
-    button {
-      background-color: gainsboro;
-    }
-  }
-
-  button:hover {
-    color: #fff;
-  }
 }
 
 @media screen and (max-width: 600px) {
-  .user-note-items {
+    .user-note-items {
 
-    .user-note-item {
+        .user-note-item {
 
-      .item-title {
-        width: 180px;
-      }
+            .item-title {
+                width: 180px;
+            }
+        }
     }
-  }
 }
 
 @media screen and (max-width: 400px) {
-  .user-note-items {
+    .user-note-items {
 
-    .user-note-item {
+        .user-note-item {
 
-      .item-title {
-        width: 160px;
-      }
+            .item-title {
+                width: 160px;
+            }
+        }
     }
-  }
 }

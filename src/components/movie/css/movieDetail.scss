@@ -6,7 +6,7 @@
     .left, .right {
         flex-direction: column;
     }
-    
+
     .left {
         width: 70%;
     }
@@ -86,14 +86,16 @@
 
             .movie-box {
 
-                span {.all-casts:hover {
-                background-color: #3377aa;
-                color: #ffffff;
-            }
+                span {
+                    .all-casts:hover {
+                        background-color: #3377aa;
+                        color: #ffffff;
+                    }
+
                     co.all-casts:hover {
-                background-color: #3377aa;
-                color: #ffffff;
-            }
+                        background-color: #3377aa;
+                        color: #ffffff;
+                    }
                 }
             }
         }
@@ -130,7 +132,7 @@
         }
 
         p {
-            text-indent:2em;
+            text-indent: 2em;
             color: #111111;
         }
 
@@ -178,12 +180,12 @@
             }
 
             .celebrity-name {
-                overflow:hidden;
+                overflow: hidden;
                 display: block;
                 width: 95px;
                 text-align: center;
-                white-space:nowrap;
-                text-overflow:ellipsis;
+                white-space: nowrap;
+                text-overflow: ellipsis;
             }
 
             .celebrity-roles-item {
@@ -313,38 +315,38 @@
                 border-right: #fff;
                 border-top: 1px solid #dcdcdc;
                 border-bottom: 1px solid #dcdcdc;
-                
+
                 .review-info {
                     padding: 10px;
-    
+
                     .creator-avatar {
                         float: left;
-    
+
                         img {
                             width: 24px;
                         }
                     }
-    
+
                     .creator-name {
                         float: left;
                         margin-left: 10px;
-    
+
                         a {
                             color: #3377aa;
                         }
-    
+
                         a:hover {
                             background-color: #3377aa;
                             color: #ffffff;
                         }
                     }
-    
+
                     .create-time {
                         float: left;
                         margin-left: 10px;
                         color: rgb(153, 153, 153);
                     }
-    
+
                     .votes {
                         float: right;
                         min-width: 10px;
@@ -378,8 +380,8 @@
                     p {
                         width: 100%;
                         height: auto;
-                        word-wrap:break-word;
-                        word-break:break-all;
+                        word-wrap: break-word;
+                        word-break: break-all;
                         overflow: hidden;
                     }
                 }
@@ -401,7 +403,7 @@
     #movie-detail {
         margin-top: 20px;
         padding: 5px;
-        
+
         .left {
             display: block;
             width: 100%;
@@ -416,7 +418,7 @@
             .avatar {
                 flex-direction: column;
                 width: 24%;
-    
+
                 img {
                     width: 95px;
                     height: 160px;
@@ -425,10 +427,10 @@
                 .update {
                     width: 95px;
                 }
-    
+
                 .user-operation {
                     bottom: 15px;
-    
+
                     .want-read, .read {
                         width: 45px;
                     }
@@ -454,7 +456,7 @@
             }
 
             .celebrity-item {
-    
+
                 img {
                     width: 115px;
                     height: 172px;
@@ -471,7 +473,7 @@
     #movie-detail {
         margin-top: 20px;
         padding: 5px;
-        
+
         .left {
             display: block;
             width: 100%;
@@ -486,7 +488,7 @@
             .avatar {
                 flex-direction: column;
                 width: 25%;
-    
+
                 img {
                     width: 95px;
                     height: 160px;
@@ -495,9 +497,9 @@
                 .update {
                     width: 95px;
                 }
-    
+
                 .user-operation {
-    
+
                     .want-read, .read {
                         width: 40px;
                     }
@@ -523,7 +525,7 @@
             }
 
             .celebrity-item {
-    
+
                 img {
                     width: 95px;
                     height: 133px;

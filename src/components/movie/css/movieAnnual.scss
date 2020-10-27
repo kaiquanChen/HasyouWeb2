@@ -5,7 +5,7 @@
         width: 4rem;
         height: 4rem;
         border-radius: 50%;
-        background: rgba(0,0,0,.2);
+        background: rgba(0, 0, 0, .2);
         border: 1px solid #fff;
         position: absolute;
         z-index: 3;
@@ -50,7 +50,7 @@
         left: 0;
         right: 0;
         height: 40px;
-        background: rgba(0,0,0,.4);
+        background: rgba(0, 0, 0, .4);
         z-index: 4;
         color: #ffffff;
         line-height: 40px;
@@ -70,7 +70,7 @@
             right: 0;
             top: 40px;
             right: 0;
-            background: rgba(0,0,0,.9);
+            background: rgba(0, 0, 0, .9);
             padding: 1.5rem 2rem 5rem 2rem;
             line-height: 1;
             white-space: nowrap;
@@ -93,7 +93,7 @@
             }
 
             a {
-                color: hsla(0,0%,100%,.54);
+                color: hsla(0, 0%, 100%, .54);
             }
 
             a:visited, a:hover {
@@ -169,7 +169,7 @@
                         font-size: 28px;
                         font-weight: 700;
                         color: #ffffff;
-                        border-bottom: 1px solid hsla(0,0%,100%,.25);
+                        border-bottom: 1px solid hsla(0, 0%, 100%, .25);
                     }
                 }
 
@@ -212,13 +212,13 @@
                                 a {
                                     font-size: 24px;
                                     font-weight: 400;
-                                    color:#f0f0f0;
+                                    color: #f0f0f0;
                                     text-decoration: none;
                                 }
                             }
 
                             .movie-rate {
-                                color: hsla(0,0%,100%,.7);
+                                color: hsla(0, 0%, 100%, .7);
                                 font-size: 15px;
                                 margin-top: 15px;
 
@@ -232,7 +232,7 @@
                     }
 
                     .movie-info-bottom {
-                        color: hsla(0,0%,100%,.6);
+                        color: hsla(0, 0%, 100%, .6);
                         margin-top: 16px;
                         font-size: 13px;
                         line-height: 1.7;
@@ -280,7 +280,7 @@
                     }
 
                     .movie-info {
-                        background: rgba(0,0,0,.5);
+                        background: rgba(0, 0, 0, .5);
                         color: #fff;
                         box-sizing: border-box;
                         padding: 4px 8px;

@@ -46,7 +46,7 @@
                     display: inline;
                     right: 30px;
                     top: 5px;
-                    
+
                     a {
                         text-decoration: none;
                         color: #fff;
@@ -91,16 +91,16 @@
 
                             .title, .author {
                                 display: block;
-                                overflow:hidden;
-                                white-space:nowrap;
-                                text-overflow:ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
                             }
 
                             a {
                                 color: #3377aa;
-                                overflow:hidden;
-                                white-space:nowrap;
-                                text-overflow:ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
                             }
                         }
                     }
@@ -143,7 +143,7 @@
                     display: inline;
                     right: 30px;
                     top: 5px;
-                    
+
                     a {
                         text-decoration: none;
                         color: #fff;
@@ -188,16 +188,16 @@
 
                             .title, .author {
                                 display: block;
-                                overflow:hidden;
-                                white-space:nowrap;
-                                text-overflow:ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
                             }
 
                             a {
                                 color: #3377aa;
-                                overflow:hidden;
-                                white-space:nowrap;
-                                text-overflow:ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                text-overflow: ellipsis;
                             }
                         }
                     }
@@ -232,7 +232,7 @@
 
                     .item-body {
                         padding: 4px 0;
-                        
+
                         a {
                             color: #3377aa;
                             font-size: 17px;
@@ -255,7 +255,7 @@
                     position: absolute;
                     left: 85px;
                     top: 5px;
-                    
+
                     a {
                         color: #3377aa;
                     }
@@ -286,7 +286,7 @@
         .left, .right {
             display: none;
         }
-    
+
         .center {
             width: 100%;
 
@@ -305,13 +305,13 @@
 
                         .info {
                             text-align: center;
-                            overflow:hidden;
-                            white-space:nowrap;
-                            text-overflow:ellipsis;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
                         }
 
                         .cover {
-                            
+
                             img {
                                 width: 95px;
                             }
@@ -339,7 +339,7 @@
         .center {
 
             .center-left {
-                
+
                 .new-book {
 
                     .new-book-body {
@@ -347,7 +347,7 @@
                         padding-top: 15px;
                         padding-left: 0;
                         border-top: 1px #cccccc solid;
-                
+
                         .book-item {
                             display: inline-block;
                             width: 95px;
@@ -364,9 +364,9 @@
                                 -webkit-box-orient: vertical;
                                 -webkit-line-clamp: 1;
                             }
-                
+
                             .cover {
-                
+
                                 img {
                                     width: 95px;
                                     height: 160px;
@@ -379,14 +379,14 @@
                 .good-market {
 
                     .good-market-body {
-    
+
                         .book-item {
                             width: 95px;
                             margin-right: 0px;
                             margin-left: 18px;
-    
+
                             .cover {
-    
+
                                 img {
                                     width: 95px;
                                     height: 160px;

@@ -1,134 +1,134 @@
 #album-upload {
-  padding-bottom: 40px;
+    padding-bottom: 40px;
 
-  .album-btn {
-    margin-top: 25px;
-    
-    .btn-save, .btn-cancel {
-      margin-top: 20px;
-      cursor: pointer;
-      display: inline-block;
-      width: 56px;
-      height: 27px;
-      line-height: 27px;
-      text-align: center;    
-      border-radius: 3px;
-      margin-right: 2em;
-    }
-  
-    .btn-save {
-      color: white;
-      background-color: #3fa156;
-      border-color: #528641;
-    }
-  }
-    
-  .title {
-    word-wrap: break-word;
-    display: block;
-    font-size: 25px;
-    font-weight: bold;
-    color: #494949;
-    margin: 0;
-    padding: 0 0 15px 0;
-    line-height: 1.1;
-    margin-bottom: 20px;
-  }
+    .album-btn {
+        margin-top: 25px;
 
-  .album {
-    margin-top: 50px;
-    
-    .title {
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #333;
-    }
-
-    .setting-tabs {
-      border-bottom: 1px solid #dbdbdb;
-      padding-bottom: 20px;
-
-      .album, .new {
-        cursor: pointer;
-        display: inline-block;
-        position: relative;
-        height: 28px;
-        margin-right: 10px;
-        margin-top: 10px;
-        line-height: 28px;
-        padding: 0 20px;
-        border: 1px solid #ddd;
-      }
-
-      .selected-album, .selected-new {
-        position: absolute;
-        left: 40px;
-        top: 36px;
-      }
-    }
-
-    .new-album {
-      margin-top: 30px;
-
-      label {
-        font-family: Tahoma;
-        vertical-align: middle;
-        color: #333;
-      }
-
-      .item {
-        display: block;
-        margin: 5px 0;
-      }
-
-      input, textarea {
-        outline: none;
-        border: 1px solid #ccc;
-        width: 512px;
-        resize: none;
-        padding: 0 5px;
-        color: initial;
-      }
-
-      input {
-        text-rendering: auto;
-        letter-spacing: normal;
-        word-spacing: normal;
-        text-transform: none;
-        text-indent: 0px;
-        text-shadow: none;
-        display: inline-block;
-        text-align: start;
-        margin: 0em;
-        font: 400 13.3333px Arial;
-        vertical-align: middle;
-        height: 28px;
-        line-height: 28px;
-        font-size: 14px;
-        padding: 0 10px;
-      }
-
-      textarea {
-        height: 108px;
-      }
-
-      input:focus, textarea:focus {
-        border-color: #999999;
-      }
-    }
-
-    .existed-albums {
-      margin-top: 30px;
-
-      .album-items {
-        padding-left: 10px;
-
-        .album-item {
-          list-style: none;
-          display: inline-block;
-          margin-right: 20px;
+        .btn-save, .btn-cancel {
+            margin-top: 20px;
+            cursor: pointer;
+            display: inline-block;
+            width: 56px;
+            height: 27px;
+            line-height: 27px;
+            text-align: center;
+            border-radius: 3px;
+            margin-right: 2em;
         }
-      }
+
+        .btn-save {
+            color: white;
+            background-color: #3fa156;
+            border-color: #528641;
+        }
     }
-  }
+
+    .title {
+        word-wrap: break-word;
+        display: block;
+        font-size: 25px;
+        font-weight: bold;
+        color: #494949;
+        margin: 0;
+        padding: 0 0 15px 0;
+        line-height: 1.1;
+        margin-bottom: 20px;
+    }
+
+    .album {
+        margin-top: 50px;
+
+        .title {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .setting-tabs {
+            border-bottom: 1px solid #dbdbdb;
+            padding-bottom: 20px;
+
+            .album, .new {
+                cursor: pointer;
+                display: inline-block;
+                position: relative;
+                height: 28px;
+                margin-right: 10px;
+                margin-top: 10px;
+                line-height: 28px;
+                padding: 0 20px;
+                border: 1px solid #ddd;
+            }
+
+            .selected-album, .selected-new {
+                position: absolute;
+                left: 40px;
+                top: 36px;
+            }
+        }
+
+        .new-album {
+            margin-top: 30px;
+
+            label {
+                font-family: Tahoma;
+                vertical-align: middle;
+                color: #333;
+            }
+
+            .item {
+                display: block;
+                margin: 5px 0;
+            }
+
+            input, textarea {
+                outline: none;
+                border: 1px solid #ccc;
+                width: 512px;
+                resize: none;
+                padding: 0 5px;
+                color: initial;
+            }
+
+            input {
+                text-rendering: auto;
+                letter-spacing: normal;
+                word-spacing: normal;
+                text-transform: none;
+                text-indent: 0px;
+                text-shadow: none;
+                display: inline-block;
+                text-align: start;
+                margin: 0em;
+                font: 400 13.3333px Arial;
+                vertical-align: middle;
+                height: 28px;
+                line-height: 28px;
+                font-size: 14px;
+                padding: 0 10px;
+            }
+
+            textarea {
+                height: 108px;
+            }
+
+            input:focus, textarea:focus {
+                border-color: #999999;
+            }
+        }
+
+        .existed-albums {
+            margin-top: 30px;
+
+            .album-items {
+                padding-left: 10px;
+
+                .album-item {
+                    list-style: none;
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
 }

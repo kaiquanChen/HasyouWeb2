@@ -1,5 +1,5 @@
 <template>
-    
+
 </template>
 
 <script>
@@ -9,16 +9,15 @@
     const note_url = global_.URLS.NOTE_URL;
     const token = localStorage.getItem("access_token");
     export default {
-      name: "book",
-      data() {
-        return {
-            user: {},
-        };
-      },
-      methods: {
-      },
-      created() {
-      }
+        name: "book",
+        data() {
+            return {
+                user: {},
+            };
+        },
+        methods: {},
+        created() {
+        }
     }
 </script>
 

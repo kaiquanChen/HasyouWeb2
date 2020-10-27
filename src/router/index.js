@@ -53,81 +53,81 @@ import ItemList from '@/components/common/user/ItemList'
 import Test from '@/components/Test'
 
 export const routes = [
-  {
-    path: '/',
-    component: Home,
-    children:[
-      {path: '', component: Index},
-      {path: 'about', component: About},
-      {path: 'login', component: Login},
-      {path: 'register', component: Register},
-      // book
-      {
-        path: 'book',
-        component: Book,
+    {
+        path: '/',
+        component: Home,
         children: [
-          {path: '', component: Books},
-          {path: 'subject/:id', component: BookDetail},
-          {path: 'top250', component: BookTop250},
-          {path: 'tag', component: BookTag},
-          {path: 'tag/:tag_id', component: BookList},
-          {path: 'read', component: Read},
-          {path: 'read/:id', component: ReadDetail}
+            {path: '', component: Index},
+            {path: 'about', component: About},
+            {path: 'login', component: Login},
+            {path: 'register', component: Register},
+            // book
+            {
+                path: 'book',
+                component: Book,
+                children: [
+                    {path: '', component: Books},
+                    {path: 'subject/:id', component: BookDetail},
+                    {path: 'top250', component: BookTop250},
+                    {path: 'tag', component: BookTag},
+                    {path: 'tag/:tag_id', component: BookList},
+                    {path: 'read', component: Read},
+                    {path: 'read/:id', component: ReadDetail}
+                ]
+            },
+            // movie
+            {
+                path: 'movie',
+                component: Movie,
+                children: [
+                    {path: '', component: Movies},
+                    {path: 'subject/:id', component: MovieDetail},
+                    {path: 'top250', component: MovieTop250}
+                ]
+            },
+            // forum
+            {
+                path: 'forum',
+                component: Forum,
+                children: [
+                    {path: '', component: Forums},
+                    {path: 'subject/:id', component: PostDetail},
+                    {path: 'node/:id', component: GoNode},
+                ]
+            },
+            // user
+            {
+                path: '/user/:id',
+                component: User,
+                children: [
+                    {path: '', component: UserHome},
+                    {path: 'subjects/:type', component: ItemList},
+                    {path: 'album/upload', component: AlbumUpload},
+                    {path: 'albums', component: UserAlbums},
+                    {path: 'album/:album_id', component: Photo},
+                    {path: 'notes', component: UserNotes},
+                ]
+            },
+            {
+                path: '/note',
+                component: Note,
+                children: []
+            },
+            {
+                path: '/note/subject/:id',
+                component: NoteDetail,
+                children: []
+            },
+            // search
+            {
+                path: 'search',
+                component: SearchResult,
+                children: []
+            }
         ]
-      },
-      // movie
-      {
-        path: 'movie',
-        component: Movie,
-        children: [
-          {path: '', component: Movies},
-          {path: 'subject/:id', component: MovieDetail},
-          {path: 'top250', component: MovieTop250}
-        ]
-      },
-      // forum
-      {
-        path: 'forum',
-        component: Forum,
-        children: [
-          {path: '', component: Forums},
-          {path: 'subject/:id', component: PostDetail},
-          {path: 'node/:id', component: GoNode},
-        ]
-      },
-      // user
-      {
-        path: '/user/:id',
-        component: User,
-        children: [
-          {path: '', component: UserHome},
-          {path: 'subjects/:type', component: ItemList},
-          {path: 'album/upload', component: AlbumUpload},
-          {path: 'albums', component: UserAlbums},
-          {path: 'album/:album_id', component: Photo},
-          {path: 'notes', component: UserNotes},
-        ]
-      },
-      {
-        path: '/note',
-        component: Note,
-        children: []
-      },
-      {
-        path: '/note/subject/:id',
-        component: NoteDetail,
-        children: []
-      },
-      // search
-      {
-        path: 'search',
-        component: SearchResult,
-        children: []
-      }
-    ]
-  },
-  {path: '/movie/annual/:year', component: MovieAnnual},
-  {path: '/book/annual/:year', component: BookAnnual},
-  {path: '/note/edit', component: EditNote},
-  {path: '/test', component: Test}
+    },
+    {path: '/movie/annual/:year', component: MovieAnnual},
+    {path: '/book/annual/:year', component: BookAnnual},
+    {path: '/note/edit', component: EditNote},
+    {path: '/test', component: Test}
 ]

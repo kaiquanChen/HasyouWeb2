@@ -27,7 +27,7 @@
             getShortBookDetail() {
                 this.$http.get(short_book_url + "subject/" + this.$route.params.id, {
                     headers: {
-                    "bid": global_.FUNC.getBid()
+                        "bid": global_.FUNC.getBid()
                     }
                 }).then((data) => {
                     if (data.body.code === 200) {
@@ -45,4 +45,3 @@
 <style lang="scss" scoped>
     @import './css/readDetail'
 </style>
-    

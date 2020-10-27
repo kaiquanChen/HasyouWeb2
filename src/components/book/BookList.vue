@@ -18,15 +18,16 @@
                             <span class="book-origin-name" v-if="book.origin_work_name">{{book.origin_work_name}}</span>
                             <div class="info">
                                 <span v-if="book.authors && book.authors.length > 0">{{book.authors[0]}}</span>
-                                <span v-if="book.translators && book.translators.length > 0"> / {{book.translators[0]}}</span>
+                                <span
+                                    v-if="book.translators && book.translators.length > 0"> / {{book.translators[0]}}</span>
                                 <span v-if="book.publisher"> / {{book.publisher}}</span>
                                 <span v-if="book.publish_time"> / {{book.publish_time}}</span>
                                 <span v-if="book.price"> / {{book.price}}</span>
                             </div>
                             <div class="rate">
-                                <el-rate v-model="book.stars/2" 
-                                    :score-template="book.stars" 
-                                    show-score disabled>
+                                <el-rate v-model="book.stars/2"
+                                         :score-template="book.stars"
+                                         show-score disabled>
                                     &nbsp;{{book.stars}}
                                 </el-rate>
                             </div>
@@ -51,8 +52,9 @@
 </template>
 
 <script>
-  import global_ from "../config/Global"
-  const book_url = global_.URLS.BOOK_URL;
+    import global_ from "../config/Global"
+
+    const book_url = global_.URLS.BOOK_URL;
     export default {
         name: "book",
         data() {
@@ -74,14 +76,14 @@
                 let tag_id = this.$route.params.tag_id;
                 let book_list_url = book_url + "subjects/" + tag_id + "?p=" + this.page + "&count=" + this.count;
                 this.$http.get(book_list_url, {
-                    params:{
-                        p:this.page,
-                        count:this.count
+                    params: {
+                        p: this.page,
+                        count: this.count
                     },
                     headers: {
                         "bid": global_.FUNC.getBid()
                     }
-                    }).then((data) => {
+                }).then((data) => {
                     if (data.status !== 200) {
                         console.log(data);
                         alert("数据获取失败!");
@@ -108,7 +110,7 @@
         },
         created() {
             this.getBookList();
-        // this.$router.push({path: "/book/books"});
+            // this.$router.push({path: "/book/books"});
         }
     }
 </script>

@@ -1,171 +1,171 @@
 #user-note {
-  padding-bottom: 50px;
-  
-  h1 {
-    position: relative;
+    padding-bottom: 50px;
 
-    .photos-btn-pic {
-      position: absolute;
-      display: inline-block;
-      margin-left: 1em;
-      right: 0;
+    h1 {
+        position: relative;
 
-      a {
-          font-size: 14px;
-          color: #777;
-          display: inline-block;
-          background: #fcf7f3;
-          line-height: 21px;
-          height: 21px;
-          zoom: 1;
-          padding: 0 10px 0 10px;
-          vertical-align: baseline;
-          overflow: hidden;
-          border: 1px solid #edded4;
-          border-radius: 2px;
-          letter-spacing: 2px;
-          text-decoration: none;
-      }
+        .photos-btn-pic {
+            position: absolute;
+            display: inline-block;
+            margin-left: 1em;
+            right: 0;
 
-      a:hover {
-          color: #777;
-          background: #edded4;
-      }
-  }
-  }
+            a {
+                font-size: 14px;
+                color: #777;
+                display: inline-block;
+                background: #fcf7f3;
+                line-height: 21px;
+                height: 21px;
+                zoom: 1;
+                padding: 0 10px 0 10px;
+                vertical-align: baseline;
+                overflow: hidden;
+                border: 1px solid #edded4;
+                border-radius: 2px;
+                letter-spacing: 2px;
+                text-decoration: none;
+            }
 
-  .user-note-items {
-    
-    .user-note-item {
-      padding: 7px 10px;
-      position: relative;    
-      transition: background-color 0.3s ease;
-      background-color: #fff;
+            a:hover {
+                color: #777;
+                background: #edded4;
+            }
+        }
+    }
 
-      .popover {
-        position: absolute;
-        top: 0;
-        right: 12%;
-      }
+    .user-note-items {
 
-      button {
-        transition: background-color 0.3s ease;
-        background-color: #fff;
-      }
-      
-      .item-title {
-        display: inline-block;
-        color: #3377aa;
-        width: 350px;
-        overflow:hidden;
-        word-break:keep-all;
-        white-space:nowrap;
-        text-overflow:ellipsis;
-      }
+        .user-note-item {
+            padding: 7px 10px;
+            position: relative;
+            transition: background-color 0.3s ease;
+            background-color: #fff;
 
-      .item-title:hover {
-        color: #ffffff;
-      }
+            .popover {
+                position: absolute;
+                top: 0;
+                right: 12%;
+            }
 
-      .item-tag, .item-time, .item-operate-icon {
-        position: absolute;
-      }
+            button {
+                transition: background-color 0.3s ease;
+                background-color: #fff;
+            }
 
-      .item-time {
-        right: 20px;
-      }
+            .item-title {
+                display: inline-block;
+                color: #3377aa;
+                width: 350px;
+                overflow: hidden;
+                word-break: keep-all;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
 
-      .item-tag {
-        right: 25%;
-        width: 70px;
+            .item-title:hover {
+                color: #ffffff;
+            }
+
+            .item-tag, .item-time, .item-operate-icon {
+                position: absolute;
+            }
+
+            .item-time {
+                right: 20px;
+            }
+
+            .item-tag {
+                right: 25%;
+                width: 70px;
+                text-align: center;
+            }
+        }
+
+        .user-note-item:hover {
+            background-color: gainsboro;
+
+            button {
+                background-color: gainsboro;
+            }
+        }
+
+        button:hover {
+            color: #fff;
+        }
+    }
+
+    .pagination {
         text-align: center;
-      }
+        margin-top: 30px;
     }
 
-    .user-note-item:hover {
-      background-color: gainsboro;
+    .pop-container {
+        padding: 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
 
-      button {
-        background-color: gainsboro;
-      }
-    }
+        .container {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            bottom: 0;
+            width: 300px;
+            height: 130px;
+            border-radius: 10px;
+            background: #fff;
+            padding-top: 40px;
 
-    button:hover {
-      color: #fff;
-    }
-  }
+            .hide-icon {
+                position: absolute;
+                right: -40px;
+                top: -40px;
+                cursor: pointer;
+            }
 
-  .pagination {
-    text-align: center;
-    margin-top: 30px;
-  }
+            label {
+                margin-left: 30px;
+            }
 
-  .pop-container{
-    padding: 50px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.3);
+            input {
+                margin-left: 20px;
+                outline: none;
+                border: gainsboro 1px solid;
+                padding: 0 10px;
+            }
 
-    .container {
-      position:fixed;
-      left:0;
-      right:0;
-      top:0;
-      bottom:0;
-      margin:auto;
-      bottom: 0;
-      width: 300px;
-      height: 130px;
-      border-radius: 10px;
-      background: #fff;
-      padding-top: 40px;
+            input:focus {
+                border: #3377aa 1px solid;
+            }
 
-      .hide-icon {
-        position: absolute;
-        right: -40px;
-        top: -40px;
-        cursor: pointer;
-      }
+            .album-btn {
+                margin-left: 50px;
 
-      label {
-        margin-left: 30px;
-      }
+                .btn-save, .btn-cancel {
+                    margin-top: 20px;
+                    cursor: pointer;
+                    display: inline-block;
+                    width: 56px;
+                    height: 27px;
+                    line-height: 27px;
+                    text-align: center;
+                    border-radius: 3px;
+                    margin-right: 2em;
+                }
 
-      input {
-        margin-left: 20px;
-        outline: none;
-        border: gainsboro 1px solid;
-        padding: 0 10px;
-      }
-
-      input:focus {
-        border: #3377aa 1px solid;
-      }
-
-      .album-btn {
-        margin-left: 50px;
-        
-        .btn-save, .btn-cancel {
-          margin-top: 20px;
-          cursor: pointer;
-          display: inline-block;
-          width: 56px;
-          height: 27px;
-          line-height: 27px;
-          text-align: center;
-          border-radius: 3px;
-          margin-right: 2em;
+                .btn-save {
+                    color: white;
+                    background-color: #3fa156;
+                    border-color: #528641;
+                }
+            }
         }
-      
-        .btn-save {
-          color: white;
-          background-color: #3fa156;
-          border-color: #528641;
-        }
-      }
     }
-  }
 }

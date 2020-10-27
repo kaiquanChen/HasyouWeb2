@@ -15,7 +15,7 @@
         }
 
         .movie-header-nav {
-            
+
             li {
                 display: inline;
                 line-height: 40px;
@@ -23,7 +23,7 @@
 
                 a {
                     color: #27a;
-                    font-size: 14px;    
+                    font-size: 14px;
                 }
             }
         }
@@ -51,28 +51,28 @@
         .movie-header {
             background-color: #f0f3f5;
             height: 40px;
-    
+
             .header-left, .header-center {
                 display: none;
             }
-    
+
             .header-center {
                 width: 100%;
                 display: block;
                 text-align: center;
             }
-    
+
             .movie-header-nav {
                 padding-left: 0;
-                
+
                 li {
                     display: inline;
                     line-height: 40px;
                     margin-left: 10px;
-    
+
                     a {
                         color: #27a;
-                        font-size: 11px;    
+                        font-size: 11px;
                     }
                 }
             }
@@ -82,7 +82,7 @@
             .body-left, .body-right {
                 display: none;
             }
-    
+
             .body-center {
                 width: 100%;
             }

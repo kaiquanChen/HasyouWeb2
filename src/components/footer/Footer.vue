@@ -18,29 +18,28 @@
     export default {
         name: "",
         data() {
-          return {
-          }
+            return {}
         },
         methods: {
-          checkMedia() {
-            return window.matchMedia('(max-width:600px)').matches;
-          },
-          getMessage() {
-            Bus.$on("request-page", response => {
-              this.page.p = response.p;
-              this.page.count = response.count;
-              this.page.total = response.total;
-              this.keywords = response.keywords;
+            checkMedia() {
+                return window.matchMedia('(max-width:600px)').matches;
+            },
+            getMessage() {
+                Bus.$on("request-page", response => {
+                    this.page.p = response.p;
+                    this.page.count = response.count;
+                    this.page.total = response.total;
+                    this.keywords = response.keywords;
 
-              this.globalSearch();
-            });
-          }
+                    this.globalSearch();
+                });
+            }
         },
         created() {
         }
-      }
+    }
 </script>
 
-<style lang="scss"  scoped>
-  @import './css/footer.scss'
+<style lang="scss" scoped>
+    @import './css/footer.scss'
 </style>

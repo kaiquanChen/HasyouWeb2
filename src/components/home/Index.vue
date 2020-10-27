@@ -1,22 +1,36 @@
 <template>
-  <div id="index">
-    <h1>装修...</h1>
-  </div>
+    <el-row id="index">
+        <el-col :span="6">
+            <div class="grid-content bg-purple" style="color: #ffffff">left</div>
+        </el-col>
+        <el-col :span="10">
+            <div class="grid-content bg-purple-light">
+                <MovieAlbum/>
+            </div>
+        </el-col>
+        <el-col :span="8">
+            <div class="grid-content bg-purple" style="color: #ffffff">right</div>
+        </el-col>
+    </el-row>
 </template>
 <script>
-export default {
-  data () {
-    return {
-      file_ids:[],
-      fileList: [],
+    import global_ from "../config/Global";
+    import MovieAlbum from "../movie/MovieAlbum";
+
+    export default {
+        name: "index",
+        data() {
+            return {}
+        },
+        methods: {},
+        created() {
+
+        },
+        components: {
+            "MovieAlbum": MovieAlbum
+        }
     }
-  },
-  methods: {
-  },
-  created() {
-  }
-}
 </script>
 <style lang="scss" scoped>
-  @import "./css/index";
+    @import "./css/index";
 </style>

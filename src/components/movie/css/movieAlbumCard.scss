@@ -1,0 +1,48 @@
+.movie-album-card {
+    margin: 15px;
+    margin-bottom: 30px;
+    padding: 5px 10px;
+    border: #37a solid 1px;
+    border-radius: 10px;
+}
+
+.album-item {
+    //display: inline-block;
+}
+
+.album-cover {
+    width: 90%;
+}
+
+.card-title {
+    color: #37a;
+}
+
+.card-description {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal !important;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical
+}
+
+.album-single-item-list {
+    list-style: none;
+    display: inline;
+
+}
+
+.album-single-item-list img {
+    width: 30%;
+}
+
+.album-item-single-img {
+    width: 100%;
+}
+
+.item-info {
+    margin-top: 10px;
+    border-top: #333 dashed 1px;
+}

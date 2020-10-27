@@ -37,7 +37,7 @@
         display: inline-block;
         right: 10px;
         top: 10px;
-        
+
         img {
             width: 73px;
             height: 73px;
@@ -86,7 +86,7 @@
         text-align: left;
         font-size: 14px;
         line-height: 120%;
-        background: linear-gradient(to bottom,#eee 0,#ccc 100%);
+        background: linear-gradient(to bottom, #eee 0, #ccc 100%);
 
         .follow, .ignore {
             color: rgba(0, 0, 0, 0.65);
@@ -121,7 +121,7 @@
         img {
             max-width: 100% !important;
         }
-        
+
         h1 {
             font-size: 24px;
             font-weight: 500;
@@ -141,7 +141,7 @@
             border-bottom: 1px solid #e2e2e2;
             height: 37px;
             position: relative;
-            
+
             .post-node {
                 position: absolute;
                 right: 0;
@@ -180,7 +180,7 @@
                 .notice, .btn-load-comment {
                     display: block;
                 }
-                
+
                 .btn-load-comment {
                     margin-top: 15px;
                     border: 1px solid #e5e5e5;
@@ -201,7 +201,7 @@
                 .comment-info {
                     padding-left: 10px;
                     width: 100%;
-                    
+
                     .comment-info-top {
                         flex-direction: column;
 
@@ -216,9 +216,9 @@
                             font-size: 11px;
                             color: #ccc;
                         }
-    
+
                         .comment-floor {
-                            float: right;    
+                            float: right;
                             font-size: 9px;
                             line-height: 9px;
                             font-weight: 500;
@@ -252,7 +252,7 @@
         margin-top: 30px;
         // margin-bottom: 200px;
         // padding-bottom: 30px;
-    
+
         .left, .right {
             width: 100%;
         }

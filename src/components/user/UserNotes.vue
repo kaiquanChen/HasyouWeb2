@@ -8,10 +8,10 @@
         <NoteList v-bind:notes="notes" v-bind:user="user" v-bind:page="page"></NoteList>
         <div class="pagination">
             <el-pagination
-              @current-change="handleCurrentChange"
-              layout="prev, pager, next"
-              :page-size="page.count"
-              :total="page.total">
+                @current-change="handleCurrentChange"
+                layout="prev, pager, next"
+                :page-size="page.count"
+                :total="page.total">
             </el-pagination>
         </div>
         <div class="pop-container" v-show="pop_show">
@@ -38,43 +38,43 @@
     const note_update_url = global_.URLS.NOTE_UPDATE_URL;
     const token = localStorage.getItem("access_token");
     export default {
-      name: "book",
-      data() {
-        return {
-            title: "",
-            user: {},
-            notes: [],
-            page: {
-                page: 1,
-                count: 20,
-                total: 0
-            },
-            pop_show: false,
-            select_tag: {}
-        };
-      },
-      components:{NoteOperate, NoteList},
-      methods: {
-          getTitle(title) {
-              if (title) {
-                  return " - " + title;
-              } else {
-                  return "";
-              }
-          },
-          handleCurrentChange(val) {
-              this.page.page = val;
-              this.getNotes();
-          },
-          save() {
-              this.$http.post(note_update_url, {
-                body: {
-                    id: this.select_tag.id,
-                    tag_name: this.select_tag.tag_name
+        name: "book",
+        data() {
+            return {
+                title: "",
+                user: {},
+                notes: [],
+                page: {
+                    page: 1,
+                    count: 20,
+                    total: 0
+                },
+                pop_show: false,
+                select_tag: {}
+            };
+        },
+        components: {NoteOperate, NoteList},
+        methods: {
+            getTitle(title) {
+                if (title) {
+                    return " - " + title;
+                } else {
+                    return "";
                 }
+            },
+            handleCurrentChange(val) {
+                this.page.page = val;
+                this.getNotes();
+            },
+            save() {
+                this.$http.post(note_update_url, {
+                    body: {
+                        id: this.select_tag.id,
+                        tag_name: this.select_tag.tag_name
+                    }
                 }, {
                     headers: {
-                        "bid":global_.FUNC.getBid(),
+                        "bid": global_.FUNC.getBid(),
                         "X-HASYOU-TOKEN": token
                     }
                 }).then(data => {
@@ -85,7 +85,7 @@
                     }
 
                     if (res.code === 5001) {
-                        this.$router.push({path:"/register"});
+                        this.$router.push({path: "/register"});
                         return;
                     }
                     this.notes.map((item, key) => {
@@ -97,100 +97,100 @@
                     this.$message.success("操作成功!");
                     this.hideModal();
                 });
-          },
-          hideModal() {
-              this.pop_show = !this.pop_show;
-              Bus.$emit("popover-show", false);
-          },
-          checkUserStatus() {
-              if (!token) {
-                  this.$router.push({path: "/login"});
-              }
-          },
-          getUserInfo() {
-              let user_info = localStorage.getItem("user_info");
-              if (user_info) {
-                this.user = JSON.parse(user_info);
-              } else {
-                  this.$router.push({path: "/login"});
-              }
-          },
-          getNotes() {
-            this.$http.get(note_url + "subjects", {
-                params: {
-                    type: "NOTE",
-                    tag_name: this.title,
-                    p: this.page.page,
-                    count: this.page.count
-                },
-                headers:{
-                    "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
+            },
+            hideModal() {
+                this.pop_show = !this.pop_show;
+                Bus.$emit("popover-show", false);
+            },
+            checkUserStatus() {
+                if (!token) {
+                    this.$router.push({path: "/login"});
                 }
-            }).then(data => {
-                this.notes = data.body.data.body;
-                this.page.page = data.body.data.page;
-                this.page.count = data.body.data.count;
-                this.page.total = data.body.data.total;
-            });
-          },
-          deleteNote() {
-            this.$http.get(note_url + "subject/delete/" + this.select_tag.id, {
-                headers:{
-                    "bid": global_.FUNC.getBid(),
-                    "X-HASYOU-TOKEN": token
+            },
+            getUserInfo() {
+                let user_info = localStorage.getItem("user_info");
+                if (user_info) {
+                    this.user = JSON.parse(user_info);
+                } else {
+                    this.$router.push({path: "/login"});
                 }
-            }).then(data => {
-                if (data.body.code !== 200) {
-                    this.$message.error("删除失败！");
-                    return;
-                }
-                this.$message.success("删除成功!");
-                this.diffNote();
-            });
-          },
-          diffNote() {
-              let notes = this.notes;
-              notes.map((item, index) => {
-                  if (item.id === this.select_tag.id) {
-                      notes.splice(index, 1);
-                  }
-              });
-              this.notes = notes;
-          },
-          getMessage() {
-            Bus.$on("edit-tag-name", response => {
-                this.pop_show = response;
-            });
+            },
+            getNotes() {
+                this.$http.get(note_url + "subjects", {
+                    params: {
+                        type: "NOTE",
+                        tag_name: this.title,
+                        p: this.page.page,
+                        count: this.page.count
+                    },
+                    headers: {
+                        "bid": global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    }
+                }).then(data => {
+                    this.notes = data.body.data.body;
+                    this.page.page = data.body.data.page;
+                    this.page.count = data.body.data.count;
+                    this.page.total = data.body.data.total;
+                });
+            },
+            deleteNote() {
+                this.$http.get(note_url + "subject/delete/" + this.select_tag.id, {
+                    headers: {
+                        "bid": global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    }
+                }).then(data => {
+                    if (data.body.code !== 200) {
+                        this.$message.error("删除失败！");
+                        return;
+                    }
+                    this.$message.success("删除成功!");
+                    this.diffNote();
+                });
+            },
+            diffNote() {
+                let notes = this.notes;
+                notes.map((item, index) => {
+                    if (item.id === this.select_tag.id) {
+                        notes.splice(index, 1);
+                    }
+                });
+                this.notes = notes;
+            },
+            getMessage() {
+                Bus.$on("edit-tag-name", response => {
+                    this.pop_show = response;
+                });
 
-            Bus.$on("goto-note-tag", response => {
-                this.title = response;
-                this.getNotes();
-            });
-            
-            Bus.$on("select-tag", response => {
-                this.select_tag = response;
-            });
+                Bus.$on("goto-note-tag", response => {
+                    this.title = response;
+                    this.getNotes();
+                });
 
-            Bus.$on("note-edit", response => {
-                this.$router.push({path: "/note/edit?id=" + this.select_tag.id});
-            });
+                Bus.$on("select-tag", response => {
+                    this.select_tag = response;
+                });
 
-            Bus.$on("note-detail", response => {
-                this.$router.push({path: "/note/subject/" + this.select_tag.id});
-            });
+                Bus.$on("note-edit", response => {
+                    this.$router.push({path: "/note/edit?id=" + this.select_tag.id});
+                });
 
-            Bus.$on("note-delete", response => {
-                this.deleteNote();
-            });
-          }
-      },
-      created() {
-        this.checkUserStatus();
-        this.getUserInfo();
-        this.getNotes();
-        this.getMessage();
-      }
+                Bus.$on("note-detail", response => {
+                    this.$router.push({path: "/note/subject/" + this.select_tag.id});
+                });
+
+                Bus.$on("note-delete", response => {
+                    this.deleteNote();
+                });
+            }
+        },
+        created() {
+            this.checkUserStatus();
+            this.getUserInfo();
+            this.getNotes();
+            this.getMessage();
+        }
     }
 </script>
 

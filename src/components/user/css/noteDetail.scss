@@ -1,81 +1,81 @@
 #note-detail {
-  display: flex;
-  background-color: #f4f5f5;
+    display: flex;
+    background-color: #f4f5f5;
 
-  .col-1, .col-2, .col-3 {
-    flex-direction: column;
-    width: 30%;
-  }
-
-  .col-2 {
-    width: 40%;
-    background-color: #ffffff;
-    margin: 35px 0;
-    padding: 30px;
-    border-radius: 5px;
-
-    .note-nav {
-      margin-bottom: 20px;
-
-      .note-nav-list {
-        cursor: pointer;
-        font-weight: bold;
-      }
-
-      .note-nav-list:hover {
-        text-decoration: underline;
-        color: #333333;
-      }
-    }
-
-    .note-header {
-      display: flex;
-
-      .left {
+    .col-1, .col-2, .col-3 {
         flex-direction: column;
-
-        .note-user-avatar {
-          width: 50px;
-          border-radius: 50%;
-        }
-      }
-
-      .right {
-        padding-left: 20px;
-        flex-direction: column;
-
-        .note-creator  {
-          display: block;
-          max-width: 100%;
-          font-size: 1.3rem;
-          font-weight: 700;
-          color: #333;
-        }
-      }
-    }
-
-    .note-title {
-      margin: 30px 0 50px 0;
-      font-weight: 700;
-    }
-  }
-
-  h1, h2, h3, h4, li {
-    font-weight: bold;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  #note-detail {
-
-    .col-1, .col-3 {
-      display: none;
+        width: 30%;
     }
 
     .col-2 {
-      display: block;
-      width: 100%;
-      padding: 20px 10px;
+        width: 40%;
+        background-color: #ffffff;
+        margin: 35px 0;
+        padding: 30px;
+        border-radius: 5px;
+
+        .note-nav {
+            margin-bottom: 20px;
+
+            .note-nav-list {
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+            .note-nav-list:hover {
+                text-decoration: underline;
+                color: #333333;
+            }
+        }
+
+        .note-header {
+            display: flex;
+
+            .left {
+                flex-direction: column;
+
+                .note-user-avatar {
+                    width: 50px;
+                    border-radius: 50%;
+                }
+            }
+
+            .right {
+                padding-left: 20px;
+                flex-direction: column;
+
+                .note-creator {
+                    display: block;
+                    max-width: 100%;
+                    font-size: 1.3rem;
+                    font-weight: 700;
+                    color: #333;
+                }
+            }
+        }
+
+        .note-title {
+            margin: 30px 0 50px 0;
+            font-weight: 700;
+        }
     }
-  } 
+
+    h1, h2, h3, h4, li {
+        font-weight: bold;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #note-detail {
+
+        .col-1, .col-3 {
+            display: none;
+        }
+
+        .col-2 {
+            display: block;
+            width: 100%;
+            padding: 20px 10px;
+        }
+    }
 }

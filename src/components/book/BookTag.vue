@@ -15,20 +15,20 @@
                 </div>
             </div>
             <div class="center-right"></div>
-        </div>  
+        </div>
         <div class="right"></div>
     </div>
 </template>
 
 <script>
-  import global_ from "../config/Global"
+    import global_ from "../config/Global"
 
-  const book_tag_url = global_.URLS.DOUBAN_BOOK_TAG_URL + "subjects/DOUBAN_BOOK";
+    const book_tag_url = global_.URLS.DOUBAN_BOOK_TAG_URL + "subjects/DOUBAN_BOOK";
     export default {
         name: "book",
         data() {
             return {
-                data:[],
+                data: [],
                 page: {
                     total: 0,
                     page: 1,
@@ -64,4 +64,3 @@
 <style lang="scss" scoped>
     @import './css/bookTag'
 </style>
-    
