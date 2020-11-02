@@ -1,0 +1,77 @@
+#title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.movie-album-item-selector {
+    position: relative;
+}
+
+.movie-card {
+    background-color: #f0faff;
+    //position: absolute;
+    z-index: 1000;
+    float: left;
+    width: 100%;
+    border-radius: 10px;
+    //top: 36px;
+}
+
+.movie-card:hover {
+    cursor: pointer;
+    background-color: #d3ffff;
+}
+
+.movie-card-left {
+    display: inline-block;
+    padding: 10px;
+}
+
+.selector-image-item-region {
+    display: inline-block;
+    position: relative;
+}
+
+.movie-item-delete-image {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.movie-item-delete-image:hover {
+    cursor: pointer;
+}
+
+.movie-item-image {
+    display: inline-block;
+    width: 60px;
+}
+
+.movie-card-right {
+    display: inline-block;
+}
+
+.movie-item-title, .movie-item-summary {
+    display: block;
+    line-height: normal;
+}
+
+.movie-item-title {
+    color: #3377aa;
+}
+
+.search-result {
+    display: inline-block;
+    transition: width 2s;
+    -moz-transition: width 2s; /* Firefox 4 */
+    -webkit-transition: width 2s; /* Safari 和 Chrome */
+    -o-transition: width 2s; /* Opera */
+}
+
+.selector-image-region {
+    padding: 4px;
+}
+
+.selector-image {
+    margin: 15px;
+}

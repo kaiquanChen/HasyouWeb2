@@ -48,6 +48,9 @@
         <div class="record-items">
             <h2 class="record movie-record">我看 · · · · · ·
                 <span>(<a :href="gotoItemList('WATCHED_MOVIE')" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
+                <span class="photos-btn-pic">
+                    <a target="_blank" class="lnk-create" :href="gotoMovieAlbumCreate()"><i>+</i>新建片单</a>
+                </span>
             </h2>
             <!-- <div class="movie-want-read item">
                 <div class="item-left movie-want-watch-left">想看</div>
@@ -135,13 +138,16 @@
                 return time.split(" ")[0];
             },
             gotoAlbumUpload() {
-                return "/user/" + this.user.id + "/album/upload";
+                return "/user/" + this.user.uid + "/album/upload";
             },
             gotoBookDetail(id) {
                 return "/book/subject/" + id;
             },
             gotoMovieDetail(id) {
                 return "/movie/subject/" + id;
+            },
+            gotoMovieAlbumCreate() {
+                return "/user/" + this.user.uid + "/movie/album";
             },
             getRecordCount(list) {
                 if (list) {
@@ -230,5 +236,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/userHome.scss'
+    @import './css/userHome.scss';
 </style>

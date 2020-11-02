@@ -1,7 +1,8 @@
 <template>
     <el-row class="movie-album-card">
         <div class="title-frame">
-            <img src="/static/icon/movie_album_top.png" />
+            <img class="image-frame" src="/static/icon/movie_album_top.png" />
+            <img @click="gotoEdit(item.id)" class="image-edit" src="/static/icon/album_edit.png" />
             <div class="album-summary" @click="gotoMovieAlbum(item.id)">
                 <a href="#">{{item.name}}</a>&emsp;&emsp;
             </div>
@@ -24,9 +25,9 @@
                 <img src="/static/icon/quote_left.png"/>
                 <a-tooltip placement="right">
                     <template slot="title">
-                        {{active_movie.summary}}
+                        {{active_movie.content}}
                     </template>
-                    <span class="card-description">{{active_movie.summary}}</span>
+                    <span class="card-description">{{active_movie.content}}</span>
                 </a-tooltip>
                 <img src="/static/icon/quote_right.png"/>
             </el-col>
@@ -86,6 +87,11 @@
             },
             gotoMovieAlbum(album_id) {
                 let path = "/movie/album/" + album_id;
+                let url = this.$router.resolve({path: path});
+                window.open(url.href, '_blank');
+            },
+            gotoEdit(album_id) {
+                let path = "/user/" + this.user.uid + "/movie/album/" + album_id;
                 let url = this.$router.resolve({path: path});
                 window.open(url.href, '_blank');
             }

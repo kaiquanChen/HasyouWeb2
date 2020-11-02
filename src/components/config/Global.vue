@@ -45,7 +45,9 @@
     const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
     const MOVIE_BLOOPER_URL = DOUBAN_MOVIE + "blooper/";
     const MOVIE_TRAILER_URL = DOUBAN_MOVIE + "trailer/";
-    const MOVIE_ALBUM_URL = DOUBAN_MOVIE + "album";
+    const MOVIE_ALBUM_URL = DOUBAN_MOVIE + "album/save";
+    const MOVIE_ALBUM_LIST_URL = DOUBAN_MOVIE + "album/page";
+    const MOVIE_ALBUM_DETAIL_URL = DOUBAN_MOVIE + "album/";
     const MOVIE_ALBUM_ITEM_URL = DOUBAN_MOVIE + "album/item";
     const MOVIE_ALBUM_ITEM_DELETE_URL = DOUBAN_MOVIE + "album/item/delete";
     const MOVIE_COMING_URL = DOUBAN_MOVIE + "coming";
@@ -100,6 +102,7 @@
     const SAVE_ALBUM_URL = COMMON_URL + "user/album/save";
     const SAVE_PHOTO_URL = COMMON_URL + "user/photo/save";
     const USER_PHOTO_URL = COMMON_URL + "user/album/";
+
 
     // blog
     const BLOG_URL = COMMON_URL + "blog";
@@ -271,8 +274,10 @@
         ANSWER_URL,
         MOVIE_ALBUM_URL,
         MOVIE_ALBUM_ITEM_URL,
+        MOVIE_ALBUM_LIST_URL,
         MOVIE_ALBUM_ITEM_DELETE_URL,
         MOVIE_COMING_URL,
+        MOVIE_ALBUM_DETAIL_URL,
 
         /* v2 */
         COMMENT_URL,

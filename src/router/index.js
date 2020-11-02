@@ -19,7 +19,7 @@ import Movies from '@/components/movie/Movies'
 import MovieDetail from '@/components/movie/MovieDetail'
 import MovieTop250 from '@/components/movie/MovieTop250'
 import MovieAnnual from '@/components/movie/MovieAnnual'
-import MovieAnnualItem from '@/components/movie/MovieAnnualItem'
+import MovieAlbumDetail from "../components/movie/MovieAlbumDetail";
 
 // forum
 import Forum from '@/components/forum/Forum'
@@ -40,6 +40,7 @@ import UserNotes from '@/components/user/UserNotes'
 import EditNote from '@/components/user/EditNote'
 import NoteDetail from '@/components/user/NoteDetail'
 import Register from '@/components/login/Register'
+import UserMovieAlbum from "../components/user/UserMovieAlbum";
 
 // home
 import Index from '@/components/home/Index'
@@ -107,6 +108,8 @@ export const routes = [
                     {path: 'albums', component: UserAlbums},
                     {path: 'album/:album_id', component: Photo},
                     {path: 'notes', component: UserNotes},
+                    {path: 'movie/album', component: UserMovieAlbum},
+                    {path: 'movie/album/:id', component: UserMovieAlbum}
                 ]
             },
             {
@@ -130,6 +133,6 @@ export const routes = [
     {path: '/movie/annual/:year', component: MovieAnnual},
     {path: '/book/annual/:year', component: BookAnnual},
     {path: '/note/edit', component: EditNote},
-    {path: '/movie/album/:id', component: MovieAnnualItem},
+    {path: '/movie/album/:id', component: MovieAlbumDetail},
     {path: '/test', component: Test}
 ];

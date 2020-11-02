@@ -5,8 +5,9 @@
             listType="picture-card"
             :fileList="fileList"
             :multiple="getMultiple()"
-            @change="handleChange">
-            <div v-if="fileList.length < 500">
+            @change="handleChange"
+        >
+            <div v-if="fileList.length < 500 && !upload">
                 <a-icon type="plus"/>
                 <div class="ant-upload-text">上传</div>
             </div>
@@ -19,17 +20,19 @@
     let file_url = global_.URLS.FILE_URL;
     const file_upload_url = global_.URLS.FILE_URL;
     const token = localStorage.getItem("access_token");
-    ;
+
     export default {
+        props: ["multiple"],
         data() {
             return {
                 file_ids: [],
                 fileList: [],
+                upload: false
             }
         },
         methods: {
             getMultiple() {
-                return true;
+                return this.multiple;
             },
             getUploadUrl() {
                 return file_url + "?bid=" + global_.FUNC.getBid() + "&X-HASYOU-TOKEN=" + token;
@@ -42,8 +45,11 @@
                 this.previewVisible = true;
             },
             handleChange({file, fileList, event}) {
+                let file_url = "";
                 if (file.status === "done") {
                     this.file_ids.push(file.response.data[0].id);
+                    file_url = file.response.data[0].file_url;
+                    this.upload = !this.multiple; // 用于判断是否只需要上传一张图片
                 } else if (file.status === "removed") {
                     let file_ids = [];
                     this.file_ids.map((item, key) => {
@@ -52,9 +58,13 @@
                         }
                     });
                     this.file_ids = file_ids;
+                    if (this.upload) {
+                       this.upload = false;
+                    }
                 }
                 this.fileList = fileList;
                 this.$emit("returnFileIds", this.file_ids);
+                this.$emit("returnFileUrl", file_url);
             }
         },
         created() {
