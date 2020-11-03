@@ -11,11 +11,11 @@
                 <span class="album-summary-sum" v-else>共{{item.album_item_count}}部</span>
             </div>
         </div>
-        <el-col :span="8" class="card-left" @click="gotoMovieDetail(active_movie.movie_id)">
+        <el-col :span="8" class="card-left" @click="gotoMovieDetail(active_movie.subject_id)">
             <el-col :span="12">
                 <a class="album-item" target="_blank">
                     <img class="album-cover"
-                         @click="gotoMovieDetail(active_movie.movie_id)"
+                         @click="gotoMovieDetail(active_movie.subject_id)"
                          :src="active_movie.image_url"
                          :alt="active_movie.title"/>
                 </a>
@@ -34,14 +34,14 @@
         </el-col>
         <el-col :span="16">
             <el-carousel :interval="3000" @change="changeCard" type="card" height="150px" style="padding: 10px;">
-                <el-carousel-item style="max-width: 100px;display: inline-block" v-for="(single_item, index) in item.items" :key="single_item.movie_id">
+                <el-carousel-item style="max-width: 100px;display: inline-block" v-for="(single_item, index) in item.items" :key="single_item.subject_id">
                     <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
                     <span class="preview-no">{{single_item.average}}</span>
                     <a-tooltip placement="right">
                         <template slot="title">
                             {{single_item.summary}}
                         </template>
-                        <img @click="gotoMovieDetail(single_item.movie_id)" ref="carousel_img" class="album-item-single-img" :src="single_item.image_url"/>
+                        <img @click="gotoMovieDetail(single_item.subject_id)" ref="carousel_img" class="album-item-single-img" :src="single_item.image_url"/>
                     </a-tooltip>
                 </el-carousel-item>
             </el-carousel>

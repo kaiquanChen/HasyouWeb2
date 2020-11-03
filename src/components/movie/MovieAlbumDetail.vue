@@ -1,6 +1,6 @@
 <template>
     <div :style="getAlbumStyle(item)">
-        <header class="annual-header" v-if="album">
+        <header class="annual-header">
             <div class="header-logo">
                 <a class="index" href="/"><p>W<em>ithyou</em></p></a>
             </div>
@@ -17,7 +17,7 @@
                     <div class="movie-info">
                         <div class="movie-info-top">
                             <div class="movie-image">
-                                <a target="_blank" :href="getMovieDetail(item.items[0].id)">
+                                <a target="_blank" :href="getMovieDetail(item.items[0].subject_Id)">
                                     <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
                                     <span class="preview-no">1</span>
                                     <img class="preview-image" :src="item.items[0].image_url"
@@ -26,13 +26,13 @@
                             </div>
                             <div class="movie-info-right">
                                 <div class="movie-title">
-                                    <a target="_blank" :href="getMovieDetail(item.items[0].id)">{{item.items[0].title}}</a>
+                                    <a target="_blank" :href="getMovieDetail(item.items[0].subject_Id)">{{item.items[0].title}}</a>
                                 </div>
                                 <div class="movie-rate">
                                     豆瓣评分<br>
                                     <span class="movie-stars">
-                    {{item.subjects[0].average}}
-                  </span>
+                                        {{item.items[0].average}}
+                                    </span>
                                     <el-rate
                                         class="primary-rate"
                                         :value="getStars(item.items[0].average)"
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <ul class="annual-item-list">
-                <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.subjects"
+                <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.items"
                     v-if="index2 >= 1" :key="movie.id">
                     <div class="movie-item-image">
                         <img class="preview-image" :src="movie.image_url" :alt="movie.title">
@@ -74,9 +74,9 @@
 
     export default {
         name: "MovieAlbumDetail",
-        props: ["item"],
         data() {
             return {
+                item: {},
                 browserHeight: 0,
                 cursor: 1,
                 page: {
@@ -93,7 +93,6 @@
                 active_pre_scroll: true,
                 offset_top: 0,
                 show_nav: false,
-                album: false,
                 default_movie_bg: movie_bg
             };
         },
@@ -154,13 +153,7 @@
                 return stars / 2;
             },
             getAlbumStyle(item) {
-                if (!this.album) {
-                    return "";
-                }
                 let background_img = item.background_img;
-                if (this.checkMedia()) {
-                    background_img = item.mobile_background_img;
-                }
                 if (background_img) {
                     return "height:" + this.browserHeight + "px ; background: #FFF url('" + background_img + "') no-repeat; background-size: 100% " + this.browserHeight + "px";
                 } else {
@@ -198,42 +191,44 @@
                 // });
             },
             initData() {
-                if (this.item) {
-                    return;
-                }
                 this.item = {
                     "id": "1",
                     "name": "2018最受关注的非院线电影",
                     "description": "也曾经想成为看起来很酷的人，最后还是想做回自己。",
-                    "background_img": "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2505925363.jpg",
+                    // "background_img": "https://img3.doubanio.com/view/activity_page/raw/public/p3190.jpg",
                     "create_time": "1 月前",
                     "update_time": "3 天前",
                     "items": [
                         {
+                            "id": "26588314",
                             "average": 7.9,
                             "title": "伯德小姐",
                             "image_url": "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2505925363.jpg",
                             "subject_Id": "26588314"
                         },
                         {
+                            "id": "26588315",
                             "average": 7.3,
                             "title": "死侍2：我爱我家",
                             "image_url": "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545479945.jpg",
                             "subject_Id": "26588308"
                         },
                         {
+                            "id": "26588316",
                             "average": 8.4,
                             "title": "血观音",
                             "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561016941.jpg",
                             "subject_Id": "27113517"
                         },
                         {
+                            "id": "26588317",
                             "average": 8.7,
                             "title": "大佛普拉斯",
                             "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2505928032.jpg",
                             "subject_Id": "27059130"
                         },
                         {
+                            "id": "26588318",
                             "average": 7.8,
                             "title": "与神同行：罪与罚",
                             "image_url": "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2500130777.jpg",
@@ -241,7 +236,6 @@
                         }
                     ]
                 };
-                this.album = true;
                 this.setBodyBackground(this.item);
             },
             setBodyBackground (item) {
