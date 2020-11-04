@@ -8,10 +8,21 @@
             <el-form-item label="片单描述">
                 <el-input type="textarea" v-model="description"></el-input>
             </el-form-item>
-            <el-form-item label="封面图片">
+            <el-form-item label="封面图片" v-if="cover">
+                <img :src="cover"/>
+            </el-form-item>
+            <el-form-item label="封面图片" v-else>
                 <FileUpload :multiple="false" v-on:returnFileUrl="returnFileUrl"></FileUpload>
             </el-form-item>
-            <el-form-item label="选择片单" >
+            <el-form-item label="已选电影">
+                <div class="selector-image-region" v-if="selector_items && selector_items.length > 0">
+                    <div class="selector-image-item-region" v-for="(item, index) in selector_items" :key="item.subject_id">
+                        <img style="width: 100px;" :src="item.image_url" class="selector-image">
+                        <img @click="deleteSelectorItem(index, item)" class="movie-item-delete-image" src="/static/icon/delete.png" alt="delete">
+                    </div>
+                </div>
+            </el-form-item>
+            <el-form-item label="添加电影" >
                 <a-input-search autocomplete="off" id="movie-album-item-selector" @focus="showSearchResult()" placeholder="请搜索电影" enter-button @search="onSearch" />
                 <div class="search-result" @mouseleave="closeSelector()" v-if="show && search_items && search_items.length > 0">
                     <div class="movie-card" :style="getStyle(index)" @click="selectItem(item)" v-for="(item, index) in search_items">
@@ -22,14 +33,6 @@
                             <span class="movie-item-title">{{item.title}}</span>
                             <span class="movie-item-summary">{{item.content}}</span>
                         </div>
-                    </div>
-                </div>
-            </el-form-item>
-            <el-form-item label="已选片单">
-                <div class="selector-image-region" v-if="selector_items && selector_items.length > 0">
-                    <div class="selector-image-item-region" v-for="(item, index) in selector_items" :key="item.subject_id">
-                        <img style="width: 100px;" :src="item.image_url" class="selector-image">
-                        <img @click="deleteSelectorItem(index, item)" class="movie-item-delete-image" src="/static/icon/delete.png" alt="delete">
                     </div>
                 </div>
             </el-form-item>
