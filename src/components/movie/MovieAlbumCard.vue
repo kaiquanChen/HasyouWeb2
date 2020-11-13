@@ -7,7 +7,15 @@
                 <a href="#">{{item.name}}</a>&emsp;&emsp;
             </div>
             <div class="album-summary-sum">
-                <span class="album-summary-sum" v-if="user">已看&nbsp;{{item.watched_count}} / {{item.album_item_count}}</span>
+                <span class="album-summary-sum" v-if="user">已看&nbsp;{{item.watched_count}} / {{item.album_item_count}}
+                    <a-progress
+                        style="top: -10px;left: 10px;"
+                        :stroke-color='{"0%": "#108ee9","100%": "#87d068",}'
+                        :status="getCompleteRate(item) === 100 ? 'success' : 'active'"
+                        :format="percent => getProgressText()"
+                        :percent="getCompleteRate(item)"
+                    />
+                </span>
                 <span class="album-summary-sum" v-else>共{{item.album_item_count}}部</span>
             </div>
         </div>
@@ -27,7 +35,15 @@
                     <template slot="title">
                         {{active_movie.content}}
                     </template>
-                    <span class="card-description">{{active_movie.content}}</span>
+                    <span style="display: -webkit-box;
+                            overflow: hidden;
+                            white-space: normal !important;
+                            text-overflow: ellipsis;
+                            word-wrap: break-word;
+                            -webkit-line-clamp: 3;
+                            -webkit-box-orient: vertical;
+                            font-size: 16px;
+                            color: #ffffff;" class="card-description">{{active_movie.content}}</span>
                 </a-tooltip>
                 <img src="/static/icon/quote_right.png"/>
             </el-col>
@@ -64,6 +80,9 @@
             }
         },
         methods: {
+            getProgressText (percent, done, total) {
+                return '';
+            },
             initUserInfo() {
                 this.user = _global.FUNC.getUserInfo();
             },
@@ -94,6 +113,9 @@
                 let path = "/user/" + this.user.uid + "/movie/album/" + album_id;
                 let url = this.$router.resolve({path: path});
                 window.open(url.href, '_blank');
+            },
+            getCompleteRate(item) {
+                return item.watched_count / item.album_item_count * 100;
             }
         },
         created() {
