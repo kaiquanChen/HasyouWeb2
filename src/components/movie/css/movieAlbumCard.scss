@@ -114,3 +114,14 @@
     top: 1px;
     left: 0;
 }
+
+.album-item-single-img {
+    position: relative;
+}
+.watched-icon-item {
+    position: absolute;
+    left: calc(100% - 48px);
+    top: calc(100% - 48px);
+    width: 48px;
+    height: 48px;
+}

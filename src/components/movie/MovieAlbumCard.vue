@@ -58,6 +58,8 @@
                             {{single_item.summary}}
                         </template>
                         <img @click="gotoMovieDetail(single_item.subject_id)" ref="carousel_img" class="album-item-single-img" :src="single_item.image_url"/>
+                        <img class="watched-icon-item" src="/static/icon/watched.png"
+                             v-if="single_item.watched === 1" />
                     </a-tooltip>
                 </el-carousel-item>
             </el-carousel>
