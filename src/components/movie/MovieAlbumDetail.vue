@@ -17,7 +17,7 @@
                     <div class="movie-info">
                         <div class="movie-info-top">
                             <div class="movie-image">
-                                <a target="_blank" :href="getMovieDetail(item.items[0].subject_Id)">
+                                <a target="_blank" :href="getMovieDetail(item.items[0].subject_id)">
                                     <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
                                     <span class="preview-no">1</span>
                                     <img class="preview-image" :src="item.items[0].image_url"
@@ -26,7 +26,7 @@
                             </div>
                             <div class="movie-info-right">
                                 <div class="movie-title">
-                                    <a target="_blank" :href="getMovieDetail(item.items[0].subject_Id)">{{item.items[0].title}}</a>
+                                    <a target="_blank" :href="getMovieDetail(item.items[0].subject_id)">{{item.items[0].title}}</a>
                                 </div>
                                 <div class="movie-rate">
                                     豆瓣评分<br>
@@ -49,8 +49,8 @@
                 </div>
             </div>
             <ul class="annual-item-list">
-                <li @click="gotoMovieDetail(movie.id)" class="annual-movie-item" v-for="(movie, index2) in item.items"
-                    v-if="index2 >= 1" :key="movie.id">
+                <li @click="gotoMovieDetail(movie.subject_id)" class="annual-movie-item" v-for="(movie, index2) in item.items"
+                    v-if="index2 >= 1" :key="movie.subject_id">
                     <div class="movie-item-image">
                         <img class="preview-image" :src="movie.image_url" :alt="movie.title">
                         <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
@@ -70,7 +70,7 @@
     import global_ from "../config/Global";
     import movie_bg from "../../../static/image/movie_bg.png";
 
-    const MOVIE_ANNUAL_URL = global_.URLS.MOVIE_ANNUAL_URL;
+    const MOVIE_ALBUM_DETAIL_URL = global_.URLS.MOVIE_ALBUM_DETAIL_URL;
 
     export default {
         name: "MovieAlbumDetail",
@@ -130,6 +130,7 @@
                 return "annual-item-body";
             },
             getMovieDetail(id) {
+                console.log(id);
                 return "/movie/subject/" + id;
             },
             calcArrows() { // 计算上下箭头
@@ -164,31 +165,19 @@
                 return window.matchMedia('(max-width:600px)').matches;
             },
             getMovieAlbum() {
-                // this.year = this.$route.params.year;
-                // this.$http.get(MOVIE_ANNUAL_URL + this.year, {
-                //     headers: {
-                //         bid: global_.FUNC.getBid()
-                //     },
-                //     params: {
-                //         p: this.page.page,
-                //         count: this.page.count
-                //     }
-                // }).then(data => {
-                //     if (data.body.code !== 200) {
-                //         this.$message.error("数据获取失败!");
-                //         return;
-                //     }
-                //
-                //     this.page.page = data.body.data.page;
-                //     this.page.count = data.body.data.count;
-                //     this.page.total = data.body.data.total;
-                //
-                //     let annuals = this.body;
-                //     data.body.data.body.map((item, key) => {
-                //         annuals.push(item);
-                //     });
-                //     this.body = annuals;
-                // });
+                let album_id = this.$route.params.id;
+                this.$http.get(MOVIE_ALBUM_DETAIL_URL + album_id, {
+                    headers: {
+                        bid: global_.FUNC.getBid()
+                    }
+                }).then(data => {
+                    if (data.body.code !== 200) {
+                        this.$message.error("数据获取失败!");
+                        return;
+                    }
+
+                    this.item = data.body.data;
+                });
             },
             initData() {
                 this.item = {
@@ -204,35 +193,35 @@
                             "average": 7.9,
                             "title": "伯德小姐",
                             "image_url": "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2505925363.jpg",
-                            "subject_Id": "26588314"
+                            "subject_id": "26588314"
                         },
                         {
                             "id": "26588315",
                             "average": 7.3,
                             "title": "死侍2：我爱我家",
                             "image_url": "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545479945.jpg",
-                            "subject_Id": "26588308"
+                            "subject_id": "26588308"
                         },
                         {
                             "id": "26588316",
                             "average": 8.4,
                             "title": "血观音",
                             "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561016941.jpg",
-                            "subject_Id": "27113517"
+                            "subject_id": "27113517"
                         },
                         {
                             "id": "26588317",
                             "average": 8.7,
                             "title": "大佛普拉斯",
                             "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2505928032.jpg",
-                            "subject_Id": "27059130"
+                            "subject_id": "27059130"
                         },
                         {
                             "id": "26588318",
                             "average": 7.8,
                             "title": "与神同行：罪与罚",
                             "image_url": "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2500130777.jpg",
-                            "subject_Id": "11584016"
+                            "subject_id": "11584016"
                         }
                     ]
                 };
@@ -248,7 +237,7 @@
             }
         },
         created() {
-            this.initData();
+            this.getMovieAlbum();
         }
     }
 </script>

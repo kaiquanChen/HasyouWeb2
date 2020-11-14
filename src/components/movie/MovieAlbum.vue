@@ -1,6 +1,15 @@
 <template>
     <div id="movie-album">
         <MovieAlbumCard :item="item" v-for="item in albums" :key="item.id"/>
+        <div class="pagination" style="text-align: center;margin-top: 10px;margin-bottom: 30px">
+            <el-pagination
+                class="album-pagination"
+                @current-change="handleCurrentChange"
+                :page-size="page.count"
+                layout="prev, pager, next"
+                :total="page.total">
+            </el-pagination>
+        </div>
     </div>
 </template>
 
@@ -14,7 +23,7 @@
             return {
                 albums: [],
                 page: {
-                    page: 0,
+                    page: 1,
                     count: 10,
                     total: 0
                 },
@@ -28,8 +37,8 @@
             listAlbum() {
                 this.$http.get(global_.URLS.MOVIE_ALBUM_LIST_URL, {
                     params: {
-                        p: this.page.page,
-                        count: this.page.count
+                        page_no: this.page.page,
+                        page_size: this.page.count
                     },
                     headers: {
                         "bid": global_.FUNC.getBid(),
@@ -50,6 +59,10 @@
             },
             initUserToken() {
                 this.token = global_.FUNC.getToken();
+            },
+            handleCurrentChange(val) {
+                this.page.page = val;
+                this.listAlbum();
             }
         },
         created() {

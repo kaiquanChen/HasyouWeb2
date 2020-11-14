@@ -739,5 +739,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/movieDetail'
+    @import './css/movieDetail';
 </style>
