@@ -8,7 +8,7 @@
                 电影片单
             </div>
         </header>
-        <div :class="getAlbumBodyClass()">
+        <div class="annual-item-body">
             <div class="annual-preview">
                 <div :style="getPreviewStyle(item)" class="annual-preview-body">
                     <div class="annual-name">
@@ -126,11 +126,7 @@
                 let router = this.$router.resolve({path: '/movie/subject/' + id});
                 window.open(router.href, '_blank');
             },
-            getAlbumBodyClass() {
-                return "annual-item-body";
-            },
             getMovieDetail(id) {
-                console.log(id);
                 return "/movie/subject/" + id;
             },
             calcArrows() { // 计算上下箭头
@@ -177,55 +173,8 @@
                     }
 
                     this.item = data.body.data;
+                    this.setBodyBackground(this.item);
                 });
-            },
-            initData() {
-                this.item = {
-                    "id": "1",
-                    "name": "2018最受关注的非院线电影",
-                    "description": "也曾经想成为看起来很酷的人，最后还是想做回自己。",
-                    // "background_img": "https://img3.doubanio.com/view/activity_page/raw/public/p3190.jpg",
-                    "create_time": "1 月前",
-                    "update_time": "3 天前",
-                    "items": [
-                        {
-                            "id": "26588314",
-                            "average": 7.9,
-                            "title": "伯德小姐",
-                            "image_url": "https://img2.doubanio.com/view/photo/s_ratio_poster/public/p2505925363.jpg",
-                            "subject_id": "26588314"
-                        },
-                        {
-                            "id": "26588315",
-                            "average": 7.3,
-                            "title": "死侍2：我爱我家",
-                            "image_url": "https://img9.doubanio.com/view/photo/s_ratio_poster/public/p2545479945.jpg",
-                            "subject_id": "26588308"
-                        },
-                        {
-                            "id": "26588316",
-                            "average": 8.4,
-                            "title": "血观音",
-                            "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2561016941.jpg",
-                            "subject_id": "27113517"
-                        },
-                        {
-                            "id": "26588317",
-                            "average": 8.7,
-                            "title": "大佛普拉斯",
-                            "image_url": "https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2505928032.jpg",
-                            "subject_id": "27059130"
-                        },
-                        {
-                            "id": "26588318",
-                            "average": 7.8,
-                            "title": "与神同行：罪与罚",
-                            "image_url": "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2500130777.jpg",
-                            "subject_id": "11584016"
-                        }
-                    ]
-                };
-                this.setBodyBackground(this.item);
             },
             setBodyBackground (item) {
                 if (item && item.background_img) {
