@@ -108,27 +108,27 @@
                             disabled
                             text-color="#ff9900">
                         </el-rate>
-                        <div class="movie-rate-process">
+                        <div class="movie-rate-process" v-if="data['scores']['5']">
                             <span class="movie-rate-process-title">5星</span>&nbsp;
                             <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '5')" />
                             <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '5')}}</span>
                         </div>
-                        <div class="movie-rate-process">
+                        <div class="movie-rate-process" v-if="data['scores']['4']">
                             <span class="movie-rate-process-title">4星</span>&nbsp;
                             <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '4')" />
                             <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '4')}}</span>
                         </div>
-                        <div class="movie-rate-process">
+                        <div class="movie-rate-process" v-if="data['scores']['3']">
                             <span class="movie-rate-process-title">3星</span>&nbsp;
                             <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '3')" />
                             <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '3')}}</span>
                         </div>
-                        <div class="movie-rate-process">
+                        <div class="movie-rate-process" v-if="data['scores']['2']">
                             <span class="movie-rate-process-title">2星</span>&nbsp;
                             <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '2')" />
                             <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '2')}}</span>
                         </div>
-                        <div class="movie-rate-process">
+                        <div class="movie-rate-process" v-if="data['scores']['1']">
                             <span class="movie-rate-process-title">1星</span>&nbsp;
                             <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '1')" />
                             <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '1')}}</span>
