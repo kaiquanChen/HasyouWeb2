@@ -1,5 +1,5 @@
 <template>
-    <el-row id="index">
+    <el-row id="index" v-if="!checkMedia()">
         <el-col :span="6">
             <div class="grid-content bg-purple" style="color: #ffffff">left</div>
         </el-col>
@@ -12,9 +12,13 @@
             <div class="grid-content bg-purple" style="color: #ffffff">right</div>
         </el-col>
     </el-row>
+    <el-row id="index" v-else>
+        <div class="grid-content bg-purple-light">
+            <MovieAlbum/>
+        </div>
+    </el-row>
 </template>
 <script>
-    import global_ from "../config/Global";
     import MovieAlbum from "../movie/MovieAlbum";
 
     export default {
@@ -22,13 +26,17 @@
         data() {
             return {}
         },
-        methods: {},
+        methods: {
+            checkMedia() {
+                return window.matchMedia('(max-width:600px)').matches;
+            }
+        },
         created() {
 
         },
         components: {
             "MovieAlbum": MovieAlbum
-        }
+        },
     }
 </script>
 <style lang="scss" scoped>

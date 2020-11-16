@@ -10,9 +10,9 @@
                 <span class="album-summary-sum" v-if="user">已看&nbsp;{{item.watched_count}} / {{item.album_item_count}}
                     <a-progress
                         style="top: -10px;left: 10px;"
+                        :showInfo=false
                         :stroke-color='{"0%": "#108ee9","100%": "#87d068",}'
                         :status="getCompleteRate(item) === 100 ? 'success' : 'active'"
-                        :format="percent => getProgressText()"
                         :percent="getCompleteRate(item)"
                     />
                 </span>
@@ -49,7 +49,7 @@
             </el-col>
         </el-col>
         <el-col :span="16">
-            <el-carousel :interval="3000" @change="changeCard" type="card" height="150px" style="padding: 10px;">
+            <el-carousel :interval="3000" @change="changeCard" type="card" height="150px" indicator-position="none" style="padding: 10px;">
                 <el-carousel-item style="max-width: 100px;display: inline-block" v-for="(single_item, index) in item.items" :key="single_item.subject_id">
                     <img class="preview-badge" src="/static/icon/annual_badge.png" alt="badge">
                     <span class="preview-no">{{single_item.average}}</span>
