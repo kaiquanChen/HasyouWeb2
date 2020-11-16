@@ -119,6 +119,19 @@
                     min-width: 30%;
                     font-weight: 900;
                 }
+
+                .movie-rate-process {
+                    height: 10px;
+                    margin-top: 10px;
+
+                    .movie-rate-process-item {
+                        display: inline-block;
+                    }
+
+                    .movie-rate-process-title, .movie-rate-process-content {
+                        color: #9b9b9b;
+                    }
+                }
             }
         }
     }
@@ -446,6 +459,7 @@
             .rate {
                 width: 25%;
                 padding-left: 5px;
+
             }
         }
 

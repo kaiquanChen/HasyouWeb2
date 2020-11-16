@@ -108,6 +108,31 @@
                             disabled
                             text-color="#ff9900">
                         </el-rate>
+                        <div class="movie-rate-process">
+                            <span class="movie-rate-process-title">5星</span>&nbsp;
+                            <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '5')" />
+                            <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '5')}}</span>
+                        </div>
+                        <div class="movie-rate-process">
+                            <span class="movie-rate-process-title">4星</span>&nbsp;
+                            <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '4')" />
+                            <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '4')}}</span>
+                        </div>
+                        <div class="movie-rate-process">
+                            <span class="movie-rate-process-title">3星</span>&nbsp;
+                            <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '3')" />
+                            <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '3')}}</span>
+                        </div>
+                        <div class="movie-rate-process">
+                            <span class="movie-rate-process-title">2星</span>&nbsp;
+                            <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '2')" />
+                            <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '2')}}</span>
+                        </div>
+                        <div class="movie-rate-process">
+                            <span class="movie-rate-process-title">1星</span>&nbsp;
+                            <div class="movie-rate-process-item" :style="getCommentRateStyle(data['scores'], '1')" />
+                            <span class="movie-rate-process-content">{{getCommentRate(data['scores'], '1')}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -306,7 +331,6 @@
         name: "book",
         data() {
             return {
-                text: `A dog is `,
                 answers: {
                     body: [],
                     page: {
@@ -397,7 +421,14 @@
             }
         },
         methods: {
-            undefied() {
+            getCommentRate(item, index) {
+                return item[index];
+            },
+            getCommentRateStyle(item, index) {
+                let score = item[index];
+                score = score.replace("%", "");
+                let rate = Number(score) / 100 * 80 + 'px';
+                return "background-color:#FFD596;height: 10px;width:" + rate;
             },
             updateMovie() {
                 let movie_id = this.$route.params.id;
