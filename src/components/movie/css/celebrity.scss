@@ -1,0 +1,73 @@
+#block {
+    margin-top: 30px;
+
+    #celebrity-info {
+
+        .celebrity-name {
+            word-wrap: break-word;
+            display: block;
+            font-size: 25px;
+            font-weight: bold;
+            color: #494949;
+            margin: 0;
+            padding: 0 0 15px 0;
+            line-height: 1.1;
+        }
+
+        .celebrity-info-body {
+            display: flex;
+
+            .celebrity-info-body-avatar {
+                flex-direction: column;
+
+                img {
+                    max-width: 135px;
+                    max-height: 191.5px;
+                }
+            }
+
+            .celebrity-info-item {
+                flex-direction: column;
+                padding-left: 20px;
+                color: #666;
+
+                .celebrity-info-item-text {
+                    color: #111111;
+                    margin-bottom: 3px;
+                }
+            }
+        }
+
+        .celebrity-info-summary {
+            margin-top: 30px;
+
+            .summary-title {
+                color: #4f946e;
+            }
+        }
+    }
+
+    #celebrity-title {
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+
+    .movie-item-card {
+        display: flex;
+
+        .movie-item-card-left {
+            flex-direction: column;
+
+            .work-item-img {
+                max-width: 110px;
+                max-height: 155px;
+            }
+        }
+
+        .movie-item-card-right {
+            flex-direction: column;
+            padding-left: 20px;
+        }
+    }
+
+}

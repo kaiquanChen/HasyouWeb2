@@ -20,6 +20,7 @@ import MovieDetail from '@/components/movie/MovieDetail'
 import MovieTop250 from '@/components/movie/MovieTop250'
 import MovieAnnual from '@/components/movie/MovieAnnual'
 import MovieAlbumDetail from "../components/movie/MovieAlbumDetail";
+import Celebrity from "../components/movie/Celebrity";
 
 // forum
 import Forum from '@/components/forum/Forum'
@@ -84,7 +85,8 @@ export const routes = [
                 children: [
                     {path: '', component: Movies},
                     {path: 'subject/:id', component: MovieDetail},
-                    {path: 'top250', component: MovieTop250}
+                    {path: 'top250', component: MovieTop250},
+                    {path: 'celebrity', component: Celebrity}
                 ]
             },
             // forum
