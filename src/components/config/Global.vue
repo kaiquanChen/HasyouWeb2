@@ -52,6 +52,8 @@
     const MOVIE_ALBUM_ITEM_DELETE_URL = DOUBAN_MOVIE + "album/item/delete";
     const MOVIE_COMING_URL = DOUBAN_MOVIE + "coming";
 
+    // celebrity
+    const DOUBAN_CELEBRITY = COMMON_URL + "celebrity/movie";
 
     // question
     const QUESTION_URL = DOUBAN_MOVIE + "question/";
@@ -278,6 +280,8 @@
         MOVIE_ALBUM_ITEM_DELETE_URL,
         MOVIE_COMING_URL,
         MOVIE_ALBUM_DETAIL_URL,
+
+        DOUBAN_CELEBRITY,
 
         /* v2 */
         COMMENT_URL,

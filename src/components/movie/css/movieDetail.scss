@@ -72,6 +72,11 @@
                 color: #3377aa;
             }
 
+            .movie-director:hover, .movie-writer:hover, .movie-cast:hover {
+                color: #ffffff;
+                background-color: #3377aa;
+            }
+
             .load-more {
                 color: #aaa;
             }
@@ -193,12 +198,20 @@
             }
 
             .celebrity-name {
+                margin-top: 5px;
                 overflow: hidden;
                 display: block;
                 width: 95px;
                 text-align: center;
                 white-space: nowrap;
                 text-overflow: ellipsis;
+                color: #37a;
+            }
+
+            .celebrity-name:hover {
+                cursor: pointer;
+                color: #ffffff;
+                background-color: #37a;
             }
 
             .celebrity-roles-item {

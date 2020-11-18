@@ -52,6 +52,20 @@
         margin-top: 30px;
     }
 
+    .movie-title {
+        cursor: pointer;
+        color: #37a;
+    }
+
+    .movie-title:hover {
+        color: #ffffff;
+        background-color: #37a;
+    }
+
+    #celebrity-title {
+        color: #4f946e;
+    }
+
     .movie-item-card {
         display: flex;
 
@@ -61,6 +75,7 @@
             .work-item-img {
                 max-width: 110px;
                 max-height: 155px;
+                cursor: pointer;
             }
         }
 

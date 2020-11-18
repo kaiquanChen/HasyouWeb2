@@ -29,30 +29,30 @@
                     <div v-if="directors && directors.length > 0">
                         <label>导演:</label>
                         <span v-for="(director, index) in directors" :key="director.id">
-                <a class="movie-director" v-if="index < directors.length - 1">{{director.name}} <i>/ </i></a>
-                <a class="movie-director" v-else>{{director.name}}</a>
+                <a class="movie-director" target="_blank" :href="gotoCelebrityDetail(director.id)" v-if="index < directors.length - 1">{{director.name}} <i>/ </i></a>
+                <a class="movie-director" target="_blank" :href="gotoCelebrityDetail(director.id)" v-else>{{director.name}}</a>
               </span>
                     </div>
                     <div v-if="writers && writers.length > 0">
                         <label>编剧:</label>
                         <span v-for="(writer, index) in writers" :key="writer.id">
-                <a class="movie-writer" v-if="index < writers.length - 1">{{writer.name}} <i>/ </i></a>
-                <a class="movie-writer" v-else>{{writer.name}}</a>
+                <a class="movie-writer" target="_blank" :href="gotoCelebrityDetail(writer.id)" v-if="index < writers.length - 1">{{writer.name}} <i>/ </i></a>
+                <a class="movie-writer" target="_blank" :href="gotoCelebrityDetail(writer.id)" v-else>{{writer.name}}</a>
               </span>
                     </div>
                     <div v-if="casts && casts.length > 0" v-show="!show_full_casts">
                         <label>主演:</label>
                         <span v-for="(cast, index) in casts" :key="cast.id" v-if="index < 3">
-                <a class="movie-cast" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
-                <a class="movie-cast" v-else>{{cast.name}}</a>
-              </span>
+                            <a class="movie-cast" target="_blank" :href="gotoCelebrityDetail(cast.id)" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
+                            <a class="movie-cast" target="_blank" :href="gotoCelebrityDetail(cast.id)" v-else>{{cast.name}}</a>
+                        </span>
                         <a class="load-more" @click="loadMore()" v-if="casts.length > 0">更多...</a>
                     </div>
                     <div v-if="casts && casts.length > 0" v-show="show_full_casts">
                         <label>主演:</label>
                         <span v-for="(cast, index) in casts" :key="cast.id">
-                <a class="movie-cast" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
-                <a class="movie-cast" v-else>{{cast.name}}</a>
+                <a class="movie-cast" target="_blank" :href="gotoCelebrityDetail(cast.id)" v-if="index < casts.length - 1">{{cast.name}} <i>/ </i></a>
+                <a class="movie-cast" target="_blank" :href="gotoCelebrityDetail(cast.id)" v-else>{{cast.name}}</a>
               </span>
                     </div>
                     <div v-if="data.genres && data.genres.length > 0">
@@ -164,7 +164,7 @@
                     <a :href="celebrity.avatar" target="_blank">
                         <img :src="celebrity.avatar"/>
                     </a>
-                    <span class="celebrity-name">{{celebrity.name}}</span>
+                    <a class="celebrity-name" target="_blank" :href="gotoCelebrityDetail(celebrity.id)">{{celebrity.name}}</a>
                     <span class="celebrity-roles">
               <span class="celebrity-roles-item" v-for="role in celebrity.roles">{{role}}&nbsp;</span>
             </span>
@@ -756,6 +756,9 @@
             gotoDouban(item) {
                 return "https://movie.douban.com/subject/" + item.id + "/?from=showing";
             },
+            gotoCelebrityDetail(celebrity_id) {
+                return "/movie/celebrity/" + celebrity_id;
+            }
         },
         created() {
             this.getMovie();

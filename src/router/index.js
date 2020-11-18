@@ -86,7 +86,7 @@ export const routes = [
                     {path: '', component: Movies},
                     {path: 'subject/:id', component: MovieDetail},
                     {path: 'top250', component: MovieTop250},
-                    {path: 'celebrity', component: Celebrity}
+                    {path: 'celebrity/:id', component: Celebrity}
                 ]
             },
             // forum
