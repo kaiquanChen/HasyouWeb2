@@ -185,7 +185,7 @@
             </div>
             <div class="movie-comment">
                 <h3>{{data.title}}的短评 · · · · · · <span
-                    style="color:rgb(51, 119, 170);">  (全部{{data.movie_stats.comment_count}}条)</span></h3>
+                    style="color:rgb(51, 119, 170);">  (全部{{comments.page.total}}条)</span></h3>
                 <span id="comment-nav-root">
             <span @click="toggleCommentNav('hot')"
                   v-bind:style="comment_selected ? 'color:black' : 'color:#3377aa'"
@@ -229,7 +229,7 @@
                             :pager-count="pager_count"
                             :small="checkMedia()"
                             layout="prev, next"
-                            :total="data.movie_stats.comment_count > 15 * 30 ? 15 * 30 : data.movie_stats.comment_count">
+                            :total="comments.page.total > 15 * 20 ? 15 * 20 : comments.page.total">
                         </el-pagination>
                     </div>
                 </div>
