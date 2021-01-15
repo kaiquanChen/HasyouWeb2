@@ -21,13 +21,10 @@
 </template>
 
 <script>
-    import global_ from "../config/Global";
-    import NoteOperate from "./NoteOperate";
-    import Bus from "../../js/bus"
+import NoteOperate from "./NoteOperate";
+import Bus from "../../js/bus"
 
-    const note_url = global_.URLS.NOTE_URL;
-    const note_update_url = global_.URLS.NOTE_UPDATE_URL;
-    const token = localStorage.getItem("access_token");
+const token = localStorage.getItem("access_token");
     export default {
         name: "note",
         props: ["notes", "page"],

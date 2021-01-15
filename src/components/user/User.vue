@@ -1,7 +1,7 @@
 <template>
     <div id="user-center">
         <div class="user-center-left"></div>
-        <div class="user-center-center">
+        <div class="user-center-center" v-if="user">
             <h1 class="user-info">
                 <a target="_blank" :href="user.avatar"><img :src="user.avatar" :alt="user.nickname"></a>
                 &nbsp;{{user.nickname}}
@@ -77,13 +77,13 @@
             },
             async getUserInfo() {
                 let uid = this.$route.params.id;
-                this.user = await global_.FUNC.getUserInfoByUid(uid);
-                let user = global_.FUNC.getUserInfo();
+                let user = await global_.FUNC.getUserInfoByUid(uid);
+                this.user = user;
                 this.self = user && user.uid === this.user.uid;
             }
         },
         async created() {
-            this.getUserInfo();
+            await this.getUserInfo();
         }
     }
 </script>

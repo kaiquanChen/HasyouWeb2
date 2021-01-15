@@ -1,6 +1,6 @@
 <template>
     <ul id="note-operate">
-        <li @click="sendMessage('detail')" class="item-operate">笔记详情</li>
+        <li @click="sendMessage('share')" class="item-operate">共享笔记</li>
         <li @click="sendMessage('edit')" class="item-operate">修改内容</li>
         <li @click="sendMessage('tag')" class="item-operate">修改标签</li>
         <li @click="sendMessage('delete')" class="item-operate">删除笔记</li>
@@ -8,13 +8,11 @@
 </template>
 
 <script>
-    import global_ from "../config/Global";
-    import Bus from "../../js/bus"
+import Bus from "../../js/bus"
 
-    const note_url = global_.URLS.NOTE_URL;
-    const token = localStorage.getItem("access_token");
+const token = localStorage.getItem("access_token");
     export default {
-        name: "book",
+        name: "NoteOperate",
         data() {
             return {
                 user: {},
@@ -31,6 +29,9 @@
                     Bus.$emit("note-detail", true);
                 } else if (type === "delete") {
                     Bus.$emit("note-delete", true);
+                } else if (type === "share") {
+                    Bus.$emit("note-share", true);
+                    Bus.$emit("popover-show", true);
                 }
             }
         },

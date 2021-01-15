@@ -46,9 +46,9 @@
             </div>
         </div> -->
         <div class="record-items">
-            <h2 class="record movie-record">我看 · · · · · ·
+            <h2 class="record movie-record">看过 · · · · · ·
                 <span>(<a :href="gotoItemList('WATCHED_MOVIE')" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
-                <span class="photos-btn-pic">
+                <span class="album-btn-pic">
                     <a target="_blank" class="lnk-create" :href="gotoMovieAlbumCreate()"><i>+</i>新建片单</a>
                 </span>
             </h2>
@@ -61,7 +61,6 @@
                 </ul>
             </div> -->
             <div class="movie-watched item">
-                <div class="item-left movie-watched-left">看过</div>
                 <ul class="movie-watched-right record-items"
                     v-if="watched_movies && watched_movies.body && watched_movies.body.length > 0">
                     <li class="watched-item" v-for="watched_movie in watched_movies.body" :key="watched_movie.id">
@@ -120,19 +119,19 @@
                 return "/note/subject/" + id;
             },
             gotoUserNotes() {
-                return "/user/" + this.user.id + "/notes";
+                return "/user/" + this.user.uid + "/notes";
             },
             gotoItemList(type) {
                 return "/user/" + this.user.uid + "/subjects/" + type;
             },
             flipToAlbumDetail(id) {
-                this.$router.push({path: "/user/" + this.user.id + "/album/" + id});
+                this.$router.push({path: "/user/" + this.user.uid + "/album/" + id});
             },
             gotoAlbumDetail(id) {
-                return "/user/" + this.user.id + "/album/" + id;
+                return "/user/" + this.user.uid + "/album/" + id;
             },
             gotoUserAlbums() {
-                return "/user/" + this.user.id + "/albums";
+                return "/user/" + this.user.uid + "/albums";
             },
             getDate(time) {
                 return time.split(" ")[0];

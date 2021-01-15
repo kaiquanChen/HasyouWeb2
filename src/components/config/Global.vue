@@ -167,6 +167,7 @@
                 uid: uid
             }
         }).then((data) => {
+            console.log(4);
             sessionStorage.setItem(uid, JSON.stringify(data.data.data));
         });
     }

@@ -16,9 +16,35 @@
         </div>
         <div class="pop-container" v-show="pop_show">
             <div class="container">
-                <img @click="hideModal()" class="hide-icon" src="/static/icon/hide-modal.png" alt="delete">
-                <label for="">标签</label>
+                <img @click="hideModal('pop_show')" class="hide-icon" src="/static/icon/hide-modal.png" alt="delete">
+                <label>标签</label>
                 <input type="text" class="tag-name" v-model="select_tag.tag_name">
+                <div class="album-btn">
+                    <span class="btn-save" @click="save()">保存</span>
+                    <span class="btn-cancel" @click="hideModal()">取消</span>
+                </div>
+            </div>
+        </div>
+        <div class="pop-share-container" v-show="share_show">
+            <div class="container">
+                <img @click="hideModal('share_show')" class="hide-icon" src="/static/icon/hide-modal.png" alt="delete">
+                <el-tag
+                    style="margin-left: 10px;margin-bottom: 20px"
+                    v-for="tag in tags"
+                    :key="tag.name"
+                    closable
+                    :type="tag.type">
+                    {{tag.name}}
+                </el-tag><br/>
+                <label>共享用户</label>
+                <el-select v-model="value" filterable placeholder="请选择">
+                    <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                    </el-option>
+                </el-select>
                 <div class="album-btn">
                     <span class="btn-save" @click="save()">保存</span>
                     <span class="btn-cancel" @click="hideModal()">取消</span>
@@ -41,6 +67,33 @@
         name: "book",
         data() {
             return {
+                tags: [
+                    { name: '标签一', type: '' },
+                    { name: '标签二', type: 'success' },
+                    { name: '标签三', type: 'info' },
+                    { name: '标签四', type: 'warning' },
+                    { name: '标签四', type: 'warning' },
+                    { name: '标签四', type: 'warning' },
+                    { name: '标签四', type: 'warning' },
+                    { name: '标签五', type: 'danger' }
+                ],
+                options: [{
+                    value: '选项1',
+                    label: '黄金糕'
+                }, {
+                    value: '选项2',
+                    label: '双皮奶'
+                }, {
+                    value: '选项3',
+                    label: '蚵仔煎'
+                }, {
+                    value: '选项4',
+                    label: '龙须面'
+                }, {
+                    value: '选项5',
+                    label: '北京烤鸭'
+                }],
+                value: '',
                 title: "",
                 user: {},
                 notes: [],
@@ -50,6 +103,7 @@
                     total: 0
                 },
                 pop_show: false,
+                share_show: false,
                 select_tag: {}
             };
         },
@@ -98,8 +152,12 @@
                     this.hideModal();
                 });
             },
-            hideModal() {
-                this.pop_show = !this.pop_show;
+            hideModal(val) {
+                if (val === 'pop_show') {
+                    this.pop_show = !this.pop_show;
+                } else {
+                    this.share_show = !this.share_show;
+                }
                 Bus.$emit("popover-show", false);
             },
             checkUserStatus() {
@@ -182,6 +240,10 @@
 
                 Bus.$on("note-delete", response => {
                     this.deleteNote();
+                });
+
+                Bus.$on("note-share", response => {
+                    this.share_show = response;
                 });
             }
         },
