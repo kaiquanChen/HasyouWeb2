@@ -23,10 +23,9 @@
 </template>
 
 <script>
-    import global_ from "../config/Global";
-    import Bus from "../../js/bus"
+import global_ from "../config/Global";
 
-    const note_url = global_.URLS.NOTE_URL;
+const note_url = global_.URLS.NOTE_URL;
     const upload_url = global_.URLS.FILE_URL;
     const note_update_url = global_.URLS.NOTE_UPDATE_URL;
     const token = localStorage.getItem("access_token");

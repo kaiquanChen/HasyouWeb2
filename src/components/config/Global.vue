@@ -84,6 +84,8 @@
     // youni note
     const NOTE_URL = COMMON_URL + "note/";
     const NOTE_SAVE_URL = NOTE_URL + "save";
+    const NOTE_SHARE_LIST_URL = NOTE_URL + "/share/list";
+    const NOTE_SHARE_SAVE_URL = NOTE_URL + "share";
 
     // moment
     const MOMENT_URL = COMMON_URL + "moment/";
@@ -104,7 +106,7 @@
     const SAVE_ALBUM_URL = COMMON_URL + "user/album/save";
     const SAVE_PHOTO_URL = COMMON_URL + "user/photo/save";
     const USER_PHOTO_URL = COMMON_URL + "user/album/";
-
+    const USER_SEARCH_URL = COMMON_URL + "user/search";
 
     // blog
     const BLOG_URL = COMMON_URL + "blog";
@@ -300,6 +302,8 @@
         /* note */
         NOTE_URL,
         NOTE_SAVE_URL,
+        NOTE_SHARE_LIST_URL,
+        NOTE_SHARE_SAVE_URL,
 
         /* other */
         GROUP,
@@ -315,6 +319,7 @@
         SAVE_ALBUM_URL,
         SAVE_PHOTO_URL,
         USER_PHOTO_URL,
+        USER_SEARCH_URL,
 
         /* blog */
         SAVE_BLOG_URL,

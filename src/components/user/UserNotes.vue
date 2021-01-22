@@ -30,24 +30,30 @@
                 <img @click="hideModal('share_show')" class="hide-icon" src="/static/icon/hide-modal.png" alt="delete">
                 <el-tag
                     style="margin-left: 10px;margin-bottom: 20px"
-                    v-for="tag in tags"
-                    :key="tag.name"
-                    closable
-                    :type="tag.type">
-                    {{tag.name}}
+                    v-for="shared_user in shared_users"
+                    size="medium"
+                    @close="deleteSharedUser(shared_user)"
+                    :key="shared_user.nickname"
+                    closable>
+                    {{shared_user.nickname}}
                 </el-tag><br/>
-                <label>共享用户</label>
-                <el-select v-model="value" filterable placeholder="请选择">
-                    <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                    </el-option>
-                </el-select>
+                <div class="doc-user-selector">
+                    <a-input-search autocomplete="off" v-model="keywords" id="doc-share-item-selector" placeholder="请输入共享用户" enter-button @search="searchUserList()" />
+                    <div class="search-result"
+                         v-if="select_users && select_users.length > 0">
+                        <div class="select-user-card" :style="getStyle(index)" @click="selectItem(item)" v-for="(item, index) in select_users">
+                            <div class="select-user-card-left">
+                                <img class="user-item-image" :src="item.avatar" :alt="item.title" />
+                            </div>
+                            <div class="select-user-card-right">
+                                <span class="user-item-title">{{item.nickname}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="album-btn">
-                    <span class="btn-save" @click="save()">保存</span>
-                    <span class="btn-cancel" @click="hideModal()">取消</span>
+                    <span class="btn-save" @click="saveSharedUsers()">保存</span>
+                    <span class="btn-cancel" @click="hideModal('share_show')">取消</span>
                 </div>
             </div>
         </div>
@@ -55,45 +61,24 @@
 </template>
 
 <script>
-    import global_ from "../config/Global";
-    import NoteOperate from "./NoteOperate";
-    import Bus from "../../js/bus"
-    import NoteList from "./NoteList";
+import global_ from "../config/Global";
+import NoteOperate from "./NoteOperate";
+import Bus from "../../js/bus"
+import NoteList from "./NoteList";
 
     const note_url = global_.URLS.NOTE_URL;
     const note_update_url = global_.URLS.NOTE_UPDATE_URL;
+    const note_share_list_url = global_.URLS.NOTE_SHARE_LIST_URL;
+    const note_share_save_url = global_.URLS.NOTE_SHARE_SAVE_URL;
+    const user_search_url = global_.URLS.USER_SEARCH_URL;
     const token = localStorage.getItem("access_token");
     export default {
         name: "book",
         data() {
             return {
-                tags: [
-                    { name: '标签一', type: '' },
-                    { name: '标签二', type: 'success' },
-                    { name: '标签三', type: 'info' },
-                    { name: '标签四', type: 'warning' },
-                    { name: '标签四', type: 'warning' },
-                    { name: '标签四', type: 'warning' },
-                    { name: '标签四', type: 'warning' },
-                    { name: '标签五', type: 'danger' }
-                ],
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
-                value: '',
+                keywords: "",
+                shared_users:[],
+                select_users:[],
                 title: "",
                 user: {},
                 notes: [],
@@ -120,6 +105,10 @@
                 this.page.page = val;
                 this.getNotes();
             },
+            getStyle(index) {
+                let i = (index - 1) * 100;
+                return "top:" + i + "%";
+            },
             save() {
                 this.$http.post(note_update_url, {
                     body: {
@@ -145,11 +134,10 @@
                     this.notes.map((item, key) => {
                         if (item.id === res.data.id) {
                             this.notes[key] = res.data;
-                            return;
                         }
                     })
                     this.$message.success("操作成功!");
-                    this.hideModal();
+                    this.hideModal('pop_show');
                 });
             },
             hideModal(val) {
@@ -216,6 +204,93 @@
                 });
                 this.notes = notes;
             },
+            getShareNoteList() {
+                this.$http.get(note_share_list_url, {
+                    headers: {
+                        "bid": global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    },
+                    params: {
+                        noteId: this.select_tag.id
+                    }
+                }).then(data => {
+                    if (data.body.code !== 200) {
+                        this.$message.error("获取数据失败！");
+                        return;
+                    }
+                    this.shared_users = data.body.data;
+                });
+            },
+            deleteSharedUser(delete_item) {
+                this.shared_users.map((item, index) => {
+                    if (item.id === delete_item.id) {
+                        this.shared_users.splice(index, 1);
+                    }
+                });
+            },
+            saveSharedUsers() {
+                this.$http.post(note_share_save_url, {
+                    note_id: this.select_tag.id,
+                    share_user_ids: this.getSharedUserIds()
+                }, {
+                    headers: {
+                        bid: global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    },
+                }).then(data => {
+                    if (data.body.code !== 200) {
+                        this.$message.error("笔记共享操作失败！");
+                    }
+                    this.$message.success("文档共享功能!");
+                    this.hideModal("share_show");
+                });
+            },
+            getSharedUserIds() {
+                let user_ids = [];
+                for (let user of this.shared_users) {
+                    user_ids.push(user.id);
+                }
+                return user_ids;
+            },
+            searchUserList() {
+                this.$http.get(user_search_url, {
+                    headers: {
+                        "bid": global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    },
+                    params: {
+                        count: 15,
+                        keywords: this.keywords
+                    }
+                }).then(data => {
+                    if (data.body.code !== 200) {
+                        this.$message.error("获取数据失败！");
+                        return;
+                    }
+                    this.select_users = data.body.data;
+                });
+            },
+            selectItem(item) {
+                let shared_users = this.shared_users;
+                let add = true;
+                shared_users.map((user, index) => {
+                    if (user.id === item.id) {
+                        add = false;
+                        this.$message.warning("当前用户已添加。")
+                    }
+                })
+                if (add) {
+                    shared_users.push(item);
+                    this.shared_users = shared_users;
+                }
+                let select_users = this.select_users;
+                select_users.map((user, index) => {
+                    if (user.id === item.id) {
+                        select_users.splice(index, 1);
+                    }
+                })
+                this.select_users = select_users;
+            },
             getMessage() {
                 Bus.$on("edit-tag-name", response => {
                     this.pop_show = response;
@@ -244,6 +319,9 @@
 
                 Bus.$on("note-share", response => {
                     this.share_show = response;
+                    if (response) {
+                        this.getShareNoteList();
+                    }
                 });
             }
         },
@@ -257,5 +335,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/userNotes.scss'
+    @import './css/userNotes.scss';
 </style>

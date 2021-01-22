@@ -186,7 +186,8 @@
             bottom: 0;
             margin: auto;
             width: 600px;
-            height: 300px;
+            height: 55%;
+            //height: 300px;
             border-radius: 10px;
             background: #fff;
             padding-top: 40px;
@@ -235,5 +236,49 @@
                 }
             }
         }
+
+        .doc-user-selector {
+            width: 65%;
+            text-align: center;
+            margin: 10px auto;
+
+            #doc-share-item-selector {
+
+            }
+
+            .search-result {
+                display: block;
+                background: #f1f1ed;
+                border-radius: 5px;
+
+                .select-user-card {
+                    padding: 5px;
+                    display: inline-block;
+                    width: 30%;
+                    margin: 5px;
+
+                    .select-user-card-left, .select-user-card-right {
+                        display: inline-block;
+                    }
+
+                    .select-user-card-left {
+
+                        .user-item-image {
+                            max-width: 40px;
+                            border-radius: 10px;
+                        }
+                    }
+                }
+
+                .select-user-card:hover {
+                    background: #d2d3d4;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        //.album-btn span {
+        //    margin: 0 auto;
+        //}
     }
 }
