@@ -82,12 +82,12 @@
                 this.self = user && user.uid === this.user.uid;
             }
         },
-        async created() {
+        async mounted() {
             await this.getUserInfo();
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    @import './css/user.scss'
+    @import './css/user.scss';
 </style>

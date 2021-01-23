@@ -21,10 +21,11 @@
 </template>
 
 <script>
-import NoteOperate from "./NoteOperate";
+    import NoteOperate from "./NoteOperate";
 import Bus from "../../js/bus"
 
-const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
+
     export default {
         name: "note",
         props: ["notes", "page"],
@@ -85,7 +86,7 @@ const token = localStorage.getItem("access_token");
                 });
             }
         },
-        created() {
+        mounted() {
             this.checkUserStatus();
             this.getUserInfo();
             this.getMessage();
@@ -94,5 +95,5 @@ const token = localStorage.getItem("access_token");
 </script>
 
 <style lang="scss" scoped>
-    @import './css/noteList'
+    @import './css/noteList';
 </style>

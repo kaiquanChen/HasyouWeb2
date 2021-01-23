@@ -1,13 +1,13 @@
 <template>
     <div id="album-photo">
-        <h1 class="title">我的相册-The Girl</h1>
-        <div class="moment-items" v-masonry origin-left="true" fit-width="true" transition-duration="0s"
+        <h2 class="title">我的相册</h2>
+        <div class="moment-items" v-masonry origin-left="true" fit-width="true" transition-duration="1s"
              item-selector=".item">
             <div v-masonry-tile class="moment-item item" v-for="item in photos">
                 <el-card :body-style="{ padding: '0px' }">
-                    <img v-gallery class="image-item" :src="item.file_url" alt="你好">
+                    <img v-gallery class="image-item" :src="item.file_url" :alt="item.file_name">
                     <div class="desc" style="padding: 8px 0 5px 8px;">
-                        <span>好吃的汉堡</span>
+                        <span>{{ item.file_name }}</span>
                         <div class="bottom clearfix">
                             <time class="time">{{ getDate(item.create_time) }}</time>
                             <br>
@@ -28,6 +28,7 @@
         name: "book",
         data() {
             return {
+                album_name: "",
                 album: {},
                 photos: [],
                 page: {
@@ -85,5 +86,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/photo'
+    @import './css/photo';
 </style>

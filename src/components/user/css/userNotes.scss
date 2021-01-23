@@ -250,6 +250,7 @@
                 display: block;
                 background: #f1f1ed;
                 border-radius: 5px;
+                text-align: left;
 
                 .select-user-card {
                     padding: 5px;
@@ -277,8 +278,8 @@
             }
         }
 
-        //.album-btn span {
-        //    margin: 0 auto;
-        //}
+        .album-btn {
+            text-align: center;
+        }
     }
 }

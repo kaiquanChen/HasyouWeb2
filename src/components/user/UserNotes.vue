@@ -325,7 +325,7 @@ import NoteList from "./NoteList";
                 });
             }
         },
-        created() {
+        mounted() {
             this.checkUserStatus();
             this.getUserInfo();
             this.getNotes();

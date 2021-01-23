@@ -191,7 +191,7 @@
                 return !isNaN(val);
             }
         },
-        created() {
+        mounted() {
             this.initData();
         }
     }

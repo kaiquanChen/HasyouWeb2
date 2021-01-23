@@ -40,9 +40,7 @@
                                 </div>
                                 <div class="movie-rate">
                                     豆瓣评分<br>
-                                    <span class="movie-stars">
-                    {{item.subjects[0].average}}
-                  </span>
+                                    <span class="movie-stars">{{item.subjects[0].average}}</span>
                                     <el-rate
                                         class="primary-rate"
                                         :value="getStars(item.subjects[0].average)"

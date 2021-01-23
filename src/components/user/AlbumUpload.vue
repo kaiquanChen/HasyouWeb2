@@ -167,7 +167,7 @@
                 }
             },
         },
-        created() {
+        mounted() {
             this.getAlbums();
             this.getUserInfo();
         }

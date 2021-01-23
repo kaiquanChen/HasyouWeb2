@@ -1,0 +1,71 @@
+.movie-record-item {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border-bottom: 1px dashed #ddd;
+
+    .movie-record-item-left {
+        flex-direction: column;
+
+        .movie-image {
+            max-width: 80px;
+        }
+    }
+
+    .movie-record-item-right {
+        flex-direction: column;
+        padding-left: 8px;
+
+        .info {
+            padding: 0 5px;
+            display: block;
+            word-break: normal;
+            width: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+
+        .container-info {
+            padding: 5px 10px;
+            background: none #f2f4f6;
+
+            .info-name {
+                color: #37a;
+            }
+        }
+
+        .info-name:hover {
+            cursor: pointer;
+            background: none #37a;
+            color: white;
+
+            .info-name:visited {
+                color: #666699;
+            }
+        }
+
+        .info-description {
+            color: #666;
+        }
+
+        .info-comment {
+            color: #000;
+        }
+
+        .rate-time {
+            margin-top: 3px;
+            margin-bottom: 3px;
+
+            .info-time {
+                margin-top: 3px;
+                flex-direction: row;
+                color: #666;
+            }
+
+            .primary-rate {
+                float: left;
+            }
+        }
+    }
+}

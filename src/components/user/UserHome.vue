@@ -222,7 +222,7 @@
                 this.self = this.user && this.user.uid === user.uid
             }
         },
-        created() {
+        mounted() {
             this.initToken();
             this.getAlbums();
             //   this.getBookRecords("READ_BOOK");

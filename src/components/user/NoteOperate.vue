@@ -34,12 +34,10 @@ const token = localStorage.getItem("access_token");
                     Bus.$emit("popover-show", true);
                 }
             }
-        },
-        created() {
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    @import './css/noteOperate'
+    @import './css/noteOperate';
 </style>

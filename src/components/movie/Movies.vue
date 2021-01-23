@@ -567,7 +567,7 @@
                 })
             }
         },
-        created() {
+        mounted() {
             if (this.checkMedia()) {
                 this.count = 6;
             }

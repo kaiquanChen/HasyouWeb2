@@ -11,11 +11,11 @@
         </div>
         <ul class="record-items" v-if="albums && albums.length > 0">
             <li class="record-item album" v-for="album in albums" :key="album.id">
-                <div class="album-card" @click="gotoAlbumDetail(album.id)">
+                <div class="album-card" @click="gotoAlbumDetail(album)">
                     <img :src="album.first_image_url" alt="card" v-if="album.first_image_url">
                     <img src="/static/icon/photo_album_thumb.png" alt="" v-else>
                 </div>
-                <a class="album-name" target="_blank" :href="gotoAlbumDetail(album.id)">{{album.name}}</a><br>
+                <a class="album-name" target="_blank" @click="gotoAlbumDetail(album)">{{album.name}}</a><br>
                 <span class="create-time">{{getDate(album.create_time)}}更新</span>
             </li>
         </ul>
@@ -43,8 +43,8 @@
             gotoAlbumUpload() {
                 return "/user/" + this.user.id + "/album/upload";
             },
-            gotoAlbumDetail(id) {
-                return "/user/" + this.user.id + "/album/" + id;
+            gotoAlbumDetail(album) {
+                this.$router.push({path: "/user/" + this.user.id + "/album/" + album.id});
             },
             getAlbums() {
                 this.$http.get(user_album_url, {

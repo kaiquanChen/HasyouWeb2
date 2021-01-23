@@ -59,8 +59,6 @@
                 tag_list: []
             };
         },
-        mounted() {
-        },
         methods: {
             onChange() {
                 this.note.is_private = !this.note.is_private;
@@ -204,17 +202,13 @@
                         let res = data.body;
                         if (res.code === 200) {
                             this.note = res.data;
-                            if (res.data.is_private === 0) {
-                                this.note.is_private = false;
-                            } else {
-                                this.note.is_private = true;
-                            }
+                            this.note.is_private = res.data.is_private !== 0;
                         }
                     });
                 }
             }
         },
-        created() {
+        mounted() {
             this.getNoteTags();
             this.getUserInfo();
             this.getNote();
@@ -223,5 +217,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/editNote'
+    @import './css/editNote';
 </style>

@@ -120,7 +120,7 @@
                 return item.watched_count / item.album_item_count * 100;
             }
         },
-        created() {
+        mounted() {
             this.initData();
         }
     }

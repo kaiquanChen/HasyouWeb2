@@ -1,5 +1,7 @@
 <template>
+    <div>
 
+    </div>
 </template>
 
 <script>
@@ -9,18 +11,22 @@
     const note_url = global_.URLS.NOTE_URL;
     const token = localStorage.getItem("access_token");
     export default {
-        name: "book",
+        props:["movie"],
+        name: "MovieItem",
         data() {
             return {
                 user: {},
+                movie: {
+
+                },
             };
         },
         methods: {},
-        created() {
+        mounted() {
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    @import './css/noteOperate'
+    @import './css/movieItem';
 </style>

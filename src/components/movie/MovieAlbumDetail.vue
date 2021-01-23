@@ -185,7 +185,7 @@
                 document.body.style.backgroundSize = "cover";
             }
         },
-        created() {
+        mounted() {
             this.getMovieAlbum();
         }
     }

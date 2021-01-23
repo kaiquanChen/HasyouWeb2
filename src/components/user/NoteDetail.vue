@@ -79,7 +79,7 @@ const note_url = global_.URLS.NOTE_URL;
                 }
             }
         },
-        created() {
+        mounted() {
             this.getUserInfo();
             this.getNote();
         }
@@ -87,5 +87,5 @@ const note_url = global_.URLS.NOTE_URL;
 </script>
 
 <style lang="scss" scoped>
-    @import './css/noteDetail'
+    @import './css/noteDetail';
 </style>

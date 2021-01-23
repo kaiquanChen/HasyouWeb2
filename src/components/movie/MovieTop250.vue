@@ -19,15 +19,15 @@
                   / {{aka}}
                 </a>
               </span>
-                        <el-rate
-                            class="info-item"
-                            :value="getStars(movie.average)"
-                            :score-template="movie.average + ''"
-                            show-score
-                            disabled
-                            text-color="#ff9900">
-                        </el-rate>
-                        <span class="info-item">
+                <el-rate
+                    class="info-item"
+                    :value="getStars(movie.average)"
+                    :score-template="movie.average + ''"
+                    show-score
+                    disabled
+                    text-color="#ff9900">
+                </el-rate>
+                <span class="info-item">
                 <span class="movie-year" v-if="movie.year">{{movie.year}}</span>
                 <span class="movie-duration" v-if="movie.duration && movie.duration.length > 0">
                    / {{movie.duration[0]}}
@@ -120,7 +120,7 @@
                 });
             }
         },
-        created() {
+        mounted() {
             this.getMovieTop250();
         }
     }
