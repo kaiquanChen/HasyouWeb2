@@ -5,7 +5,7 @@
         </div>
         <div class="movie-record-item-right">
             <div class="container-info">
-                <span class="info-name">{{movie.title}}</span>
+                <span @click="gotoMovieDetail(movie)" class="info-name">{{movie.title}}</span>
             </div>
             <span class="info info-description">{{movie.summary}}</span>
             <div class="rate-time">
@@ -19,10 +19,12 @@
                 </el-rate>
                 <span class="info-time">{{movie.create_time}}</span>
             </div>
-            <span class="info info-comment" v-if="spread">{{movie.content}}</span>
-            <span class="info info-comment" v-else>{{simplifyContent(movie.content)}}</span>
-            <a class="spread-button" @click="toggleSpread()" v-if="spread">(收起)</a>
-            <a class="spread-button" @click="toggleSpread()" v-else>(展开)</a>
+            <div class="container-comment" v-if="movie.content && movie.content.trim()">
+                <span class="info info-comment" v-if="spread">{{movie.content}}</span>
+                <span class="info info-comment" v-else>{{simplifyContent(movie.content)}}</span>
+                <a class="spread-button" @click="toggleSpread()" v-if="spread">(收起)</a>
+                <a class="spread-button" @click="toggleSpread()" v-else>(展开)</a>
+            </div>
         </div>
     </div>
 </template>
@@ -39,12 +41,15 @@
         },
         methods: {
             gotoMovieDetail(movie) {
-                this.$router.push({path: '/movie/subject/' + movie.id});
+                this.$router.push({path: '/movie/subject/' + movie.movie_id});
             },
             getStars(stars) {
                 return stars / 2;
             },
             simplifyContent(value) {
+                if (!value) {
+                    return "";
+                }
                 return value.substring(0, 30) + ".....";
             },
             toggleSpread() {
