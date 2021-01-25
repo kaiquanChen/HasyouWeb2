@@ -2,21 +2,7 @@
     <div id="item-list">
         <h1>{{title}}</h1>
         <div class="items">
-            <div class="item" v-for="item in items" :key="item.id">
-                <el-card class="item-card" :body-style="{ padding: '0px' }">
-                    <img class="item-image" v-gallery :src="item.image_url">
-                    <img class="item-badge" src="/static/icon/badge_48.png" alt="badge">
-                    <span class="item-stars" v-if="type === 'WATCHED_MOVIE'">{{item.average}}</span>
-                    <span class="item-stars" v-else-if="type === 'READ_BOOK'">{{item.stars}}</span>
-                    <div class="bottom clearfix">
-                        <a v-if="type === 'WATCHED_MOVIE'" target="_blank" :href="gotoItemDetail(item.id)"
-                           class="item-info-name">{{item.title}}</a>
-                        <a v-else-if="type === 'READ_BOOK'" target="_blank" :href="gotoItemDetail(item.id)"
-                           class="item-info-name">{{item.name}}</a>
-                        <time class="time">{{ getDate(item.create_time) }}</time>
-                    </div>
-                </el-card>
-            </div>
+            <MovieRecordItem :movie="item" v-for="item in items" :key="item.movie_id" />
             <div class="pagination">
                 <el-pagination
                     @current-change="handleCurrentChange"
@@ -32,10 +18,14 @@
 
 <script>
     import global_ from "../../config/Global";
+    import MovieRecordItem from "../../movie/MovieRecordItem";
 
     let list_item_url = global_.URLS.COMMON_URL;
     const token = localStorage.getItem("access_token")
     export default {
+        components: {
+            MovieRecordItem: MovieRecordItem
+        },
         data() {
             return {
                 title: "",
@@ -70,21 +60,27 @@
             },
             getItemList() {
                 let url = list_item_url;
+                let params = {
+                    type: this.type,
+                    page_size: this.page.count,
+                    page_no: this.page.page,
+                };
                 if (this.type === "WATCHED_MOVIE") {
                     url += "movie/record";
                     this.title = "我看过的电影";
+                    params['uid'] = this.$route.params.id;
                 } else if (this.type === "READ_BOOK") {
                     url += "book/record";
                     this.title = "我读过的书";
+                    params['uid'] = this.$route.params.id;
+                } else if (this.type === 'COMMON_INTEREST') {
+                    url += "movie/record/interest";
+                    this.title = "共同爱好";
+                    params['user_id_others'] = this.getUser().id;
                 }
 
                 this.$http.get(url, {
-                    params: {
-                        type: this.type,
-                        page_size: this.page.count,
-                        page_no: this.page.page,
-                        uid: this.$route.params.id
-                    },
+                    params: params,
                     headers: {
                         "bid": global_.FUNC.getBid(),
                         "X-HASYOU-TOKEN": token
@@ -95,9 +91,14 @@
                     this.page.count = data.body.data.count;
                     this.page.total = data.body.data.total;
                 });
+            },
+            getUser() {
+                let uid = this.$route.params.id;
+                let user_json_str = localStorage.getItem(uid);
+                return JSON.parse(user_json_str)
             }
         },
-        created() {
+        mounted() {
             this.type = this.$route.params.type;
             this.getItemList();
         }
@@ -105,5 +106,5 @@
 </script>
 
 <style lang="scss" scoped>
-    @import './css/itemList'
+    @import './css/itemList';
 </style>

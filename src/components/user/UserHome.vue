@@ -45,6 +45,21 @@
                 </ul>
             </div>
         </div> -->
+        <div class="record-items" v-if="token && !self">
+            <h2 class="record movie-record">共同爱好 · · · · · ·
+                <span>(<a :href="gotoItemList('COMMON_INTEREST')" class="record-count">共{{getRecordCount(common_interest)}}部</a>)</span>
+            </h2>
+            <div class="common-record item">
+                <ul class="record-items"
+                    v-if="common_interest && common_interest.body && common_interest.body.length > 0">
+                    <li class="watched-item" v-for="common_movie in common_interest.body" :key="common_movie.id">
+                        <a target="_blank" :href="gotoMovieDetail(common_interest.id)">
+                            <img :src="common_movie.image_url" :alt="common_movie.title" />
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="record-items">
             <h2 class="record movie-record">看过 · · · · · ·
                 <span>(<a :href="gotoItemList('WATCHED_MOVIE')" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
@@ -86,7 +101,7 @@
                     <span class="note-create-time">{{note.create_time}}</span>
                 </li>
             </ul>
-            <ul class="records-items" v-else>写下笔记，记录学习，生活，工作的脚步!</ul>
+            <ul class="records-items" v-else>写下笔记，记录学习，生活，工作的脚印!</ul>
         </div>
     </div>
 </template>
@@ -98,6 +113,7 @@
     const movie_record_url = global_.URLS.MOVIE_RECORD_URL;
     const note_url = global_.URLS.NOTE_URL;
     const user_album_url = global_.URLS.USER_ALBUM_URL;
+    const movie_common_interest_url = global_.URLS.MOVIE_COMMON_INTEREST_URL;
     export default {
         name: "book",
         props: ["user"],
@@ -110,6 +126,7 @@
                 albums: null,
                 notes: null,
                 blogs: null,
+                common_interest: [],
                 token: null,
                 self: null
             };
@@ -216,15 +233,35 @@
                     this.albums = data.body.data;
                 });
             },
+            getCommonInterest() {
+                this.$http.get(movie_common_interest_url, {
+                    headers: {
+                        "bid": global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": this.token
+                    },
+                    params: {
+                        page_size: 5,
+                        user_id_Others: this.user.id
+                    }
+                }).then(data => {
+                    this.common_interest = data.body.data;
+                });
+            },
             initToken() {
                 this.token = localStorage.getItem("access_token");
+                if (!this.token) {
+                    return;
+                }
                 let user = global_.FUNC.getUserInfo();
                 this.self = this.user && this.user.uid === user.uid
             }
         },
         mounted() {
             this.initToken();
-            this.getAlbums();
+            if (this.token) {
+                this.getAlbums();
+                this.getCommonInterest();
+            }
             //   this.getBookRecords("READ_BOOK");
             //   this.getBookRecords("WANT_READ");
             this.getMovieRecords("WATCHED_MOVIE");

@@ -42,6 +42,7 @@
     const MOVIE_ANNUAL_URL = COMMON_URL + 'movie/annual/'
     const MOVIE_WATCH_URL = DOUBAN_MOVIE + "watched";
     const MOVIE_RECORD_URL = DOUBAN_MOVIE + "record";
+    const MOVIE_COMMON_INTEREST_URL = DOUBAN_MOVIE + "record/interest/";
     const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
     const MOVIE_BLOOPER_URL = DOUBAN_MOVIE + "blooper/";
     const MOVIE_TRAILER_URL = DOUBAN_MOVIE + "trailer/";
@@ -268,6 +269,7 @@
         MOVIE_GENRE_URL,
         MOVIE_WATCH_URL,
         MOVIE_RECORD_URL,
+        MOVIE_COMMON_INTEREST_URL,
         MOVIE_WANT_URL,
         BOOK_READ_URL,
         BOOK_WANT_URL,

@@ -79,6 +79,7 @@
                 let uid = this.$route.params.id;
                 let user = await global_.FUNC.getUserInfoByUid(uid);
                 this.user = user;
+                localStorage.setItem(uid, JSON.stringify(user))
                 this.self = user && user.uid === this.user.uid;
             }
         },
