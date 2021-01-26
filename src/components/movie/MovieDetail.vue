@@ -173,7 +173,7 @@
             <div class="movie-blooper">
                 <h3>{{data.title}}的主题曲 · · · · · ·
                     <a class="all-bloopers" href="#" v-if="data.celebrities && data.celebrities.length > 6">
-                        (全部 {{bloopers.page.total}})
+                        (全部 {{trailer.page.total}})
                     </a>
                     <video-player
                         class="video-player vjs-custom-skin"
@@ -671,10 +671,21 @@
                         return;
                     }
 
-                    this.trailers.body = data.body.data.body;
-                    this.trailers.page.total = data.body.data.total;
-                    this.trailers.page.page = data.body.data.page;
-                    this.trailers.page.count = data.body.data.count;
+                    this.trailer.body = data.body.data.body;
+                    this.trailer.page.total = data.body.data.total;
+                    this.trailer.page.page = data.body.data.page;
+                    this.trailer.page.count = data.body.data.count;
+
+                    let trailers = [];
+                    for (let trailer of data.body.data.body) {
+                        let resource = {
+                            src: trailer.resource_url, // 路径
+                            type: "video/mp4" // 类型
+                        };
+                        trailers.push(resource);
+                    }
+                    this.playerOptions.sources = trailers;
+                    this.playerOptions.poster = this.trailer.body[0].small;
                 });
             },
             handleCelebrityRoles() {
@@ -765,7 +776,7 @@
             this.getMovieComment();
             this.getMovieReview();
             // this.getMovieBlooper();
-            // this.getMovieTrailer();
+            this.getMovieTrailer();
             this.getUserInfo();
             this.getQuestions();
         }
