@@ -53,7 +53,7 @@
                 <ul class="record-items"
                     v-if="common_interest && common_interest.body && common_interest.body.length > 0">
                     <li class="watched-item" v-for="common_movie in common_interest.body" :key="common_movie.id">
-                        <a target="_blank" :href="gotoMovieDetail(common_interest.id)">
+                        <a target="_blank" :href="gotoMovieDetail(common_interest.movie_id)">
                             <img :src="common_movie.image_url" :alt="common_movie.title" />
                         </a>
                     </li>
