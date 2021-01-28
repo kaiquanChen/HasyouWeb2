@@ -53,7 +53,7 @@
                 <ul class="record-items"
                     v-if="common_interest && common_interest.body && common_interest.body.length > 0">
                     <li class="watched-item" v-for="common_movie in common_interest.body" :key="common_movie.id">
-                        <a target="_blank" :href="gotoMovieDetail(common_interest.movie_id)">
+                        <a target="_blank" :href="gotoMovieDetail(common_movie.movie_id)">
                             <img :src="common_movie.image_url" :alt="common_movie.title" />
                         </a>
                     </li>
@@ -79,7 +79,7 @@
                 <ul class="movie-watched-right record-items"
                     v-if="watched_movies && watched_movies.body && watched_movies.body.length > 0">
                     <li class="watched-item" v-for="watched_movie in watched_movies.body" :key="watched_movie.id">
-                        <a target="_blank" :href="gotoMovieDetail(watched_movie.id)"><img :src="watched_movie.image_url"
+                        <a target="_blank" :href="gotoMovieDetail(watched_movie.movie_id)"><img :src="watched_movie.image_url"
                                                                                           :alt="watched_movie.title"></a>
                     </li>
                 </ul>
@@ -266,7 +266,9 @@
             //   this.getBookRecords("WANT_READ");
             this.getMovieRecords("WATCHED_MOVIE");
             //   this.getMovieRecords("WANT_WATCH");
-            this.getNotes();
+            if (self) {
+                this.getNotes();
+            }
         }
     }
 </script>
