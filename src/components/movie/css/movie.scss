@@ -34,12 +34,19 @@
 
         .body-left, .body-right {
             flex-direction: column;
-            width: 25%;
+        }
+
+        .body-left {
+            width: 15%;
+        }
+
+        .body-right {
+            width: 15%;
         }
 
         .body-center {
             flex-direction: column;
-            width: 49%;
+            width: 69%;
         }
     }
 }

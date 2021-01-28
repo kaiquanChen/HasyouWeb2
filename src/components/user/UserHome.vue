@@ -63,7 +63,7 @@
         <div class="record-items">
             <h2 class="record movie-record">看过 · · · · · ·
                 <span>(<a :href="gotoItemList('WATCHED_MOVIE')" class="record-count">{{getRecordCount(watched_movies)}}部已看</a>)</span>
-                <span class="album-btn-pic">
+                <span class="album-btn-pic" v-if="self">
                     <a target="_blank" class="lnk-create" :href="gotoMovieAlbumCreate()"><i>+</i>新建片单</a>
                 </span>
             </h2>
