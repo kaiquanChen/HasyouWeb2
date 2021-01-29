@@ -138,7 +138,7 @@
             </div>
             <div class="movie-summary">
                 <h3>{{data.title}}的剧情介绍 · · · · · ·</h3>
-                <span>{{data.summary}}</span>
+                <p>{{data.summary}}</p>
             </div>
             <div class="movie-cast">
                 <h3>{{data.title}}的演职员 · · · · · ·
