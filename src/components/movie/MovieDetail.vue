@@ -138,20 +138,7 @@
             </div>
             <div class="movie-summary">
                 <h3>{{data.title}}的剧情介绍 · · · · · ·</h3>
-                <p v-for="(summary, index) in data.summaries" v-show="!summary_show"
-                   v-if="index !== undefied && index < 1">{{summary}}</p>
-                <p v-for="(summary, index) in data.summaries" v-show="summary_show">{{summary}}</p>
-                <span class="summary-show"
-                      v-if="data.summaries && data.summaries.length > 1"
-                      @click="toggleSummaryShow()"
-                      v-show="!summary_show">
-            <a>(全部展开)</a>
-          </span>
-                <span class="summary-show"
-                      @click="toggleSummaryShow()"
-                      v-show="summary_show">
-            <a>(收起)</a>
-          </span>
+                <span>{{data.summary}}</span>
             </div>
             <div class="movie-cast">
                 <h3>{{data.title}}的演职员 · · · · · ·
