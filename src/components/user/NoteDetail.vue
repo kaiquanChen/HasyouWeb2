@@ -16,7 +16,13 @@
                 </div>
             </div>
             <h1 class="note-title">{{note.title}}</h1>
-            <div class="markdown" v-html="note.html_content"></div>
+<!--            <div class="markdown" v-html="note.html_content"></div>-->
+            <mavon-editor
+                defaultOpen="preview"
+                :editable="false"
+                v-model="note.content"
+                :ishljs="true">
+            </mavon-editor>
         </div>
         <div class="col-3"></div>
     </div>

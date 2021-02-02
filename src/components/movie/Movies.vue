@@ -60,7 +60,7 @@
                     <li :class="getClass(index)" v-for="(item, index) in movie_in_theaters" :key="item.id">
                         <div class="cover">
                             <a target="_blank" :href="gotoMovieDetail(item.id)">
-                                <img :src="item.image_url"/>
+                                <img :src="item.image_url" :alt="item.title"/>
                             </a>
                         </div>
                         <div class="info">
@@ -104,7 +104,7 @@
                     <li :class="getClass(index)" v-for="(item, index) in tv" :key="item.id">
                         <div class="cover">
                             <a target="_blank" :href="gotoMovieDetail(item.id)">
-                                <img :src="item.image_url"/>
+                                <img :src="item.image_url" :alt="item.title"/>
                             </a>
                         </div>
                         <div class="info">
@@ -129,7 +129,7 @@
                     <li :class="getClass(index)" v-for="(item, index) in movie_new" :key="item.id">
                         <div class="cover">
                             <a target="_blank" :href="gotoMovieDetail(item.id)">
-                                <img :src="item.image_url"/>
+                                <img :src="item.image_url" :alt="item.title"/>
                             </a>
                         </div>
                         <div class="info">
@@ -175,14 +175,28 @@
                 <span class="stars">{{item.average}}</span>
               </div>
             </div> -->
+<!--            <div class="top250">-->
+<!--                <h3><b>电影TOP250</b><span class="top250-more"><a href="/movie/top250">更多</a></span></h3>-->
+<!--                <div class="top250-item" v-for="(item, index) in movie_top250">-->
+<!--                    {{index + 1}}.-->
+<!--                    <span class="title">&nbsp;&nbsp;-->
+<!--                <a target="_blank" :href="getMovieDetail(item.id)">{{item.title}}</a>-->
+<!--              </span>-->
+<!--                    <span class="stars">{{item.average}}</span>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="top250">
-                <h3><b>电影TOP250</b><span class="top250-more"><a href="/movie/top250">更多</a></span></h3>
+                <h3><b>电影TOP250</b>
+                    <span class="random-more"><a @click="randomMore()">换一批</a></span>
+                    <span class="top250-more"><a target="_blank" href="/movie/top250">全部</a></span>
+                </h3>
                 <div class="top250-item" v-for="(item, index) in movie_top250">
-                    {{index + 1}}.
-                    <span class="title">&nbsp;&nbsp;
-                <a target="_blank" :href="getMovieDetail(item.id)">{{item.title}}</a>
-              </span>
-                    <span class="stars">{{item.average}}</span>
+                    <div class="movie-img">
+                        <a href=""><img :src="item.image_url" :alt="item.title" /></a>
+                    </div>
+                    <span class="title" :title="item.title">
+                       <a target="_blank" :href="getMovieDetail(item.id)">{{item.title}}</a>
+                    </span>
                 </div>
             </div>
         </div>
@@ -190,9 +204,9 @@
 </template>
 
 <script>
-    import global_ from "../config/Global"
+import global_ from "../config/Global"
 
-    const MOVIE_URL = global_.URLS.DOUBAN_MOVIE;
+const MOVIE_URL = global_.URLS.DOUBAN_MOVIE;
     export default {
         name: "book",
         data() {
@@ -205,6 +219,7 @@
                 movie_new: [],
                 movie_weekly: [],
                 movie_top250: [],
+                movie_top250_uuid: null,
                 movie_us_box: [],
                 movie_cn_box: [],
                 tv: [],
@@ -447,6 +462,36 @@
                     this.movie_top250 = data.body.data.body;
                 });
             },
+            getMovieRandomTop250() {
+                if (!this.movie_top250_uuid) {
+                    let uuid = sessionStorage.getItem("movie_random_top250_uuid");
+                    if (!uuid) {
+                        uuid = this.getUuid();
+                        sessionStorage.setItem("movie_random_top250_uuid", uuid);
+                    }
+                    this.movie_top250_uuid = uuid;
+                }
+                this.$http.get(MOVIE_URL + "random/top250", {
+                    params: {
+                        count: 9,
+                        uuid: this.movie_top250_uuid
+                    },
+                    headers: {
+                        "bid": global_.FUNC.getBid()
+                    }
+                }).then((data) => {
+                    if (data.status !== 200) {
+                        console.log(data);
+                        alert("数据获取失败!");
+                        return;
+                    }
+
+                    this.movie_top250 = data.body.data;
+                });
+            },
+            randomMore() {
+                this.getMovieRandomTop250();
+            },
             getMovieBox() {
                 this.$http.get(MOVIE_URL + "box", {
                     headers: {
@@ -461,6 +506,17 @@
 
                     this.movie_cn_box = data.body.data;
                 });
+            },
+            getUuid() {
+                let s = [];
+                let hexDigits = "0123456789abcdef";
+                for (let i = 0; i < 36; i++) {
+                    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+                }
+                s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+                s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+                s[8] = s[13] = s[18] = s[23] = "-";
+                return s.join("");
             },
             handleInTheatersChange(val) {
                 this.movie_in_theaters = [];
@@ -579,12 +635,13 @@
             // this.getMovieList("WEEKLY", 1, 12);
             // this.getMovieList("US_BOX", 1, 12);
             this.getMovieBox();
-            this.getMovieTop250();
+            // this.getMovieTop250();
+            this.getMovieRandomTop250();
             this.getMovieComing(this.count);
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    @import './css/movies'
+    @import './css/movies';
 </style>

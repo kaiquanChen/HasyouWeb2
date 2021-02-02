@@ -432,13 +432,64 @@
                         font-size: 14px
                     }
                 }
+
+                .random-more {
+                    position: absolute;
+                    right: 40px;
+
+                    a {
+                        color: #3377aa;
+                        font-size: 12px
+                    }
+                }
             }
 
+            //.top250-item {
+            //    margin: 5px auto;
+            //    position: relative;
+            //
+            //    .title {
+            //
+            //        a {
+            //            color: #3377aa;
+            //        }
+            //
+            //        a:hover {
+            //            color: #fff;
+            //            background-color: #3377aa;
+            //        }
+            //    }
+            //
+            //    .stars {
+            //        color: #e09015;
+            //        position: absolute;
+            //        right: 10px;
+            //    }
+            //}
+
             .top250-item {
-                margin: 5px auto;
+                width: 95px;
+                margin-left: 12px;
+                margin-top: 12px;
+                //margin: 5px auto;
                 position: relative;
+                display: inline-block;
+                text-align: center;
+
+                .movie-img {
+                    height: 129px;
+                }
+
+                .movie-img img {
+                    max-width: 80px;
+                }
 
                 .title {
+                    display: block;
+                    width: 100px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
 
                     a {
                         color: #3377aa;
@@ -448,12 +499,6 @@
                         color: #fff;
                         background-color: #3377aa;
                     }
-                }
-
-                .stars {
-                    color: #e09015;
-                    position: absolute;
-                    right: 10px;
                 }
             }
         }

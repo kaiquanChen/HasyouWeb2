@@ -137,6 +137,7 @@
                     } else if (res.data.is_private === 0) {
                         this.note.is_private = false;
                     }
+                    this.$router.push({path: "/user/" + this.user.id + "/notes"});
                 });
             },
             $imgAdd(pos, $file) {
@@ -209,8 +210,8 @@
             }
         },
         mounted() {
-            this.getNoteTags();
             this.getUserInfo();
+            this.getNoteTags();
             this.getNote();
         }
     }
