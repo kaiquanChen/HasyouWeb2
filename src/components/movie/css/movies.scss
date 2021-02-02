@@ -34,7 +34,6 @@
                 top: 5px;
 
                 .item {
-                    width: 25%;
                     display: inline-block;
                     margin-right: 10px;
                     width: 7px;
@@ -132,7 +131,6 @@
                     width: 25%;
                     display: inline-block;
                     margin-right: 10px;
-                    width: 7px;
                     height: 7px;
                     border-radius: 50%;
                     cursor: pointer;
@@ -313,7 +311,7 @@
     }
 
     .right {
-        padding-left: 30px;
+        padding-left: 20px;
         width: 29%;
 
         .box-cn {
@@ -484,10 +482,9 @@
             //}
 
             .top250-item {
-                width: 95px;
-                margin-left: 15px;
+                width: 75px;
+                margin-right: 13px;
                 margin-top: 12px;
-                //margin: 5px auto;
                 position: relative;
                 display: inline-block;
                 text-align: center;
@@ -497,12 +494,12 @@
                 }
 
                 .movie-img img {
-                    max-width: 80px;
+                    max-width: 75px;
                 }
 
                 .title {
                     display: block;
-                    width: 100px;
+                    width: 80px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;

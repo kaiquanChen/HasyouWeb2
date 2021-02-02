@@ -142,6 +142,20 @@
             </div>
         </div>
         <div class="right">
+            <div class="top250">
+                <h3><b>电影TOP250</b>
+                    <span class="random-more"><a @click="randomMore()">换一批</a></span>
+                    <span class="top250-more"><a target="_blank" href="/movie/top250">全部</a></span>
+                </h3>
+                <div class="top250-item" v-for="(item, index) in movie_top250">
+                    <div class="movie-img">
+                        <a target="_blank" :href="getMovieDetail(item.id)"><img :src="item.image_url" :alt="item.title" /></a>
+                    </div>
+                    <span class="title" :title="item.title">
+                       <a target="_blank" :href="getMovieDetail(item.id)">{{item.title}}</a>
+                    </span>
+                </div>
+            </div>
             <div class="box-cn">
                 <h3><b>国内票房榜</b><span class="label"><b>{{getCurrDate()}}</b>更新 / 元</span></h3>
                 <div class="box-cn-body">
@@ -185,23 +199,6 @@
 <!--                    <span class="stars">{{item.average}}</span>-->
 <!--                </div>-->
 <!--            </div>-->
-            <div class="top250">
-                <h3><b>电影TOP250</b>
-                    <span class="random-more"><a @click="randomMore()">换一批</a></span>
-                    <span class="top250-more"><a target="_blank" href="/movie/top250">全部</a></span>
-                </h3>
-<!--                <div class="random-container">-->
-<!--                    <span class="random-more"><a @click="randomMore()">换一批</a></span>-->
-<!--                </div>-->
-                <div class="top250-item" v-for="(item, index) in movie_top250">
-                    <div class="movie-img">
-                        <a target="_blank" :href="getMovieDetail(item.id)"><img :src="item.image_url" :alt="item.title" /></a>
-                    </div>
-                    <span class="title" :title="item.title">
-                       <a target="_blank" :href="getMovieDetail(item.id)">{{item.title}}</a>
-                    </span>
-                </div>
-            </div>
         </div>
     </div>
 </template>
