@@ -433,13 +433,29 @@
                     }
                 }
 
+                .top250-more:hover {
+                    background-color: #3377aa;
+
+                    a {
+                        color: white;
+                    }
+                }
+
                 .random-more {
                     position: absolute;
                     right: 40px;
 
                     a {
                         color: #3377aa;
-                        font-size: 12px
+                        font-size: 14px
+                    }
+                }
+
+                .random-more:hover {
+                    background-color: #3377aa;
+
+                    a {
+                        color: white;
                     }
                 }
             }
@@ -469,7 +485,7 @@
 
             .top250-item {
                 width: 95px;
-                margin-left: 12px;
+                margin-left: 15px;
                 margin-top: 12px;
                 //margin: 5px auto;
                 position: relative;

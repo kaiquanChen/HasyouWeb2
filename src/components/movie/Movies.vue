@@ -190,9 +190,12 @@
                     <span class="random-more"><a @click="randomMore()">换一批</a></span>
                     <span class="top250-more"><a target="_blank" href="/movie/top250">全部</a></span>
                 </h3>
+<!--                <div class="random-container">-->
+<!--                    <span class="random-more"><a @click="randomMore()">换一批</a></span>-->
+<!--                </div>-->
                 <div class="top250-item" v-for="(item, index) in movie_top250">
                     <div class="movie-img">
-                        <a href=""><img :src="item.image_url" :alt="item.title" /></a>
+                        <a target="_blank" :href="getMovieDetail(item.id)"><img :src="item.image_url" :alt="item.title" /></a>
                     </div>
                     <span class="title" :title="item.title">
                        <a target="_blank" :href="getMovieDetail(item.id)">{{item.title}}</a>
