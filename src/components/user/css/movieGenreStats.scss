@@ -1,0 +1,46 @@
+.movie-genre-stats {
+
+    .title {
+        font: 15px Arial, Helvetica, sans-serif;
+        color: #072;
+        margin: 0 0 12px 0;
+    }
+
+    .genre-item {
+        border-top: 1px dashed #ddd;
+        padding: 2px 5px;
+    }
+
+    .genre-name a {
+        color: #3377aa;
+        text-decoration: none;
+    }
+
+    .genre-name a:hover {
+        background-color: #3377aa;
+        color: white;
+        cursor: pointer;
+    }
+
+    .genre-name a:visited {
+        color: #666699;
+    }
+
+    .genre-movie-count {
+        float: right;
+        color: #111111;
+    }
+
+    .on {
+        color: #ffffff;
+        background: #92b878;
+
+        .genre-name a {
+            color: #ffffff;
+        }
+
+        .genre-movie-count {
+            color: #ffffff;
+        }
+    }
+}

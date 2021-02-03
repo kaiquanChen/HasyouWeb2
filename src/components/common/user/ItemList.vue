@@ -19,6 +19,7 @@
 <script>
     import global_ from "../../config/Global";
     import MovieRecordItem from "../../movie/MovieRecordItem";
+    import Bus from "../../../js/bus";
 
     let list_item_url = global_.URLS.COMMON_URL;
     const token = localStorage.getItem("access_token")
@@ -28,6 +29,7 @@
         },
         data() {
             return {
+                select_genre_id: null,
                 title: "",
                 items: [],
                 page: {
@@ -69,6 +71,8 @@
                     url += "movie/record";
                     this.title = "我看过的电影";
                     params['uid'] = this.$route.params.id;
+                    params['genre_id'] = this.select_genre_id;
+                    Bus.$emit('show-movie-stats', true);
                 } else if (this.type === "READ_BOOK") {
                     url += "book/record";
                     this.title = "我读过的书";
@@ -96,11 +100,20 @@
                 let uid = this.$route.params.id;
                 let user_json_str = localStorage.getItem(uid);
                 return JSON.parse(user_json_str)
+            },
+            getMessage() {
+                Bus.$on("select_genre_id", response => {
+                    this.select_genre_id = response;
+                    this.getItemList();
+                });
             }
         },
         mounted() {
             this.type = this.$route.params.type;
             this.getItemList();
+        },
+        created() {
+            this.getMessage()
         }
     }
 </script>

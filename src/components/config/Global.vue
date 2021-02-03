@@ -52,6 +52,7 @@
     const MOVIE_ALBUM_ITEM_URL = DOUBAN_MOVIE + "album/item";
     const MOVIE_ALBUM_ITEM_DELETE_URL = DOUBAN_MOVIE + "album/item/delete";
     const MOVIE_COMING_URL = DOUBAN_MOVIE + "coming";
+    const MOVIE_GENRE_STATS_URL = DOUBAN_MOVIE + "genre/stats";
 
     // celebrity
     const DOUBAN_CELEBRITY = COMMON_URL + "celebrity/movie";
@@ -82,7 +83,7 @@
 
     const FILE_LIST_URL = COMMON_URL + "/file/";
 
-    // youni note
+    // withyou note
     const NOTE_URL = COMMON_URL + "note/";
     const NOTE_SAVE_URL = NOTE_URL + "save";
     const NOTE_SHARE_LIST_URL = NOTE_URL + "/share/list";
@@ -285,6 +286,7 @@
         MOVIE_ALBUM_ITEM_DELETE_URL,
         MOVIE_COMING_URL,
         MOVIE_ALBUM_DETAIL_URL,
+        MOVIE_GENRE_STATS_URL,
 
         DOUBAN_CELEBRITY,
 

@@ -25,12 +25,18 @@
             </ul>
             <router-view :user="user"></router-view>
         </div>
-        <div class="user-center-right"></div>
+        <div class="user-center-right">
+            <div class="user-center-right-content" v-if="show_movie_genre_stats">
+                <MovieGenreStats :user_id="user.id" />
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import global_ from "../config/Global";
+    import MovieGenreStats from "./MovieGenreStats";
+    import Bus from "../../js/bus";
 
     const book_record_url = global_.URLS.BOOK_RECORD_URL;
     const movie_record_url = global_.URLS.MOVIE_RECORD_URL;
@@ -39,8 +45,12 @@
     const token = localStorage.getItem("access_token");
     export default {
         name: "book",
+        components: {
+            MovieGenreStats: MovieGenreStats
+        },
         data() {
             return {
+                show_movie_genre_stats: false,
                 user: null,
                 read_books: null,
                 want_books: null,
@@ -75,6 +85,11 @@
                     return 0;
                 }
             },
+            getMessage() {
+                Bus.$on("show-movie-stats", response => {
+                    this.show_movie_genre_stats = response;
+                });
+            },
             async getUserInfo() {
                 let uid = this.$route.params.id;
                 let user = await global_.FUNC.getUserInfoByUid(uid);
@@ -85,6 +100,9 @@
         },
         async mounted() {
             await this.getUserInfo();
+        },
+        created() {
+            this.getMessage();
         }
     }
 </script>
