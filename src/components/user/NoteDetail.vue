@@ -16,11 +16,15 @@
                 </div>
             </div>
             <h1 class="note-title">{{note.title}}</h1>
-<!--            <div class="markdown" v-html="note.html_content"></div>-->
             <mavon-editor
+                :toolbars="toolbars"
                 defaultOpen="preview"
                 :editable="false"
+                :subfield="false"
                 v-model="note.content"
+                :fullscreen="true"
+                :navigation="true"
+                :transition="true"
                 :ishljs="true">
             </mavon-editor>
         </div>
@@ -41,7 +45,16 @@ const note_url = global_.URLS.NOTE_URL;
             return {
                 user: {},
                 note: {},
-                tag_list: []
+                tag_list: [],
+                toolbars: {
+                    fullscreen: true, // 全屏编辑
+                    readmodel: true, // 沉浸式阅读
+                    help: true, // 帮助
+                    /* 1.4.2 */
+                    navigation: true, // 导航目录
+                    /* 2.1.8 */
+                    preview: true, // 预览
+                }
             };
         },
         methods: {

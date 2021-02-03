@@ -95,12 +95,12 @@
             saveEvent(value, render) {
                 this.note.content = value;
                 this.note.html_content = render;
-                this.save()
+                this.save("CTRL+S")
             },
             cancel() {
                 this.$router.push({path: "/user/" + this.user.id + "/notes"});
             },
-            save() {
+            save(value) {
                 if (!this.checkParams()) {
                     return;
                 }
@@ -111,7 +111,7 @@
                         title: this.note.title,
                         content: this.note.content,
                         html_content: this.note.html_content,
-                        is_private: this.note.is_private === false ? 0 : 1,
+                        is_private: this.note.is_private ? 0 : 1,
                         tag_name: this.note.tag_name,
                         type: "NOTE"
                     }
@@ -137,7 +137,9 @@
                     } else if (res.data.is_private === 0) {
                         this.note.is_private = false;
                     }
-                    this.$router.push({path: "/user/" + this.user.id + "/notes"});
+                    if (value !== "CTRL+S") {
+                        this.$router.push({path: "/user/" + this.user.id + "/notes"});
+                    }
                 });
             },
             $imgAdd(pos, $file) {
