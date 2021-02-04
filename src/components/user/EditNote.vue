@@ -1,7 +1,7 @@
 <template>
     <div id="edit-note">
         <div class="note-header">
-            <input class="note-title" type="text" v-model="note.title" placeholder="输入文章标题...">
+            <input class="note-title" type="text" v-model="note.title" placeholder="输入文章标题..." />
             <el-checkbox class="permission" @change="onChange" size="medium" :value="!note.is_private">公开</el-checkbox>
             <el-select
                 class="select-tag"

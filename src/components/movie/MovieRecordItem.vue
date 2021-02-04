@@ -41,7 +41,8 @@
         },
         methods: {
             gotoMovieDetail(movie) {
-                this.$router.push({path: '/movie/subject/' + movie.movie_id});
+                let url = this.$router.resolve({path: '/movie/subject/' + movie.movie_id});
+                window.open(url.href, "_blank");
             },
             getStars(stars) {
                 return stars / 2;

@@ -82,7 +82,6 @@
                     this.title = "共同爱好";
                     params['user_id_others'] = this.getUser().id;
                 }
-
                 this.$http.get(url, {
                     params: params,
                     headers: {
@@ -103,8 +102,11 @@
             },
             getMessage() {
                 Bus.$on("select_genre_id", response => {
-                    this.select_genre_id = response;
-                    this.getItemList();
+                    if (this.select_genre_id !== response) {
+                        this.select_genre_id = response;
+                        this.page.page = 1;
+                        this.getItemList();
+                    }
                 });
             }
         },
