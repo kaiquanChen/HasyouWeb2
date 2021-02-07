@@ -28,7 +28,7 @@
     const BOOK_URL = global_.URLS.BOOK_URL;
     const tag_url = global_.URLS.DOUBAN_BOOK_TAG_URL;
     export default {
-        name: "book",
+        name: "movie",
         data() {
             return {};
         },
@@ -36,12 +36,10 @@
             checkMedia() {
                 return window.matchMedia('(max-width:415px)').matches;
             }
-        },
-        created() {
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    @import './css/movie'
+    @import './css/movie';
 </style>

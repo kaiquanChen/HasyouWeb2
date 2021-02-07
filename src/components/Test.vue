@@ -1,15 +1,16 @@
 <template>
-    <MovieGenreStats />
+    <MovieVideo />
 </template>
 
 <script>
     import MovieRecordItem from './movie/MovieRecordItem'
     import MovieGenreStats from "./user/MovieGenreStats";
+    import MovieVideo from "./movie/MovieVideo";
 
     export default {
         name: "book",
         components: {
-            "MovieGenreStats": MovieGenreStats
+            "MovieVideo": MovieVideo
         },
         data() {
             return {

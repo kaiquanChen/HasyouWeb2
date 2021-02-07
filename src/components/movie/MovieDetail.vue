@@ -160,14 +160,11 @@
             <div class="movie-blooper">
                 <h3>{{data.title}}的主题曲 · · · · · ·
                     <a class="all-bloopers" href="#" v-if="data.celebrities && data.celebrities.length > 6">
-                        (全部 {{trailer.page.total}})
+                        (全部 {{ trailer.page.total }})
                     </a>
-                    <video-player
-                        class="video-player vjs-custom-skin"
-                        ref="videoPlayer"
-                        :playsinline="true"
-                        :options="playerOptions">
-                    </video-player>
+                    <div class="video-list">
+                        <MovieVideo class="video-item" :playerOptions="playerOptions" :source="source" v-for="(source, index) in sources" :key="source.src" v-if="index < 3"/>
+                    </div>
                 </h3>
             </div>
             <div class="movie-comment">
@@ -195,16 +192,16 @@
                             </a>
                             &nbsp;
                             <span class="creator-name" v-if="item.user">
-                  <a target="_blank" :href="gotoAuthor(item.user.uid)">{{item.user.name}}</a>
+                  <a target="_blank" :href="gotoAuthor(item.user.uid)">{{ item.user.name }}</a>
                 </span>
                             <span style="color: gray" v-else>[已注销]</span>&emsp;
                             <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
-                            <span class="create-time">{{item.created_at}}</span>
-                            <span class="votes">{{item.useful_count}}赞</span>
+                            <span class="create-time">{{ item.created_at }}</span>
+                            <span class="votes">{{ item.useful_count }}赞</span>
                         </div>
                         <div class="comment-content">
                             <p>
-                                {{item.content}}
+                                {{ item.content }}
                             </p>
                         </div>
                     </div>
@@ -222,8 +219,8 @@
                 </div>
             </div>
             <div class="movie-review">
-                <h3>{{data.title}}的影评 · · · · · ·<span
-                    style="color:rgb(51, 119, 170);">  (全部{{reviews.page.total}}条)</span></h3>
+                <h3>{{ data.title }}的影评 · · · · · ·<span
+                    style="color:rgb(51, 119, 170);">  (全部{{ reviews.page.total }}条)</span></h3>
                 <span id="review-nav-root">
             <span @click="toggleReviewNav('hot')"
                   v-bind:style="review_selected ? 'color:black' : 'color:#3377aa'"
@@ -245,19 +242,19 @@
                   </a>
                   &nbsp;
                   <span class="creator-name" v-if="item.user">
-                    <a target="_blank" :href="gotoAuthor(item.user.uid)">{{item.user.name}}</a>
+                    <a target="_blank" :href="gotoAuthor(item.user.uid)">{{ item.user.name }}</a>
                   </span>
                   <span style="color: gray" v-else>[已注销]</span>&emsp;
                   <el-rate style="margin-left:10px;float: left" v-model="item.stars" disabled></el-rate>
-                  <span class="create-time">{{getDate(item.created_at)}}</span>
-                  <span class="votes">{{item.useful_count}}赞</span>
+                  <span class="create-time">{{ getDate(item.created_at) }}</span>
+                  <span class="votes">{{ item.useful_count }}赞</span>
                 </div>
                 <div class="review-title">
-                  <a target="_blank" :href="gotoReview(item.id)">{{item.title}}</a>
+                  <a target="_blank" :href="gotoReview(item.id)">{{ item.title }}</a>
                 </div>
                 <div class="review-summary">
                   <p>
-                    {{item.summary}}
+                    {{ item.summary }}
                   </p>
                 </div>
               </div>
@@ -276,10 +273,10 @@
           </span>
             </div>
             <div class="movie-discussion">
-                <h3>{{data.title}}的讨论区 · · · · · ·</h3>
+                <h3>{{ data.title }}的讨论区 · · · · · ·</h3>
                 <div class="movie-question-body">
                     <div class="movie-question-item" v-for="(item, index) in questions.body">
-                        <h4>{{item.title}}</h4>
+                        <h4>{{ item.title }}</h4>
                     </div>
                 </div>
                 <div class="pagination">
@@ -300,476 +297,477 @@
 </template>
 
 <script>
-    import global_ from "../config/Global";
-    import Bus from "../../js/bus";
+import global_ from "../config/Global";
+import Bus from "../../js/bus";
+import MovieVideo from "./MovieVideo";
 
-    const movie_url = global_.URLS.DOUBAN_MOVIE;
-    const comment_url = global_.URLS.MOVIE_SHORT_COMMENT_URL;
-    const review_url = global_.URLS.MOVIE_REVIEW_URL;
-    const watch_url = global_.URLS.MOVIE_WATCH_URL;
-    const blooper_url = global_.URLS.MOVIE_BLOOPER_URL;
-    const trailer_url = global_.URLS.MOVIE_TRAILER_URL;
-    const want_url = global_.FUNC.MOVIE_WANT_URL;
-    const question_url = global_.URLS.QUESTION_URL;
-    const answer_url = global_.URLS.ANSWER_URL;
+const movie_url = global_.URLS.DOUBAN_MOVIE;
+const comment_url = global_.URLS.MOVIE_SHORT_COMMENT_URL;
+const review_url = global_.URLS.MOVIE_REVIEW_URL;
+const watch_url = global_.URLS.MOVIE_WATCH_URL;
+const blooper_url = global_.URLS.MOVIE_BLOOPER_URL;
+const trailer_url = global_.URLS.MOVIE_TRAILER_URL;
+const want_url = global_.FUNC.MOVIE_WANT_URL;
+const question_url = global_.URLS.QUESTION_URL;
+const answer_url = global_.URLS.ANSWER_URL;
 
-    const token = localStorage.getItem("access_token");
-    export default {
-        name: "book",
-        data() {
-            return {
-                answers: {
-                    body: [],
-                    page: {
-                        total: 0,
-                        page: 1,
-                        count: 5
-                    }
-                },
-                questions: {
-                    body: [],
-                    page: {
-                        total: 0,
-                        page: 1,
-                        count: 10
-                    }
-                },
-                user: {},
-                data: {},
-                directors: [],
-                writers: [],
-                casts: [],
-                show_full_casts: false,
-                summary_show: false,
-                review_selected: false,
-                review_sort: 'latest',
-                comment_selected: false,
-                comment_sort: 'latest',
-                comments: {
-                    body: [],
-                    page: {
-                        total: 0,
-                        page: 1,
-                        count: 20
-                    }
-                },
-                reviews: {
-                    body: [],
-                    page: {
-                        total: 0,
-                        page: 1,
-                        count: 10
-                    }
-                },
-                bloopers: {
-                    body: [],
-                    page: {
-                        total: 0,
-                        page: 1,
-                        count: 10
-                    }
-                },
-                trailer: {
-                    body: [],
-                    page: {
-                        total: 0,
-                        page: 1,
-                        count: 5
-                    }
-                },
-                pager_count: 7,
-                playerOptions: {
-                    playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-                    autoplay: false, //如果true,浏览器准备好时开始回放。
-                    muted: false, // 默认情况下将会消除任何音频。
-                    loop: false, // 导致视频一结束就重新开始。
-                    preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-                    language: "zh-CN",
-                    aspectRatio: "16:9", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-                    fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-                    sources: [
-                        {
-                            // src: "//path/to/video.mp4", // 路径
-                            src: "src/images/VID1121.mp4", // 路径
-                            type: "video/mp4" // 类型
-                        }
-                    ],
-                    // poster: "../../static/images/test.jpg", //你的封面地址
-                    poster: "src/images/logo.png", //你的封面地址
-                    // width: document.documentElement.clientWidth,
-                    notSupportedMessage: "此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-                    controlBar: {
-                        timeDivider: true,
-                        durationDisplay: true,
-                        remainingTimeDisplay: false,
-                        fullscreenToggle: true //全屏按钮
-                    }
-                }
-            }
-        },
-        methods: {
-            getCommentRate(item, index) {
-                return item[index];
-            },
-            getCommentRateStyle(item, index) {
-                let score = item[index];
-                score = score.replace("%", "");
-                let rate = Number(score) / 100 * 80 + 'px';
-                return "background-color:#FFD596;height: 10px;width:" + rate;
-            },
-            updateMovie() {
-                let movie_id = this.$route.params.id;
-                let update_movie_url = movie_url + "update/" + movie_id;
-                this.$http.get(update_movie_url, {
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        this.$message.error("数据更新错误,请稍后再试!");
-                        return;
-                    }
-
-                    this.data = data.body.data;
-                    this.$message({
-                        message: "数据更新成功!",
-                        type: 'success'
-                    });
-                });
-            },
-            gotoAuthor(id) {
-                return "/user/" + id;
-            },
-            gotoReview(id) {
-                return "https://movie.douban.com/review/" + id;
-            },
-            getDate(time) {
-                return time.split(" ")[0];
-            },
-            handleReviewCurrentChange(val) {
-                this.reviews.page.page = val;
-                this.getMovieReview();
-            },
-            handleCommentCurrentChange(val) {
-                this.comments.page.page = val;
-                this.getMovieComment();
-            },
-            toggleCommentNav(comment_sort) {
-                if (this.comment_sort === comment_sort) {
-                    return;
-                }
-                this.comment_selected = !this.comment_selected;
-                this.comment_sort = comment_sort;
-                this.getMovieComment();
-            },
-            toggleReviewNav(review_sort) {
-                if (this.review_sort === review_sort) {
-                    return;
-                }
-                this.review_selected = !this.review_selected;
-                this.review_sort = review_sort;
-                this.getMovieReview();
-            },
-            watchMovie() {
-                if (token) {
-                    this.$http.post(watch_url, {
-                        body: {
-                            movie_id: this.$route.params.id
-                        }
-                    }, {
-                        headers: {
-                            bid: global_.FUNC.getBid(),
-                            "X-HASYOU-TOKEN": token
-                        }
-                    }).then((data) => {
-                        if (data.body.code === 200) {
-                            this.data.operations.push(data.body.data);
-                        } else if (data.body.code === 5006) {
-                            this.$message({
-                                message: '请先登录!',
-                                type: 'warning'
-                            });
-                            this.$router.push({path: "/login"});
-                        }
-                    });
-                } else {
-                    this.$router.push({path: "/login"});
+const token = localStorage.getItem("access_token");
+export default {
+    name: "MovieDetail",
+    components: {
+        "MovieVideo": MovieVideo
+    },
+    data() {
+        return {
+            answers: {
+                body: [],
+                page: {
+                    total: 0,
+                    page: 1,
+                    count: 5
                 }
             },
-            wantMovie() {
-                if (token) {
-                    this.$http.post(want_url, {
-                        body: {
-                            movie_id: this.$route.params.id
-                        }
-                    }, {
-                        headers: {
-                            bid: global_.FUNC.getBid(),
-                            "X-HASYOU-TOKEN": token
-                        }
-                    }).then((data) => {
-                        if (data.body.code === 200) {
-                            this.data.operations.push(data.body.data);
-                        } else if (data.body.code === 5006) {
-                            this.$message({
-                                message: '请先登录!',
-                                type: 'warning'
-                            });
-                            this.$router.push({path: "/login"});
-                        }
-                    });
-                } else {
-                    this.$router.push({path: "/login"});
+            questions: {
+                body: [],
+                page: {
+                    total: 0,
+                    page: 1,
+                    count: 10
                 }
             },
-            getYear(year) {
-                return JSON.parse(year)[0];
+            user: {},
+            data: {},
+            directors: [],
+            writers: [],
+            casts: [],
+            show_full_casts: false,
+            summary_show: false,
+            review_selected: false,
+            review_sort: 'latest',
+            comment_selected: false,
+            comment_sort: 'latest',
+            comments: {
+                body: [],
+                page: {
+                    total: 0,
+                    page: 1,
+                    count: 20
+                }
             },
-            toggleSummaryShow() {
-                this.summary_show = !this.summary_show;
+            reviews: {
+                body: [],
+                page: {
+                    total: 0,
+                    page: 1,
+                    count: 10
+                }
             },
-            getStars(stars) {
-                return stars / 2;
+            bloopers: {
+                body: [],
+                page: {
+                    total: 0,
+                    page: 1,
+                    count: 10
+                }
             },
-            loadMore() {
-                this.show_full_casts = !this.show_full_casts;
+            trailer: {
+                body: [],
+                page: {
+                    total: 0,
+                    page: 1,
+                    count: 5
+                }
             },
-            getMovie() {
-                let movie_id = this.$route.params.id;
-                const movie_detail_url = movie_url + "subject/" + movie_id;
-                this.$http.get(movie_detail_url, {
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-                    this.data = data.body.data;
-                    this.handleCelebrityRoles();
-                    document.title = this.data.title + "(Withyou)";
-                });
+            pager_count: 7,
+            playerOptions: {
+                playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+                autoplay: false, //如果true,浏览器准备好时开始回放。
+                muted: false, // 默认情况下将会消除任何音频。
+                loop: false, // 导致视频一结束就重新开始。
+                preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+                language: "zh-CN",
+                aspectRatio: "16:9", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+                fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+                // poster: "../../static/images/test.jpg", //你的封面地址
+                poster: "src/images/logo.png", //你的封面地址
+                // width: document.documentElement.clientWidth,
+                notSupportedMessage: "此视频暂无法播放，请稍后再试", //允许覆盖Video.js无法播放媒体源时显示的默认信息。
+                controlBar: {
+                    timeDivider: true,
+                    durationDisplay: true,
+                    remainingTimeDisplay: false,
+                    fullscreenToggle: true //全屏按钮
+                }
             },
-            getMovieComment() {
-                let movie_id = this.$route.params.id;
-                this.$http.get(comment_url + movie_id, {
-                    params: {
-                        sort: this.comment_sort,
-                        p: this.comments.page.page,
-                        count: this.comments.page.count
-                    },
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-
-                    this.comments.body = data.body.data.body;
-                    this.comments.page.total = data.body.data.total;
-                    this.comments.page.page = data.body.data.page;
-                    this.comments.page.count = data.body.data.count;
-                });
-            },
-            getMovieReview() {
-                let movie_id = this.$route.params.id;
-                this.$http.get(review_url + movie_id, {
-                    params: {
-                        sort: this.review_sort,
-                        p: this.reviews.page.page,
-                        count: this.reviews.page.count
-                    },
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-
-                    this.reviews.body = data.body.data.body;
-                    this.reviews.page.total = data.body.data.total;
-                    this.reviews.page.page = data.body.data.page;
-                    this.reviews.page.count = data.body.data.count;
-                });
-            },
-            getMovieBlooper() {
-                let movie_id = this.$route.params.id;
-                this.$http.get(blooper_url + movie_id, {
-                    params: {
-                        p: 1,
-                        count: 5
-                    },
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-
-                    this.bloopers.body = data.body.data.body;
-                    this.bloopers.page.total = data.body.data.total;
-                    this.bloopers.page.page = data.body.data.page;
-                    this.bloopers.page.count = data.body.data.count;
-
-                    let bloopers = [];
-                    for (let blooper of data.body.data.body) {
-                        let resource = {
-                            src: blooper.resource_url, // 路径
-                            type: "video/mp4" // 类型
-                        };
-                        bloopers.push(resource);
-                    }
-                    this.playerOptions.sources = bloopers;
-                    this.playerOptions.poster = this.bloopers.body[0].small;
-                });
-            },
-            getMovieTrailer() {
-                let movie_id = this.$route.params.id;
-                this.$http.get(trailer_url + movie_id, {
-                    params: {
-                        p: 1,
-                        count: 5
-                    },
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-
-                    this.trailer.body = data.body.data.body;
-                    this.trailer.page.total = data.body.data.total;
-                    this.trailer.page.page = data.body.data.page;
-                    this.trailer.page.count = data.body.data.count;
-
-                    let trailers = [];
-                    for (let trailer of data.body.data.body) {
-                        let resource = {
-                            src: trailer.resource_url, // 路径
-                            type: "video/mp4" // 类型
-                        };
-                        trailers.push(resource);
-                    }
-                    this.playerOptions.sources = trailers;
-                    this.playerOptions.poster = this.trailer.body[0].small;
-                });
-            },
-            handleCelebrityRoles() {
-                let celebrities = this.data.celebrities;
-                celebrities.map((item, key) => {
-                    let roles = item.roles;
-                    roles.map((role, key) => {
-                        if (role === "导演") {
-                            this.directors.push(item);
-                        } else if (role === "编剧") {
-                            this.writers.push(item);
-                        } else if (role === "演员" || role === "配音") {
-                            this.casts.push(item);
-                        }
-                        return;
-                    });
-                });
-            },
-            checkMedia() {
-                return window.matchMedia('(max-width:600px)').matches;
-            },
-            getUserInfo() {
-                this.user = global_.FUNC.getUserInfo();
-            },
-            getQuestions() {
-                let movie_id = this.$route.params.id;
-                this.$http.get(question_url + movie_id, {
-                    params: {
-                        p: this.questions.page.page,
-                        count: this.questions.page.count
-                    },
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-
-                    this.questions.body = data.body.data.body;
-                    this.questions.page.total = data.body.data.total;
-                    this.questions.page.page = data.body.data.page;
-                    this.questions.page.count = data.body.data.count;
-                });
-            },
-            getAnswers(question_id) {
-                this.$http.get(answer_url + question_id, {
-                    params: {
-                        p: this.answers.page.page,
-                        count: this.answers.page.count
-                    },
-                    headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "X-HASYOU-TOKEN": token
-                    }
-                }).then((data) => {
-                    if (data.status !== 200) {
-                        console.log(data);
-                        alert("数据获取失败!");
-                        return;
-                    }
-
-                    this.answers.body = data.body.data.body;
-                    this.answers.page.total = data.body.data.total;
-                    this.answers.page.page = data.body.data.page;
-                    this.answers.page.count = data.body.data.count;
-                });
-            },
-            changeActivekey(question_id) {
-                this.getAnswers(question_id);
-            },
-            handleQuestionCurrentChange(val) {
-                this.questions.page.page = val;
-                this.getQuestions();
-            },
-            gotoDouban(item) {
-                return "https://movie.douban.com/subject/" + item.id + "/?from=showing";
-            },
-            gotoCelebrityDetail(celebrity_id) {
-                return "/movie/celebrity/" + celebrity_id;
-            }
-        },
-        created() {
-            this.getMovie();
-            this.getMovieComment();
-            this.getMovieReview();
-            // this.getMovieBlooper();
-            this.getMovieTrailer();
-            this.getUserInfo();
-            this.getQuestions();
+            sources: []
         }
+    },
+    methods: {
+        getCommentRate(item, index) {
+            return item[index];
+        },
+        getCommentRateStyle(item, index) {
+            let score = item[index];
+            score = score.replace("%", "");
+            let rate = Number(score) / 100 * 80 + 'px';
+            return "background-color:#FFD596;height: 10px;width:" + rate;
+        },
+        updateMovie() {
+            let movie_id = this.$route.params.id;
+            let update_movie_url = movie_url + "update/" + movie_id;
+            this.$http.get(update_movie_url, {
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    this.$message.error("数据更新错误,请稍后再试!");
+                    return;
+                }
+
+                this.data = data.body.data;
+                this.$message({
+                    message: "数据更新成功!",
+                    type: 'success'
+                });
+            });
+        },
+        gotoAuthor(id) {
+            return "/user/" + id;
+        },
+        gotoReview(id) {
+            return "https://movie.douban.com/review/" + id;
+        },
+        getDate(time) {
+            return time.split(" ")[0];
+        },
+        handleReviewCurrentChange(val) {
+            this.reviews.page.page = val;
+            this.getMovieReview();
+        },
+        handleCommentCurrentChange(val) {
+            this.comments.page.page = val;
+            this.getMovieComment();
+        },
+        toggleCommentNav(comment_sort) {
+            if (this.comment_sort === comment_sort) {
+                return;
+            }
+            this.comment_selected = !this.comment_selected;
+            this.comment_sort = comment_sort;
+            this.getMovieComment();
+        },
+        toggleReviewNav(review_sort) {
+            if (this.review_sort === review_sort) {
+                return;
+            }
+            this.review_selected = !this.review_selected;
+            this.review_sort = review_sort;
+            this.getMovieReview();
+        },
+        watchMovie() {
+            if (token) {
+                this.$http.post(watch_url, {
+                    body: {
+                        movie_id: this.$route.params.id
+                    }
+                }, {
+                    headers: {
+                        bid: global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    }
+                }).then((data) => {
+                    if (data.body.code === 200) {
+                        this.data.operations.push(data.body.data);
+                    } else if (data.body.code === 5006) {
+                        this.$message({
+                            message: '请先登录!',
+                            type: 'warning'
+                        });
+                        this.$router.push({path: "/login"});
+                    }
+                });
+            } else {
+                this.$router.push({path: "/login"});
+            }
+        },
+        wantMovie() {
+            if (token) {
+                this.$http.post(want_url, {
+                    body: {
+                        movie_id: this.$route.params.id
+                    }
+                }, {
+                    headers: {
+                        bid: global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": token
+                    }
+                }).then((data) => {
+                    if (data.body.code === 200) {
+                        this.data.operations.push(data.body.data);
+                    } else if (data.body.code === 5006) {
+                        this.$message({
+                            message: '请先登录!',
+                            type: 'warning'
+                        });
+                        this.$router.push({path: "/login"});
+                    }
+                });
+            } else {
+                this.$router.push({path: "/login"});
+            }
+        },
+        getYear(year) {
+            return JSON.parse(year)[0];
+        },
+        toggleSummaryShow() {
+            this.summary_show = !this.summary_show;
+        },
+        getStars(stars) {
+            return stars / 2;
+        },
+        loadMore() {
+            this.show_full_casts = !this.show_full_casts;
+        },
+        getMovie() {
+            let movie_id = this.$route.params.id;
+            const movie_detail_url = movie_url + "subject/" + movie_id;
+            this.$http.get(movie_detail_url, {
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+                this.data = data.body.data;
+                this.handleCelebrityRoles();
+                if (this.data.title) {
+                    document.title = this.data.title + "(Withyou)";
+                }
+            });
+        },
+        getMovieComment() {
+            let movie_id = this.$route.params.id;
+            this.$http.get(comment_url + movie_id, {
+                params: {
+                    sort: this.comment_sort,
+                    p: this.comments.page.page,
+                    count: this.comments.page.count
+                },
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                this.comments.body = data.body.data.body;
+                this.comments.page.total = data.body.data.total;
+                this.comments.page.page = data.body.data.page;
+                this.comments.page.count = data.body.data.count;
+            });
+        },
+        getMovieReview() {
+            let movie_id = this.$route.params.id;
+            this.$http.get(review_url + movie_id, {
+                params: {
+                    sort: this.review_sort,
+                    p: this.reviews.page.page,
+                    count: this.reviews.page.count
+                },
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                this.reviews.body = data.body.data.body;
+                this.reviews.page.total = data.body.data.total;
+                this.reviews.page.page = data.body.data.page;
+                this.reviews.page.count = data.body.data.count;
+            });
+        },
+        getMovieBlooper() {
+            let movie_id = this.$route.params.id;
+            this.$http.get(blooper_url + movie_id, {
+                params: {
+                    p: 1,
+                    count: 5
+                },
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                this.bloopers.body = data.body.data.body;
+                this.bloopers.page.total = data.body.data.total;
+                this.bloopers.page.page = data.body.data.page;
+                this.bloopers.page.count = data.body.data.count;
+
+                let bloopers = [];
+                for (let blooper of data.body.data.body) {
+                    let resource = {
+                        src: blooper.resource_url, // 路径
+                        type: "video/mp4" // 类型
+                    };
+                    bloopers.push(resource);
+                }
+                this.sources = bloopers;
+                this.playerOptions.poster = this.bloopers.body[0].small;
+            });
+        },
+        getMovieTrailer() {
+            let movie_id = this.$route.params.id;
+            this.$http.get(trailer_url + movie_id, {
+                params: {
+                    p: 1,
+                    count: 5
+                },
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                this.trailer.body = data.body.data.body;
+                this.trailer.page.total = data.body.data.total;
+                this.trailer.page.page = data.body.data.page;
+                this.trailer.page.count = data.body.data.count;
+
+                let trailers = [];
+                for (let trailer of data.body.data.body) {
+                    let resource = {
+                        src: trailer.resource_url, // 路径
+                        small: trailer.small,
+                        type: "video/mp4" // 类型
+                    };
+                    trailers.push(resource);
+                }
+                this.sources = trailers;
+                // this.playerOptions.poster = this.trailer.body[0].small;
+            });
+        },
+        handleCelebrityRoles() {
+            let celebrities = this.data.celebrities;
+            celebrities.map((item, key) => {
+                let roles = item.roles;
+                roles.map((role, key) => {
+                    if (role === "导演") {
+                        this.directors.push(item);
+                    } else if (role === "编剧") {
+                        this.writers.push(item);
+                    } else if (role === "演员" || role === "配音") {
+                        this.casts.push(item);
+                    }
+                    return;
+                });
+            });
+        },
+        checkMedia() {
+            return window.matchMedia('(max-width:600px)').matches;
+        },
+        getUserInfo() {
+            this.user = global_.FUNC.getUserInfo();
+        },
+        getQuestions() {
+            let movie_id = this.$route.params.id;
+            this.$http.get(question_url + movie_id, {
+                params: {
+                    p: this.questions.page.page,
+                    count: this.questions.page.count
+                },
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                this.questions.body = data.body.data.body;
+                this.questions.page.total = data.body.data.total;
+                this.questions.page.page = data.body.data.page;
+                this.questions.page.count = data.body.data.count;
+            });
+        },
+        getAnswers(question_id) {
+            this.$http.get(answer_url + question_id, {
+                params: {
+                    p: this.answers.page.page,
+                    count: this.answers.page.count
+                },
+                headers: {
+                    "bid": global_.FUNC.getBid(),
+                    "X-HASYOU-TOKEN": token
+                }
+            }).then((data) => {
+                if (data.status !== 200) {
+                    console.log(data);
+                    alert("数据获取失败!");
+                    return;
+                }
+
+                this.answers.body = data.body.data.body;
+                this.answers.page.total = data.body.data.total;
+                this.answers.page.page = data.body.data.page;
+                this.answers.page.count = data.body.data.count;
+            });
+        },
+        changeActivekey(question_id) {
+            this.getAnswers(question_id);
+        },
+        handleQuestionCurrentChange(val) {
+            this.questions.page.page = val;
+            this.getQuestions();
+        },
+        gotoDouban(item) {
+            return "https://movie.douban.com/subject/" + item.id + "/?from=showing";
+        },
+        gotoCelebrityDetail(celebrity_id) {
+            return "/movie/celebrity/" + celebrity_id;
+        }
+    },
+    created() {
+        this.getMovie();
+        this.getMovieComment();
+        this.getMovieReview();
+        // this.getMovieBlooper();
+        this.getMovieTrailer();
+        this.getUserInfo();
+        this.getQuestions();
     }
+}
 </script>
 
 <style lang="scss" scoped>
-    @import './css/movieDetail';
+@import './css/movieDetail';
 </style>
