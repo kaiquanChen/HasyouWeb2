@@ -1,13 +1,20 @@
 <template>
-    <MovieVideo />
+    <el-calendar v-model="value">
+        <template
+            slot="dateCell"
+            slot-scope="{date, data}">
+<!--            <p>{{data}}-{{data}}</p>-->
+<!--            <p :class="data.isSelected ? 'is-selected' : ''">-->
+<!--                {{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : ''}}-->
+<!--            </p>-->
+        </template>
+    </el-calendar>
 </template>
 
 <script>
-    import MovieRecordItem from './movie/MovieRecordItem'
-    import MovieGenreStats from "./user/MovieGenreStats";
-    import MovieVideo from "./movie/MovieVideo";
+import MovieVideo from "./movie/MovieVideo";
 
-    export default {
+export default {
         name: "book",
         components: {
             "MovieVideo": MovieVideo
@@ -16,7 +23,8 @@
             return {
                 blocks: [
                     1, 2, 3, 5, 6
-                ]
+                ],
+                value: new Date()
             };
         },
         methods: {

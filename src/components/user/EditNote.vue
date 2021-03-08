@@ -104,7 +104,9 @@
                 if (!this.checkParams()) {
                     return;
                 }
-
+                if (this.note.title) {
+                    document.title = this.note.title + "(Withyou)";
+                }
                 this.$http.post(note_save_url, {
                     body: {
                         id: this.note.id,
@@ -206,6 +208,9 @@
                         if (res.code === 200) {
                             this.note = res.data;
                             this.note.is_private = res.data.is_private !== 0;
+                            if (this.note.title) {
+                                document.title = this.note.title + "(Withyou)";
+                            }
                         }
                     });
                 }

@@ -93,6 +93,9 @@ const note_url = global_.URLS.NOTE_URL;
                         let res = data.body;
                         if (res.code === 200) {
                             this.note = res.data;
+                            if (this.note.title) {
+                                document.title = this.note.title + "(Withyou)";
+                            }
                         }
                     });
                 }
