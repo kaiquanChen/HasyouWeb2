@@ -98,7 +98,12 @@
                 <li class="note-item" v-for="(note, index) in notes.body">
                     {{index + 1}} . <a target="_blank" class="note-title"
                                        :href="gotoNoteDetail(note.id)">{{note.title}}</a>
-                    <span class="note-create-time">{{note.create_time}}</span>
+                    <span class="note-label">
+                        <i v-if="note.labels" v-for="(label, index) in note.labels" :key="label.id">
+                            {{getLabelName(note.labels.length, label.name, index)}}
+                        </i>
+                    </span>
+                    <span class="note-create-time">{{note.update_time}}</span>
                 </li>
             </ul>
             <ul class="records-items" v-else>写下笔记，记录学习，生活，工作的脚印!</ul>
@@ -254,6 +259,9 @@
                 }
                 let user = global_.FUNC.getUserInfo();
                 this.self = this.user && this.user.uid === user.uid
+            },
+            getLabelName(size, name, index) {
+                return size < index + 1 ? name + " / " : name;
             }
         },
         mounted() {

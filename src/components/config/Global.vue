@@ -88,6 +88,7 @@
     const NOTE_SAVE_URL = NOTE_URL + "save";
     const NOTE_SHARE_LIST_URL = NOTE_URL + "/share/list";
     const NOTE_SHARE_SAVE_URL = NOTE_URL + "share";
+    const NOTE_LABEL_TREE_URL = NOTE_URL + "/label/tree";
 
     // moment
     const MOMENT_URL = COMMON_URL + "moment/";
@@ -308,6 +309,7 @@
         NOTE_SAVE_URL,
         NOTE_SHARE_LIST_URL,
         NOTE_SHARE_SAVE_URL,
+        NOTE_LABEL_TREE_URL,
 
         /* other */
         GROUP,

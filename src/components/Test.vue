@@ -1,23 +1,16 @@
 <template>
-    <el-calendar v-model="value">
-        <template
-            slot="dateCell"
-            slot-scope="{date, data}">
-<!--            <p>{{data}}-{{data}}</p>-->
-<!--            <p :class="data.isSelected ? 'is-selected' : ''">-->
-<!--                {{ data.day.split('-').slice(1).join('-') }} {{ data.isSelected ? '✔️' : ''}}-->
-<!--            </p>-->
-        </template>
-    </el-calendar>
+    <div>
+        <NoteLabel />
+    </div>
 </template>
 
 <script>
-import MovieVideo from "./movie/MovieVideo";
+import NoteLabel from "./user/NoteLabel";
 
 export default {
         name: "book",
         components: {
-            "MovieVideo": MovieVideo
+            "NoteLabel": NoteLabel
         },
         data() {
             return {

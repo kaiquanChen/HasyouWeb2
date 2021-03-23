@@ -51,6 +51,7 @@
         data() {
             return {
                 show_movie_genre_stats: false,
+                show_note_labels: false,
                 user: null,
                 read_books: null,
                 want_books: null,
