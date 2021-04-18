@@ -5,10 +5,13 @@
 <script>
     const uuidV4 = require("uuid/v4");
 
-    const TEST_URL = 'http://localhost:8018/'
+    const TEST_URL = 'http://192.168.3.16:8018/'
     const FLY_URL = 'http://106.14.190.5:8018/'
+    const MOVIE_BASE_URL = "http://movie.backend.hasyou.cn/";
+    const CONTENT_BASE_URL = "http://content.backend.hasyou.cn/";
+    const SECURITY_BASE_URL = "http://security.backend.hasyou.cn/";
 
-    const COMMON_URL = FLY_URL
+    const COMMON_URL = TEST_URL
 
     // short book
     const SHORT_BOOK_PREFIX = 'shortbook/'
@@ -35,37 +38,37 @@
     const DOUBAN_BOOK_TAG_URL = COMMON_URL + 'tag/'
 
     // movie
-    const DOUBAN_MOVIE = COMMON_URL + 'movie/'
-    const MOVIE_SHORT_COMMENT_URL = DOUBAN_MOVIE + "comments/"
-    const MOVIE_REVIEW_URL = DOUBAN_MOVIE + "reviews/"
-    const MOVIE_GENRE_URL = DOUBAN_MOVIE + "tag/genres"
+    const MOVIE_URL = MOVIE_BASE_URL + 'movie/'
+    const MOVIE_SHORT_COMMENT_URL = MOVIE_URL + "comments/"
+    const MOVIE_REVIEW_URL = MOVIE_URL + "reviews/"
+    const MOVIE_GENRE_URL = MOVIE_URL + "tag/genres"
     const MOVIE_ANNUAL_URL = COMMON_URL + 'movie/annual/'
-    const MOVIE_WATCH_URL = DOUBAN_MOVIE + "watched";
-    const MOVIE_RECORD_URL = DOUBAN_MOVIE + "record";
-    const MOVIE_COMMON_INTEREST_URL = DOUBAN_MOVIE + "record/interest/";
-    const MOVIE_WANT_URL = DOUBAN_MOVIE + "want";
-    const MOVIE_BLOOPER_URL = DOUBAN_MOVIE + "blooper/";
-    const MOVIE_TRAILER_URL = DOUBAN_MOVIE + "trailer/";
-    const MOVIE_ALBUM_URL = DOUBAN_MOVIE + "album/save";
-    const MOVIE_ALBUM_LIST_URL = DOUBAN_MOVIE + "album/page";
-    const MOVIE_ALBUM_DETAIL_URL = DOUBAN_MOVIE + "album/";
-    const MOVIE_ALBUM_ITEM_URL = DOUBAN_MOVIE + "album/item";
-    const MOVIE_ALBUM_ITEM_DELETE_URL = DOUBAN_MOVIE + "album/item/delete";
-    const MOVIE_COMING_URL = DOUBAN_MOVIE + "coming";
-    const MOVIE_GENRE_STATS_URL = DOUBAN_MOVIE + "genre/stats";
+    const MOVIE_WATCH_URL = MOVIE_URL + "watched";
+    const MOVIE_RECORD_URL = MOVIE_URL + "record";
+    const MOVIE_COMMON_INTEREST_URL = MOVIE_URL + "record/interest/";
+    const MOVIE_WANT_URL = MOVIE_URL + "want";
+    const MOVIE_BLOOPER_URL = MOVIE_URL + "blooper/";
+    const MOVIE_TRAILER_URL = MOVIE_URL + "trailer/";
+    const MOVIE_ALBUM_URL = MOVIE_URL + "album/save";
+    const MOVIE_ALBUM_LIST_URL = MOVIE_URL + "album/page";
+    const MOVIE_ALBUM_DETAIL_URL = MOVIE_URL + "album/";
+    const MOVIE_ALBUM_ITEM_URL = MOVIE_URL + "album/item";
+    const MOVIE_ALBUM_ITEM_DELETE_URL = MOVIE_URL + "album/item/delete";
+    const MOVIE_COMING_URL = MOVIE_URL + "coming";
+    const MOVIE_GENRE_STATS_URL = MOVIE_URL + "genre/stats";
 
     // celebrity
-    const DOUBAN_CELEBRITY = COMMON_URL + "celebrity/movie";
+    const DOUBAN_CELEBRITY = MOVIE_BASE_URL + "celebrity/movie";
 
     // question
-    const QUESTION_URL = DOUBAN_MOVIE + "question/";
-    const ANSWER_URL = DOUBAN_MOVIE + "answer/";
+    const QUESTION_URL = MOVIE_URL + "question/";
+    const ANSWER_URL = MOVIE_URL + "answer/";
 
     // v2 post
-    const POST_URL = COMMON_URL + 'v2/'
+    const POST_URL = CONTENT_BASE_URL + 'v2/'
 
     // v2 node
-    const NODE_URL = COMMON_URL + 'node/'
+    const NODE_URL = CONTENT_BASE_URL + 'node/'
 
     // v2 comment
     const COMMENT_URL = POST_URL + "comment/";
@@ -84,32 +87,32 @@
     const FILE_LIST_URL = COMMON_URL + "/file/";
 
     // withyou note
-    const NOTE_URL = COMMON_URL + "note/";
+    const NOTE_URL = CONTENT_BASE_URL + "note/";
     const NOTE_SAVE_URL = NOTE_URL + "save";
     const NOTE_SHARE_LIST_URL = NOTE_URL + "/share/list";
     const NOTE_SHARE_SAVE_URL = NOTE_URL + "share";
     const NOTE_LABEL_TREE_URL = NOTE_URL + "/label/tree";
 
     // moment
-    const MOMENT_URL = COMMON_URL + "moment/";
+    const MOMENT_URL = CONTENT_BASE_URL + "moment/";
     const MOMENT_SUBJECTS_URL = MOMENT_URL + "subjects";
     const MOMENT_SUBJECT_URL = MOMENT_URL + "subject";
 
     // global search
-    const GLOBAL_SEARCH_URL = COMMON_URL + "search/";
+    const GLOBAL_SEARCH_URL = MOVIE_BASE_URL + "movie/search/";
 
     // user
-    const KAPTCHA_URL = COMMON_URL + "user/kaptcha";
-    const LOGIN_URL = COMMON_URL + "user/login";
-    const VERIFY_ACCOUNT_URL = COMMON_URL + "user/verify/account";
-    const LOGOUT_URL = COMMON_URL + "user/logout";
-    const REGISTER_URL = COMMON_URL + "user/register";
-    const USER_INFO_URL = COMMON_URL + "user/info";
-    const USER_ALBUM_URL = COMMON_URL + "user/albums";
-    const SAVE_ALBUM_URL = COMMON_URL + "user/album/save";
-    const SAVE_PHOTO_URL = COMMON_URL + "user/photo/save";
-    const USER_PHOTO_URL = COMMON_URL + "user/album/";
-    const USER_SEARCH_URL = COMMON_URL + "user/search";
+    const KAPTCHA_URL = SECURITY_BASE_URL + "user/kaptcha";
+    const LOGIN_URL = SECURITY_BASE_URL + "user/login";
+    const VERIFY_ACCOUNT_URL = SECURITY_BASE_URL + "user/verify/account";
+    const LOGOUT_URL = SECURITY_BASE_URL + "user/logout";
+    const REGISTER_URL = SECURITY_BASE_URL + "user/register";
+    const USER_INFO_URL = SECURITY_BASE_URL + "user/info";
+    const USER_ALBUM_URL = SECURITY_BASE_URL + "user/albums";
+    const SAVE_ALBUM_URL = SECURITY_BASE_URL + "user/album/save";
+    const SAVE_PHOTO_URL = SECURITY_BASE_URL + "user/photo/save";
+    const USER_PHOTO_URL = SECURITY_BASE_URL + "user/album/";
+    const USER_SEARCH_URL = SECURITY_BASE_URL + "user/search";
 
     // blog
     const BLOG_URL = COMMON_URL + "blog";
@@ -260,7 +263,7 @@
         BOOK_SHORT_COMMENT_URL,
         DOUBAN_BOOK_TAG_URL,
         BOOK_ANNUAL_URL,
-        DOUBAN_MOVIE,
+        DOUBAN_MOVIE: MOVIE_URL,
         EVENT_URL,
         DOUBAN_MUSIC_URL,
         BOOK_REVIEW_URL,

@@ -1,74 +1,35 @@
 <template>
-    <el-tree
-        :data="data"
-        node-key="id"
-        default-expand-all
-        @node-drag-start="handleDragStart"
-        @node-drag-enter="handleDragEnter"
-        @node-drag-leave="handleDragLeave"
-        @node-drag-over="handleDragOver"
-        @node-drag-end="handleDragEnd"
-        @node-drop="handleDrop"
-        draggable
-        :allow-drop="allowDrop"
-        :allow-drag="allowDrag">
-    </el-tree>
+    <div class="note-label-container">
+        <h3>笔记分类</h3>
+        <el-tree
+            style="color: #666666"
+            :data="data"
+            node-key="id"
+            :default-expand-all=true
+            @node-drag-start="handleDragStart"
+            @node-drag-enter="handleDragEnter"
+            @node-drag-leave="handleDragLeave"
+            @node-drag-over="handleDragOver"
+            @node-drag-end="handleDragEnd"
+            @node-drop="handleDrop"
+            draggable
+            :allow-drop="allowDrop"
+            :allow-drag="allowDrag">
+        </el-tree>
+    </div>
 </template>
 
 <script>
     import global_ from "../config/Global";
     const note_label_tree = global_.URLS.NOTE_LABEL_TREE_URL;
+    const note_label_save = global_.URLS.NOTE_LABEL_SAVE_URL;
 
     export default {
         data() {
             return {
                 token: null,
                 user: null,
-                data: [{
-                    id: 1,
-                    label: '一级 1',
-                    children: [{
-                        id: 4,
-                        label: '二级 1-1',
-                        children: [{
-                            id: 9,
-                            label: '三级 1-1-1'
-                        }, {
-                            id: 10,
-                            label: '三级 1-1-2'
-                        }]
-                    }]
-                }, {
-                    id: 2,
-                    label: '一级 2',
-                    children: [{
-                        id: 5,
-                        label: '二级 2-1'
-                    }, {
-                        id: 6,
-                        label: '二级 2-2'
-                    }]
-                }, {
-                    id: 3,
-                    label: '一级 3',
-                    children: [{
-                        id: 7,
-                        label: '二级 3-1'
-                    }, {
-                        id: 8,
-                        label: '二级 3-2',
-                        children: [{
-                            id: 11,
-                            label: '三级 3-2-1'
-                        }, {
-                            id: 12,
-                            label: '三级 3-2-2'
-                        }, {
-                            id: 13,
-                            label: '三级 3-2-3'
-                        }]
-                    }]
-                }],
+                data: null,
                 defaultProps: {
                     children: 'children',
                     label: 'label'
@@ -83,11 +44,12 @@
                         "X-HASYOU-TOKEN": this.token
                     }
                 }).then((data) => {
-                    if (data.code !== 200) {
+                    let response = data.body;
+                    if (response.code !== 200) {
                         this.$message.error("标签树结构获取失败");
                         return;
                     }
-                    this.data = data.body;
+                    this.data = response.data;
                 });
             },
             initToken() {
@@ -114,7 +76,30 @@
                 console.log('tree drag end: ', dropNode && dropNode.label, dropType);
             },
             handleDrop(draggingNode, dropNode, dropType, ev) {
-                console.log('tree drop: ', dropNode.label, dropType);
+                console.log(draggingNode.label);
+                if (draggingNode.id === dropNode.id) {
+                    this.$message.warning("父级标签不能是自己！");
+                    return;
+                }
+                // 修改分类的上级组织
+                this.$http.post(note_label_save, {
+                    id: draggingNode.id,
+                    name: draggingNode.label,
+                    parent_id: dropNode.id
+                }, {
+                    headers: {
+                        bid: global_.FUNC.getBid(),
+                        "X-HASYOU-TOKEN": this.token
+                    }
+                }).then((data) => {
+                    let res = data.body;
+                    if (res.code !== 200) {
+                        this.$message.error("保存失败!");
+                        console.log(data);
+                        return;
+                    }
+                    this.$message.success("操作成功！")
+                });
             },
             allowDrop(draggingNode, dropNode, type) {
                 if (dropNode.data.label === '二级 3-1') {
@@ -135,5 +120,5 @@
 </script>
 
 <style scoped>
-
+@import './css/noteLabel.scss';
 </style>

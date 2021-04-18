@@ -16,6 +16,8 @@
                 <el-button style="border:#fff;" slot="reference">●●●</el-button>
             </el-popover>
             <span class="item-time">{{getCreateTime(item.update_time)}}</span>
+
+<!--            <span></span>·<span></span>-->
         </div>
     </div>
 </template>

@@ -532,11 +532,12 @@ export default {
         },
         getMovieComment() {
             let movie_id = this.$route.params.id;
-            this.$http.get(comment_url + movie_id, {
+            this.$http.get(comment_url, {
                 params: {
+                    movie_id: movie_id,
                     sort: this.comment_sort,
-                    p: this.comments.page.page,
-                    count: this.comments.page.count
+                    page_no: this.comments.page.page,
+                    page_size: this.comments.page.count
                 },
                 headers: {
                     "bid": global_.FUNC.getBid(),
@@ -557,11 +558,12 @@ export default {
         },
         getMovieReview() {
             let movie_id = this.$route.params.id;
-            this.$http.get(review_url + movie_id, {
+            this.$http.get(review_url, {
                 params: {
+                    movie_id: movie_id,
                     sort: this.review_sort,
-                    p: this.reviews.page.page,
-                    count: this.reviews.page.count
+                    page_no: this.reviews.page.page,
+                    page_size: this.reviews.page.count
                 },
                 headers: {
                     "bid": global_.FUNC.getBid(),
@@ -582,10 +584,11 @@ export default {
         },
         getMovieBlooper() {
             let movie_id = this.$route.params.id;
-            this.$http.get(blooper_url + movie_id, {
+            this.$http.get(blooper_url, {
                 params: {
-                    p: 1,
-                    count: 5
+                    movie_id: movie_id,
+                    page_no: 1,
+                    page_size: 5
                 },
                 headers: {
                     "bid": global_.FUNC.getBid(),
@@ -617,10 +620,11 @@ export default {
         },
         getMovieTrailer() {
             let movie_id = this.$route.params.id;
-            this.$http.get(trailer_url + movie_id, {
+            this.$http.get(trailer_url, {
                 params: {
-                    p: 1,
-                    count: 5
+                    movie_id: movie_id,
+                    page_no: 1,
+                    page_size: 5
                 },
                 headers: {
                     "bid": global_.FUNC.getBid(),
@@ -740,7 +744,6 @@ export default {
         // this.getMovieBlooper();
         this.getMovieTrailer();
         this.getUserInfo();
-        this.getQuestions();
     }
 }
 </script>
