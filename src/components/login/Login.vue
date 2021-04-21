@@ -83,15 +83,14 @@
                     return;
                 }
                 this.$http.post(login_url, {
-                    body: {
-                        account: this.account,
-                        password: this.password,
-                        signature: sessionStorage.getItem("signature"),
-                        kaptcha: this.kaptcha
-                    }
+                    account: this.account,
+                    password: this.password,
+                    signature: sessionStorage.getItem("signature"),
+                    kaptcha: this.kaptcha
                 }, {
                     headers: {
-                        "bid": global_.FUNC.getBid()
+                        "bid": global_.FUNC.getBid(),
+                        "Content-Type": "application/x-www-form-urlencoded"
                     }
                 }).then(data => {
                     let res = data.body;

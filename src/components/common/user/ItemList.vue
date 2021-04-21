@@ -21,7 +21,6 @@
     import MovieRecordItem from "../../movie/MovieRecordItem";
     import Bus from "../../../js/bus";
 
-    let list_item_url = global_.URLS.COMMON_URL;
     const token = localStorage.getItem("access_token")
     export default {
         components: {
@@ -61,24 +60,24 @@
                 }
             },
             getItemList() {
-                let url = list_item_url;
+                let url;
                 let params = {
                     type: this.type,
                     page_size: this.page.count,
                     page_no: this.page.page,
                 };
                 if (this.type === "WATCHED_MOVIE") {
-                    url += "movie/record";
+                    url = global_.URLS.MOVIE_RECORD_URL;
                     this.title = "我看过的电影";
                     params['uid'] = this.$route.params.id;
                     params['genre_id'] = this.select_genre_id;
                     Bus.$emit('show-movie-stats', true);
                 } else if (this.type === "READ_BOOK") {
-                    url += "book/record";
+                    url = global_.URLS.BOOK_RECORD_URL;
                     this.title = "我读过的书";
                     params['uid'] = this.$route.params.id;
                 } else if (this.type === 'COMMON_INTEREST') {
-                    url += "movie/record/interest";
+                    url = global_.URLS.MOVIE_COMMON_INTEREST_URL;
                     this.title = "共同爱好";
                     params['user_id_others'] = this.getUser().id;
                 }
@@ -93,6 +92,9 @@
                     this.page.page = data.body.data.page;
                     this.page.count = data.body.data.count;
                     this.page.total = data.body.data.total;
+
+                    // 跳转到锚点
+                    this.goAnchor();
                 });
             },
             getUser() {
@@ -103,11 +105,15 @@
             getMessage() {
                 Bus.$on("select_genre_id", response => {
                     if (this.select_genre_id !== response) {
+                        this.goAnchor();
                         this.select_genre_id = response;
                         this.page.page = 1;
                         this.getItemList();
                     }
                 });
+            },
+            goAnchor() {
+                document.querySelector("#item-list").scrollIntoView();
             }
         },
         mounted() {

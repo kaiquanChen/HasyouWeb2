@@ -5,11 +5,11 @@
 <script>
     const uuidV4 = require("uuid/v4");
 
-    const TEST_URL = 'http://192.168.3.16:8018/'
-    const FLY_URL = 'http://106.14.190.5:8018/'
+    const TEST_URL = 'http://192.168.3.16:8018/';
+    const FLY_URL = 'http://106.14.190.5:8018/';
+    const SECURITY_BASE_URL = "http://security.backend.hasyou.cn/";
     const MOVIE_BASE_URL = "http://movie.backend.hasyou.cn/";
     const CONTENT_BASE_URL = "http://content.backend.hasyou.cn/";
-    const SECURITY_BASE_URL = "http://security.backend.hasyou.cn/";
 
     const COMMON_URL = TEST_URL
 
@@ -108,12 +108,13 @@
     const LOGOUT_URL = SECURITY_BASE_URL + "user/logout";
     const REGISTER_URL = SECURITY_BASE_URL + "user/register";
     const USER_INFO_URL = SECURITY_BASE_URL + "user/info";
-    const USER_ALBUM_URL = SECURITY_BASE_URL + "user/albums";
-    const SAVE_ALBUM_URL = SECURITY_BASE_URL + "user/album/save";
-    const SAVE_PHOTO_URL = SECURITY_BASE_URL + "user/photo/save";
-    const USER_PHOTO_URL = SECURITY_BASE_URL + "user/album/";
     const USER_SEARCH_URL = SECURITY_BASE_URL + "user/search";
 
+    // album
+    const USER_ALBUM_URL = CONTENT_BASE_URL + "album/subjects";
+    const SAVE_ALBUM_URL = CONTENT_BASE_URL + "album/save";
+    const SAVE_PHOTO_URL = CONTENT_BASE_URL + "user/photo/save";
+    const USER_PHOTO_URL = CONTENT_BASE_URL + "album/subject";
     // blog
     const BLOG_URL = COMMON_URL + "blog";
     const SAVE_BLOG_URL = BLOG_URL + "/save";

@@ -56,10 +56,11 @@
             },
             getPhotos() {
                 let album_id = this.$route.params.album_id;
-                this.$http.get(photo_url + album_id, {
+                this.$http.get(photo_url, {
                     params: {
-                        p: this.page.page,
-                        count: this.page.count
+                        album_id: album_id,
+                        page_no: this.page.page,
+                        page_size: this.page.count
                     },
                     headers: {
                         "bid": global_.FUNC.getBid(),

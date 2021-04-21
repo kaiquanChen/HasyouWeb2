@@ -8,7 +8,7 @@
                 <span @click="gotoMovieDetail(movie)" class="info-name">{{movie.title}}</span>
             </div>
             <span class="info info-description">{{movie.summary}}</span>
-            <div class="rate-time">
+            <div class="rate-time" v-if="movie.stars && movie.stars > 0">
                 <el-rate
                     class="primary-rate"
                     :value="movie.stars"
@@ -17,6 +17,10 @@
                     disabled
                     text-color="#ff9900">
                 </el-rate>
+                <span class="info-time">{{movie.create_time}}</span>
+            </div>
+            <div class="rate-time" v-else>
+                <span class="unrate-notice">（该用户未给出评论）</span>
                 <span class="info-time">{{movie.create_time}}</span>
             </div>
             <div class="container-comment" v-if="movie.content && movie.content.trim()">
