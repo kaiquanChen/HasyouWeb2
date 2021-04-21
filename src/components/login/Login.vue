@@ -89,8 +89,7 @@
                     kaptcha: this.kaptcha
                 }, {
                     headers: {
-                        "bid": global_.FUNC.getBid(),
-                        "Content-Type": "application/x-www-form-urlencoded"
+                        "bid": global_.FUNC.getBid()
                     }
                 }).then(data => {
                     let res = data.body;
