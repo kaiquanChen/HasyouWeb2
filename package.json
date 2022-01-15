@@ -18,7 +18,7 @@
     "element-ui": "^2.13.2",
     "highlight.js": "^10.3.2",
     "img-vuer": "^0.19.2",
-    "marked": "^0.6.1",
+    "marked": "^4.0.10",
     "mavon-editor": "^2.9.0",
     "vue": "^2.5.2",
     "vue-masonry": "^0.11.8",
